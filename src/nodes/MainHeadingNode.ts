@@ -30,15 +30,11 @@ export class MainHeadingNode extends HeadingNode {
     const isUpdated = super.updateDOM(prevNode, dom, config);
 
     const isEmpty = this.getTextContent().trim() === "";
-    const wasEmpty = prevNode.getTextContent().trim() === "";
 
-    // Sadece değişiklik varsa güncelle
-    if (isEmpty !== wasEmpty) {
-      if (isEmpty) {
-        dom.setAttribute("data-empty", "");
-      } else {
-        dom.removeAttribute("data-empty");
-      }
+    if (isEmpty) {
+      dom.setAttribute("data-empty", "");
+    } else {
+      dom.removeAttribute("data-empty");
     }
 
     return isUpdated;

@@ -7,7 +7,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { $getRoot, ParagraphNode } from "lexical";
+import { $getRoot, ParagraphNode, type EditorState } from "lexical";
 import {
   $createMainHeadingNode,
   MainHeadingNode,
@@ -16,6 +16,7 @@ import {
   $createCustomParagraphNode,
   CustomParagraphNode,
 } from "./nodes/CustomParagraphNode";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
 const theme = {
   // Theme styling goes here
@@ -51,6 +52,10 @@ const initialConfig: InitialConfigType = {
 };
 
 function Editor() {
+  const onChange = (editorState: EditorState) => {
+    // console.log(editorState);
+  };
+
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <RichTextPlugin
@@ -73,6 +78,7 @@ function Editor() {
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
+      <OnChangePlugin onChange={onChange} />
       <HistoryPlugin />
       <AutoFocusPlugin />
     </LexicalComposer>
