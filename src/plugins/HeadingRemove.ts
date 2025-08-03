@@ -26,18 +26,18 @@ function HeadingRemove() {
     const anchorParent = anchorNode.getParent();
 
     if ($isMainHeadingNode(anchorParent)) {
-      const textContent = anchorParent.getTextContent();
+      const isEmpty = anchorParent.isEmpty();
       // if (selection.anchor.offset === 0 && textContent.trim().length === 0) {
       //   return true;
       // }
 
       // Eğer main heading boşsa ve cursor başta ise
-      if (textContent.trim() === "" && selection.anchor.offset === 0) {
+      if (isEmpty && selection.anchor.offset === 0) {
         return true;
       }
 
       // Eğer main heading'de text varsa ve cursor başta ise
-      if (selection.anchor.offset === 0 && textContent.trim() !== "") {
+      if (selection.anchor.offset === 0 && !isEmpty) {
         return true;
       }
 
