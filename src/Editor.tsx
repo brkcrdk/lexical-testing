@@ -7,11 +7,15 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { $createParagraphNode, $getRoot, ParagraphNode } from "lexical";
+import { $getRoot, ParagraphNode } from "lexical";
 import {
   $createMainHeadingNode,
   MainHeadingNode,
 } from "./nodes/MainHeadingNode";
+import {
+  $createCustomParagraphNode,
+  CustomParagraphNode,
+} from "./nodes/CustomParagraphNode";
 
 const theme = {
   // Theme styling goes here
@@ -29,11 +33,19 @@ const initialConfig: InitialConfigType = {
   namespace: "MyEditor",
   theme,
   onError,
-  nodes: [MainHeadingNode, ParagraphNode],
+  nodes: [
+    MainHeadingNode,
+    CustomParagraphNode,
+    {
+      replace: ParagraphNode,
+      with: () => $createCustomParagraphNode(),
+      withKlass: CustomParagraphNode,
+    },
+  ],
   editorState: () => {
     const root = $getRoot();
     const mainHeading = $createMainHeadingNode();
-    const paragraph = $createParagraphNode();
+    const paragraph = $createCustomParagraphNode();
     root.append(mainHeading, paragraph);
   },
 };

@@ -1,0 +1,38 @@
+
+import {
+  $applyNodeReplacement,
+  type EditorConfig,
+  type LexicalNode,
+  ParagraphNode,
+  type SerializedParagraphNode,
+} from "lexical";
+
+export class CustomParagraphNode extends ParagraphNode {
+  static getType() {
+    return "custom-paragraph";
+  }
+  static clone(node: CustomParagraphNode): CustomParagraphNode {
+    return new CustomParagraphNode(node.__key);
+  }
+  static importJSON(json: SerializedParagraphNode): CustomParagraphNode {
+    return $createCustomParagraphNode().updateFromJSON(json);
+  }
+  createDOM(config: EditorConfig) {
+    const el = super.createDOM(config);
+    // Normally this sort of thing would be done with the theme, this is for
+    // demonstration purposes only
+    el.style.border = "1px dashed black";
+    el.style.background = "linear-gradient(to top, #f7f8f8, #acbb78)";
+    return el;
+  }
+}
+
+export function $createCustomParagraphNode() {
+  return $applyNodeReplacement(new CustomParagraphNode());
+}
+
+export function $isCustomParagraphNode(
+  node: LexicalNode | null | undefined
+): node is CustomParagraphNode {
+  return node instanceof CustomParagraphNode;
+}
