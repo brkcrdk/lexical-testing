@@ -22,7 +22,6 @@ export class MainHeadingNode extends HeadingNode {
     // Data attribute ekleme
     element.setAttribute("data-placeholder", "Başlık girin...");
     element.setAttribute("data-node-type", "main-heading");
-    element.setAttribute("data-empty", "");
     return element;
   }
 
@@ -48,6 +47,12 @@ export class MainHeadingNode extends HeadingNode {
       // Bu alan zorunlu değil fakat eklenmesi iyi bir best practicedir.
       version: 1,
     };
+  }
+
+  remove(): void {
+    // Silme işlemini engelle
+    console.warn("CustomParagraphNode cannot be removed");
+    return;
   }
 
   static importJSON(serializedNode: SerializedHeadingNode): MainHeadingNode {
