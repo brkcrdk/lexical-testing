@@ -7,33 +7,48 @@ export class MainHeadingNode extends HeadingNode {
   }
 
   constructor(key?: NodeKey) {
-    super('h1', key);
+    super("h1", key);
   }
 
   static clone(node: MainHeadingNode): MainHeadingNode {
     return new MainHeadingNode(node.__key);
   }
 
+  // Bu elementi doma ilk koyuşumuzda bu event çalışıyor.
   createDOM(config: EditorConfig): HTMLElement {
     const element = super.createDOM(config);
     // Class ekleme
-    element.classList.add('main-heading');
+    element.classList.add("main-heading");
     // Data attribute ekleme
-    element.setAttribute('data-node-type', 'main-heading');
+    element.setAttribute("data-placeholder", "Başlık girin...");
+    element.setAttribute("data-node-type", "main-heading");
+    element.setAttribute("data-empty", "");
     return element;
   }
 
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
     const isUpdated = super.updateDOM(prevNode, dom, config);
-    // Eğer class veya attribute'lar değişirse burada güncelleyebilirsiniz
+
+    const isEmpty = this.getTextContent().trim() === "";
+    const wasEmpty = prevNode.getTextContent().trim() === "";
+
+    // Sadece değişiklik varsa güncelle
+    if (isEmpty !== wasEmpty) {
+      if (isEmpty) {
+        dom.setAttribute("data-empty", "");
+      } else {
+        dom.removeAttribute("data-empty");
+      }
+    }
+
     return isUpdated;
   }
 
   exportJSON(): SerializedHeadingNode {
     return {
       ...super.exportJSON(),
-      type: 'main-heading',
-      // Versiyon vererek lexicalın node güncellerken geri dönük uyumluluk sağlamasını sağlayabiliyioruz. 
+      type: "main-heading",
+      // Versiyon vererek lexicalın node güncellerken geri dönük uyumluluk sağlamasını sağlayabiliyioruz.
       // Bu alan zorunlu değil fakat eklenmesi iyi bir best practicedir.
       version: 1,
     };
