@@ -17,6 +17,7 @@ import {
   CustomParagraphNode,
 } from "./nodes/CustomParagraphNode";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import { HeadingNode } from "@lexical/rich-text";
 
 const theme = {
   // Theme styling goes here
@@ -41,6 +42,11 @@ const initialConfig: InitialConfigType = {
       replace: ParagraphNode,
       with: () => $createCustomParagraphNode(),
       withKlass: CustomParagraphNode,
+    },
+    {
+      replace: HeadingNode,
+      with: () => $createMainHeadingNode(),
+      withKlass: MainHeadingNode,
     },
   ],
   editorState: () => {
