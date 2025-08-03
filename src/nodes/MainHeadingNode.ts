@@ -29,7 +29,7 @@ export class MainHeadingNode extends HeadingNode {
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
     const isUpdated = super.updateDOM(prevNode, dom, config);
 
-    const isEmpty = this.getTextContent().trim() === "";
+    const isEmpty = prevNode.isEmpty()
 
     if (isEmpty) {
       dom.setAttribute("data-empty", "");
@@ -50,10 +50,8 @@ export class MainHeadingNode extends HeadingNode {
     };
   }
 
-  remove(): void {
-    // Silme işlemini engelle
-    console.warn("MainHeadingNode cannot be removed");
-    return;
+  canBeEmpty(): boolean {
+    return true;
   }
 
   static importJSON(serializedNode: SerializedHeadingNode): MainHeadingNode {
