@@ -22,6 +22,7 @@ export class MainHeadingNode extends HeadingNode {
     // Data attribute ekleme
     element.setAttribute("data-placeholder", "Başlık girin...");
     element.setAttribute("data-node-type", "main-heading");
+    element.setAttribute("data-empty", "");
     return element;
   }
 
