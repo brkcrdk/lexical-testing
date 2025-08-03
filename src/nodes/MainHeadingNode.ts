@@ -29,7 +29,7 @@ export class MainHeadingNode extends HeadingNode {
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
     const isUpdated = super.updateDOM(prevNode, dom, config);
 
-    const isEmpty = prevNode.isEmpty()
+    const isEmpty = prevNode.isEmpty();
 
     if (isEmpty) {
       dom.setAttribute("data-empty", "");
