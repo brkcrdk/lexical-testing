@@ -21,7 +21,8 @@ function HeadingRemove() {
             });
           }
         }
-      }
+      },
+      { skipInitialization: true }
     );
 
     return () => {

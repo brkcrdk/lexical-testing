@@ -2,6 +2,13 @@ import { HeadingNode, type SerializedHeadingNode } from "@lexical/rich-text";
 import { $applyNodeReplacement, type LexicalNode, type NodeKey, type EditorConfig } from "lexical";
 
 export class MainHeadingNode extends HeadingNode {
+  private __emptyStatus: boolean = true;
+
+  setCustomStatus(status: boolean): void {
+    this.__emptyStatus = status;
+    this.markDirty(); // updateDOM'u tetikler
+  }
+
   static getType(): string {
     return "main-heading";
   }
@@ -29,9 +36,7 @@ export class MainHeadingNode extends HeadingNode {
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
     const isUpdated = super.updateDOM(prevNode, dom, config);
 
-    const isEmpty = prevNode.isEmpty();
-
-    if (isEmpty) {
+    if (this.__emptyStatus) {
       dom.setAttribute("data-empty", "");
     } else {
       dom.removeAttribute("data-empty");

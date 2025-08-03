@@ -20,6 +20,7 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HeadingNode } from "@lexical/rich-text";
 import HeadingRemove from "./plugins/HeadingRemove";
 import CustomTreeView from "./plugins/CustomTreeView";
+import HeadingPlaceholderListener from "./plugins/HeadingPlaceholderListener";
 
 const theme = {
   // Theme styling goes here
@@ -89,10 +90,11 @@ function Editor() {
         }
         ErrorBoundary={LexicalErrorBoundary}
       />
-      <HeadingRemove />
       <OnChangePlugin onChange={onChange} />
       <HistoryPlugin />
       <AutoFocusPlugin />
+      <HeadingRemove />
+      {/* <HeadingPlaceholderListener /> */}
     </LexicalComposer>
   );
 }
