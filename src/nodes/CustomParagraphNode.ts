@@ -36,6 +36,12 @@ export class CustomParagraphNode extends ParagraphNode {
     }
     return isUpdated;
   }
+
+  remove(): void {
+    // Silme işlemini engelle
+    console.warn("CustomParagraphNode cannot be removed");
+    return;
+  }
 }
 
 export function $createCustomParagraphNode() {
