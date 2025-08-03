@@ -19,6 +19,7 @@ import {
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HeadingNode } from "@lexical/rich-text";
 import HeadingRemove from "./plugins/HeadingRemove";
+import CustomTreeView from "./plugins/CustomTreeView";
 
 const theme = {
   // Theme styling goes here
@@ -65,6 +66,7 @@ function Editor() {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
+      <CustomTreeView />
       <RichTextPlugin
         contentEditable={
           <div>
