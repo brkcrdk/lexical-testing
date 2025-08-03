@@ -67,21 +67,23 @@ function Editor() {
     <LexicalComposer initialConfig={initialConfig}>
       <RichTextPlugin
         contentEditable={
-          <ContentEditable
-            className="editor-container"
-            style={{
-              height: "90vh",
-              width: "90vw",
-              border: "1px solid #ccc",
-              padding: "10px",
-              overflow: "auto",
-              margin: "0 auto",
-              position: "relative",
-            }}
-            data-placeholder={"Enter some text..."}
-            aria-placeholder={"Enter some text..."}
-            placeholder={<div />}
-          />
+          <div>
+            <ContentEditable
+              className="editor-container"
+              style={{
+                height: "90vh",
+                width: "90vw",
+                border: "1px solid #ccc",
+                padding: "10px",
+                overflow: "auto",
+                margin: "0 auto",
+                position: "relative",
+              }}
+              data-placeholder={"Enter some text..."}
+              aria-placeholder={"Enter some text..."}
+              placeholder={<div />}
+            />
+          </div>
         }
         ErrorBoundary={LexicalErrorBoundary}
       />

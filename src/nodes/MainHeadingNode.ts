@@ -52,7 +52,7 @@ export class MainHeadingNode extends HeadingNode {
 
   remove(): void {
     // Silme işlemini engelle
-    console.warn("CustomParagraphNode cannot be removed");
+    console.warn("MainHeadingNode cannot be removed");
     return;
   }
 
