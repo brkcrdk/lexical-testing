@@ -37,13 +37,13 @@ const initialConfig: InitialConfigType = {
   theme,
   onError,
   nodes: [
-    MainHeadingNode,
     CustomParagraphNode,
     {
       replace: ParagraphNode,
       with: () => $createCustomParagraphNode(),
       withKlass: CustomParagraphNode,
     },
+    MainHeadingNode,
     {
       replace: HeadingNode,
       with: () => $createMainHeadingNode(),

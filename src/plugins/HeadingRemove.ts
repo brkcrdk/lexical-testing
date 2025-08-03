@@ -36,7 +36,10 @@ function HeadingRemove() {
 
       // Eğer seçili text varsa, silmeye izin ver
       if (hasSelection) {
-        return false;
+        const selectedText = selection.getTextContent();
+        console.log(selectedText);
+        anchorParent.clear();
+        return true;
       }
 
       // Eğer main heading boşsa ve cursor başta ise
