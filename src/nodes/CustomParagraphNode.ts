@@ -19,11 +19,27 @@ export class CustomParagraphNode extends ParagraphNode {
   }
   createDOM(config: EditorConfig) {
     const el = super.createDOM(config);
-    // Normally this sort of thing would be done with the theme, this is for
-    // demonstration purposes only
-    el.style.border = "1px dashed black";
-    el.style.background = "linear-gradient(to top, #f7f8f8, #acbb78)";
+    el.setAttribute("data-placeholder", "Paragraf girin...");
+    el.setAttribute("data-node-type", "custom-paragraph");
+    el.setAttribute("data-empty", "");
     return el;
+  }
+
+  // Bu event sadece dom değiştiğinde çalışır. Amacımız block içerği boş olduğu zaman güncellemek ve data attributelarını güncellemek.
+  updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
+    const isUpdated = super.updateDOM(prevNode, dom, config);
+    const isEmpty = this.getTextContent().trim() === "";
+    const wasEmpty = prevNode.getTextContent().trim() === "";
+
+    // Sadece değişiklik varsa güncelle
+    if (isEmpty !== wasEmpty) {
+      if (isEmpty) {
+        dom.setAttribute("data-empty", "");
+      } else {
+        dom.removeAttribute("data-empty");
+      }
+    }
+    return isUpdated;
   }
 }
 
