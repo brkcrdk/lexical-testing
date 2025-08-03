@@ -27,15 +27,15 @@ export class CustomParagraphNode extends ParagraphNode {
 
   // Bu event sadece dom değiştiğinde çalışır. Amacımız block içerği boş olduğu zaman güncellemek ve data attributelarını güncellemek.
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
-     const isUpdated = super.updateDOM(prevNode, dom, config);
-     const isEmpty = this.getTextContent().trim() === "";
+    const isUpdated = super.updateDOM(prevNode, dom, config);
+    const isEmpty = this.getTextContent().trim() === "";
 
-     if (isEmpty) {
-       dom.setAttribute("data-empty", "");
-     } else {
-       dom.removeAttribute("data-empty");
-     }
-     return isUpdated;
+    if (isEmpty) {
+      dom.setAttribute("data-empty", "");
+    } else {
+      dom.removeAttribute("data-empty");
+    }
+    return isUpdated;
   }
 }
 
