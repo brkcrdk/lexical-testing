@@ -1,9 +1,18 @@
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import {
+  LexicalComposer,
+  type InitialConfigType,
+} from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
+import { $createParagraphNode, $getRoot, ParagraphNode } from "lexical";
+import {
+  $createMainHeadingNode,
+  MainHeadingNode,
+} from "./nodes/MainHeadingNode";
+
 const theme = {
   // Theme styling goes here
   //...
@@ -16,10 +25,17 @@ function onError(error: Error) {
   console.error(error);
 }
 
-const initialConfig = {
+const initialConfig: InitialConfigType = {
   namespace: "MyEditor",
   theme,
   onError,
+  nodes: [MainHeadingNode, ParagraphNode],
+  editorState: () => {
+    const root = $getRoot();
+    const mainHeading = $createMainHeadingNode();
+    const paragraph = $createParagraphNode();
+    root.append(mainHeading, paragraph);
+  },
 };
 
 function Editor() {
