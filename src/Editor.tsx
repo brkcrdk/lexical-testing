@@ -67,34 +67,39 @@ function Editor() {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <CustomTreeView />
-      <RichTextPlugin
-        contentEditable={
-          <div>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          height: "100%",
+        }}>
+        <RichTextPlugin
+          contentEditable={
             <ContentEditable
               className="editor-container"
               style={{
-                height: "90vh",
-                width: "90vw",
-                border: "1px solid #ccc",
-                padding: "10px",
+                width: "100%",
+                height: "100%",
+                outline: "none",
+                maxHeight: "60svh",
                 overflow: "auto",
-                margin: "0 auto",
-                position: "relative",
               }}
               data-placeholder={"Enter some text..."}
               aria-placeholder={"Enter some text..."}
               placeholder={<div />}
             />
-          </div>
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+
+        {/* <HeadingPlaceholderListener /> */}
+        <CustomTreeView />
+      </div>
+
       <OnChangePlugin onChange={onChange} />
       <HistoryPlugin />
       <AutoFocusPlugin />
       <HeadingRemove />
-      {/* <HeadingPlaceholderListener /> */}
     </LexicalComposer>
   );
 }
