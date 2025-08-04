@@ -6,7 +6,12 @@ import {
   MainHeadingNode,
 } from "../nodes/MainHeadingNode";
 
-function HeadingRemove() {
+/**
+ * Bu plugin, editörde en az 1 tane H1 tagi olmasını sağlar. Bu tag sayfanın en başında yer alır.
+ * Diğer H1 taglerinden ayrı olarak stili de farklıdır. Bu tagin üstünde de başka bir tag bulunmasını 
+ * önler.
+ */
+function ForceLayout() {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -33,4 +38,4 @@ function HeadingRemove() {
   return null;
 }
 
-export default HeadingRemove;
+export default ForceLayout;
