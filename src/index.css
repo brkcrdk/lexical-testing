@@ -70,7 +70,16 @@ button:focus-visible {
   position: relative
 }
 
-[data-placeholder][data-empty]:before {
+h1[data-placeholder][data-empty]:before {
+  content: attr(data-placeholder);
+  pointer-events: none;
+  opacity: 0.3;
+  position: absolute;
+  inset: 0;
+}
+
+p[data-placeholder][data-empty]:hover:before,
+p[data-placeholder][data-empty]:focus-within:before {
   content: attr(data-placeholder);
   pointer-events: none;
   opacity: 0.3;
