@@ -1,4 +1,3 @@
-
 import {
   $applyNodeReplacement,
   type EditorConfig,
@@ -19,8 +18,8 @@ export class CustomParagraphNode extends ParagraphNode {
   }
   createDOM(config: EditorConfig) {
     const el = super.createDOM(config);
-    el.setAttribute("data-placeholder", "Paragraf girin...");
     el.setAttribute("data-node-type", "custom-paragraph");
+    el.setAttribute("data-placeholder", "Paragraf girin...");
     el.setAttribute("data-empty", "");
     return el;
   }

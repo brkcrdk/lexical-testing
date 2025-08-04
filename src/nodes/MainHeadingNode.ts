@@ -17,12 +17,15 @@ export class MainHeadingNode extends HeadingNode {
   // Bu elementi doma ilk koyuşumuzda bu event çalışıyor.
   createDOM(config: EditorConfig): HTMLElement {
     const element = super.createDOM(config);
-    // Class ekleme
-    element.classList.add("main-heading");
     // Data attribute ekleme
-    element.setAttribute("data-placeholder", "Başlık girin...");
     element.setAttribute("data-node-type", "main-heading");
-    element.setAttribute("data-empty", "");
+    element.setAttribute("data-placeholder", "Başlık girin...");
+    const isEmpty = this.isEmpty();
+    if (isEmpty) {
+      element.setAttribute("data-empty", "");
+    } else {
+      element.removeAttribute("data-empty");
+    }
     return element;
   }
 
@@ -55,7 +58,6 @@ export class MainHeadingNode extends HeadingNode {
 export function $createMainHeadingNode(): MainHeadingNode {
   return $applyNodeReplacement(new MainHeadingNode());
 }
-
 
 export function $isMainHeadingNode(
   node: LexicalNode | null | undefined
