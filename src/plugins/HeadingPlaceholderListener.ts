@@ -1,41 +1,55 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { MainHeadingNode } from "../nodes/MainHeadingNode";
+import { $isMainHeadingNode } from "../nodes/MainHeadingNode";
 import { useEffect } from "react";
+import {
+  $getSelection,
+  $isRangeSelection,
+  COMMAND_PRIORITY_LOW,
+  DELETE_CHARACTER_COMMAND,
+} from "lexical";
 
 function HeadingPlaceholderListener() {
   const [editor] = useLexicalComposerContext();
-  
+
+  /**
+   * Main-heading ile bir sonraki child mergelenirken text olup olmadığı durumu updateDom tarafından yakalanamıdığı
+   * için bu event ile yakalayıp manuel olarak updateDom'u tetikliyoruz.
+   */
   useEffect(() => {
-    const mainHeadingTransform = editor.registerNodeTransform(
-      MainHeadingNode,
-      (mainHeadingNode) => {
-        const isEmpty = mainHeadingNode.isEmpty();
+    const mainHeadingTransform = editor.registerCommand(
+      DELETE_CHARACTER_COMMAND,
+      (payload) => {
+        /**
+         * Silme işlemi geriye doğru yapıldığı için bu duruma bakıyoruz.
+         * @bkz https://github.com/facebook/lexical/blob/main/packages/lexical/src/LexicalCommands.ts#L31
+         */
+        if (payload === false) {
+          const selection = $getSelection();
 
-        // mainHeadingNode.markDirty();
+          if ($isRangeSelection(selection)) {
+            const anchorNode = selection.anchor.getNode();
 
-        // if(isEmpty){
-        //   mainHeadingNode.setCustomStatus(true);
-        // }else{
-        //   mainHeadingNode.setCustomStatus(false);
-        // }
+            if ($isMainHeadingNode(anchorNode)) {
+              const nextSibling = anchorNode.getNextSibling();
+              const isEmpty = anchorNode.isEmpty();
 
-        // mainHeadingNode.setCustomStatus(isEmpty);
-
-        // const textContent = mainHeadingNode.getTextContent();
-        // const children = mainHeadingNode.getChildren();
-
-        // // MainHeading'in içeriği değiştiğinde
-        // if (textContent.length > 0) {
-        //   console.log("MainHeading içeriği:", textContent);
-
-        //   // Merge durumunu tespit et
-        //   if (children.length > 1) {
-        //     console.log("MainHeading merge edildi!");
-        //     // Event'i çalıştır
-        //     // editor.dispatchCommand(YOUR_CUSTOM_COMMAND, null);
-        //   }
-        // }
-      }
+              if (nextSibling && isEmpty) {
+                console.log("first");
+                anchorNode.markDirty();
+                // anchorNode.setCustomStatus(false);
+                // anchorNode.setEmptyStatus(false);
+                // console.log("time to merghe");
+                // editor.update(() => {
+                //   anchorNode.markDirty();
+                // });
+                // anchorNode.markDirty();
+              }
+            }
+          }
+        }
+        return false;
+      },
+      COMMAND_PRIORITY_LOW
     );
 
     return () => {

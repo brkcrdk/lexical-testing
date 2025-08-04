@@ -93,10 +93,10 @@ function Editor() {
           ErrorBoundary={LexicalErrorBoundary}
         />
 
-        {/* <HeadingPlaceholderListener /> */}
         <CustomTreeView />
       </div>
 
+      <HeadingPlaceholderListener />
       <OnChangePlugin onChange={onChange} />
       <HistoryPlugin />
       <AutoFocusPlugin />

@@ -2,13 +2,6 @@ import { HeadingNode, type SerializedHeadingNode } from "@lexical/rich-text";
 import { $applyNodeReplacement, type LexicalNode, type NodeKey, type EditorConfig } from "lexical";
 
 export class MainHeadingNode extends HeadingNode {
-  // private __emptyStatus: boolean = true;
-
-  // setCustomStatus(status: boolean): void {
-  //   this.__emptyStatus = status;
-  //   this.markDirty(); // updateDOM'u tetikler
-  // }
-
   static getType(): string {
     return "main-heading";
   }
@@ -35,9 +28,8 @@ export class MainHeadingNode extends HeadingNode {
 
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
     const isUpdated = super.updateDOM(prevNode, dom, config);
-    const isEmpty = this.isEmpty();
 
-    console.log(this.getTextContent());
+    const isEmpty = this.isEmpty();
 
     if (isEmpty) {
       dom.setAttribute("data-empty", "");
@@ -52,9 +44,6 @@ export class MainHeadingNode extends HeadingNode {
     return {
       ...super.exportJSON(),
       type: "main-heading",
-      // Versiyon vererek lexicalın node güncellerken geri dönük uyumluluk sağlamasını sağlayabiliyioruz.
-      // Bu alan zorunlu değil fakat eklenmesi iyi bir best practicedir.
-      version: 1,
     };
   }
 
@@ -66,6 +55,7 @@ export class MainHeadingNode extends HeadingNode {
 export function $createMainHeadingNode(): MainHeadingNode {
   return $applyNodeReplacement(new MainHeadingNode());
 }
+
 
 export function $isMainHeadingNode(
   node: LexicalNode | null | undefined
