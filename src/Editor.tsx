@@ -20,7 +20,6 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HeadingNode } from "@lexical/rich-text";
 import HeadingRemove from "./plugins/HeadingRemove";
 import CustomTreeView from "./plugins/CustomTreeView";
-import HeadingPlaceholderListener from "./plugins/HeadingPlaceholderListener";
 
 const theme = {
   // Theme styling goes here
@@ -96,7 +95,6 @@ function Editor() {
         <CustomTreeView />
       </div>
 
-      <HeadingPlaceholderListener />
       <OnChangePlugin onChange={onChange} />
       <HistoryPlugin />
       <AutoFocusPlugin />
