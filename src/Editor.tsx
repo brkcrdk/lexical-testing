@@ -18,7 +18,7 @@ import {
 } from "./nodes/CustomParagraphNode";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HeadingNode } from "@lexical/rich-text";
-import ForceLayout from "./plugins/ForceLayout";
+import MainHeadingPlugin from "./plugins/MainHeadingPlugin";
 import CustomTreeView from "./plugins/CustomTreeView";
 
 const theme = {
@@ -97,7 +97,7 @@ function Editor() {
       <OnChangePlugin onChange={onChange} />
       <HistoryPlugin />
       <AutoFocusPlugin />
-      <ForceLayout />
+      <MainHeadingPlugin />
     </LexicalComposer>
   );
 }

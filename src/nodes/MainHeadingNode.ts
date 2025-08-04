@@ -49,7 +49,6 @@ export class MainHeadingNode extends HeadingNode {
       type: "main-heading",
     };
   }
-
   static importJSON(serializedNode: SerializedHeadingNode): MainHeadingNode {
     return new MainHeadingNode().updateFromJSON(serializedNode);
   }
