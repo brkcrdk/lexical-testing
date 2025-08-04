@@ -27,6 +27,9 @@ importers:
       '@eslint/js':
         specifier: ^9.32.0
         version: 9.32.0
+      '@lexical/eslint-plugin':
+        specifier: ^0.33.1
+        version: 0.33.1(eslint@9.32.0)
       '@types/react':
         specifier: ^19.1.9
         version: 19.1.9
@@ -413,6 +416,11 @@ packages:
 
   '@lexical/dragon@0.33.1':
     resolution: {integrity: sha512-UQ6DLkcDAr83wA1vz3sUgtcpYcMifC4sF0MieZAoMzFrna6Ekqj7OJ7g8Lo7m7AeuT4NETRVDsjIEDdrQMKLLA==}
+
+  '@lexical/eslint-plugin@0.33.1':
+    resolution: {integrity: sha512-8NpSBL3A3RZljPN1xScPHa7jwWFVP3mR0Q4iBIZNwu1lT7CqJTJgsiYaPNLURXjMBna9eUXCmgpLGS8qfrAT+w==}
+    peerDependencies:
+      eslint: '>=7.31.0 || ^8.0.0'
 
   '@lexical/hashtag@0.33.1':
     resolution: {integrity: sha512-M3IsDe4cifggMBZgYAVT7hCLWcwQ3dIcUPdr9Xc6wDQQQdEqOQYB0PO//9bSYUVq+BNiiTgysc+TtlM7PiJfiw==}
@@ -1561,6 +1569,10 @@ snapshots:
   '@lexical/dragon@0.33.1':
     dependencies:
       lexical: 0.33.1
+
+  '@lexical/eslint-plugin@0.33.1(eslint@9.32.0)':
+    dependencies:
+      eslint: 9.32.0
 
   '@lexical/hashtag@0.33.1':
     dependencies:

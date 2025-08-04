@@ -1,14 +1,18 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { globalIgnores } from 'eslint/config'
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+import lexical from "@lexical/eslint-plugin";
+import { globalIgnores } from "eslint/config";
 
 export default tseslint.config([
   globalIgnores(["dist"]),
   {
     files: ["**/*.{ts,tsx}"],
+    plugins: {
+      "@lexical": lexical, // Plugin adı "@lexical" olmalı
+    },
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -21,6 +25,8 @@ export default tseslint.config([
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
+      // Lexical plugin kuralları
+      "@lexical/rules-of-lexical": "error",
     },
   },
 ]);
