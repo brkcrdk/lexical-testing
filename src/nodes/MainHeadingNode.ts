@@ -2,12 +2,12 @@ import { HeadingNode, type SerializedHeadingNode } from "@lexical/rich-text";
 import { $applyNodeReplacement, type LexicalNode, type NodeKey, type EditorConfig } from "lexical";
 
 export class MainHeadingNode extends HeadingNode {
-  private __emptyStatus: boolean = true;
+  // private __emptyStatus: boolean = true;
 
-  setCustomStatus(status: boolean): void {
-    this.__emptyStatus = status;
-    this.markDirty(); // updateDOM'u tetikler
-  }
+  // setCustomStatus(status: boolean): void {
+  //   this.__emptyStatus = status;
+  //   this.markDirty(); // updateDOM'u tetikler
+  // }
 
   static getType(): string {
     return "main-heading";
@@ -35,8 +35,11 @@ export class MainHeadingNode extends HeadingNode {
 
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
     const isUpdated = super.updateDOM(prevNode, dom, config);
+    const isEmpty = this.isEmpty();
 
-    if (this.__emptyStatus) {
+    console.log(this.getTextContent());
+
+    if (isEmpty) {
       dom.setAttribute("data-empty", "");
     } else {
       dom.removeAttribute("data-empty");
@@ -53,10 +56,6 @@ export class MainHeadingNode extends HeadingNode {
       // Bu alan zorunlu değil fakat eklenmesi iyi bir best practicedir.
       version: 1,
     };
-  }
-
-  canBeEmpty(): boolean {
-    return true;
   }
 
   static importJSON(serializedNode: SerializedHeadingNode): MainHeadingNode {

@@ -69,7 +69,8 @@ function Editor() {
     <LexicalComposer initialConfig={initialConfig}>
       <div
         style={{
-          display: "flex",
+          display: "grid",
+          gridTemplateColumns: "0.7fr 0.3fr",
           width: "100%",
           height: "100%",
         }}>
