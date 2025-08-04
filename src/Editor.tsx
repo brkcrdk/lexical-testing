@@ -20,6 +20,7 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HeadingNode } from "@lexical/rich-text";
 import MainHeadingPlugin from "./plugins/MainHeadingPlugin";
 import CustomTreeView from "./plugins/CustomTreeView";
+import ParagraphNodeChangeListener from "./plugins/ParagraphNodeChangeListener";
 
 const theme = {
   // Theme styling goes here
@@ -53,8 +54,9 @@ const initialConfig: InitialConfigType = {
   ],
   editorState: () => {
     const root = $getRoot();
-    const mainHeading = $createMainHeadingNode();
-    root.append(mainHeading);
+    const initialMainHeading = $createMainHeadingNode();
+    const initialParagraph = $createCustomParagraphNode();
+    root.append(initialMainHeading, initialParagraph);
   },
 };
 
@@ -98,6 +100,7 @@ function Editor() {
       <HistoryPlugin />
       <AutoFocusPlugin />
       <MainHeadingPlugin />
+      <ParagraphNodeChangeListener />
     </LexicalComposer>
   );
 }
