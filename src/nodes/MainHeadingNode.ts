@@ -1,5 +1,9 @@
 import { HeadingNode, type SerializedHeadingNode } from "@lexical/rich-text";
 import { $applyNodeReplacement, type LexicalNode, type NodeKey, type EditorConfig } from "lexical";
+import {
+  $createCustomParagraphNode,
+  type CustomParagraphNode,
+} from "./CustomParagraphNode";
 
 export class MainHeadingNode extends HeadingNode {
   static getType(): string {
@@ -51,6 +55,13 @@ export class MainHeadingNode extends HeadingNode {
   }
   static importJSON(serializedNode: SerializedHeadingNode): MainHeadingNode {
     return new MainHeadingNode().updateFromJSON(serializedNode);
+  }
+
+  override insertNewAfter(): CustomParagraphNode {
+    const paragraph = $createCustomParagraphNode();
+    const writable = this.getWritable();
+    writable.insertAfter(paragraph);
+    return paragraph;
   }
 }
 

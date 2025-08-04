@@ -20,7 +20,11 @@ export class CustomParagraphNode extends ParagraphNode {
     const el = super.createDOM(config);
     el.setAttribute("data-node-type", "custom-paragraph");
     el.setAttribute("data-placeholder", "Paragraf girin...");
-    el.setAttribute("data-empty", "");
+    if (this.isEmpty()) {
+      el.setAttribute("data-empty", "");
+    } else {
+      el.removeAttribute("data-empty");
+    }
     return el;
   }
 
