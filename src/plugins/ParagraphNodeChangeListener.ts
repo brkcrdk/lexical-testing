@@ -33,6 +33,7 @@ function ParagraphNodeChangeListener() {
               $getNearestBlockElementAncestorOrThrow(caretNode);
 
             paragraphNodes.forEach((node) => {
+              // Bu kontrolü filtre yaparken yapalım ve ts uygunluğunu orada ayarlayalım.
               if (node.isEmpty()) return;
               if (node.getKey() === selectedNode.getKey()) {
                 node.updateFocusTest(true);
