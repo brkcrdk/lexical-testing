@@ -25,11 +25,11 @@ export class MainHeadingNode extends HeadingNode {
     element.setAttribute("data-node-type", "main-heading");
     element.setAttribute("data-placeholder", "Başlık girin...");
     const isEmpty = this.isEmpty();
+
     if (isEmpty) {
       element.setAttribute("data-empty", "");
-    } else {
-      element.removeAttribute("data-empty");
     }
+
     return element;
   }
 

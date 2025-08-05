@@ -39,8 +39,6 @@ export class CustomParagraphNode extends ParagraphNode {
 
     if (isEmpty) {
       el.setAttribute("data-empty", "");
-    } else {
-      el.removeAttribute("data-empty");
     }
     return el;
   }
