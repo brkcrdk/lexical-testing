@@ -28,6 +28,8 @@ export class CustomParagraphNode extends ParagraphNode {
   }
   createDOM(config: EditorConfig) {
     const el = super.createDOM(config);
+    const isEmpty = this.isEmpty();
+
     el.setAttribute("data-node-type", "custom-paragraph");
     el.setAttribute("data-placeholder", "Paragraf girin...");
 
@@ -35,7 +37,7 @@ export class CustomParagraphNode extends ParagraphNode {
       el.setAttribute("data-has-focus", "");
     }
 
-    if (this.isEmpty()) {
+    if (isEmpty) {
       el.setAttribute("data-empty", "");
     } else {
       el.removeAttribute("data-empty");
@@ -48,6 +50,12 @@ export class CustomParagraphNode extends ParagraphNode {
     const isUpdated = super.updateDOM(prevNode, dom, config);
     const isEmpty = this.isEmpty();
 
+    if (this.__hasFocus) {
+      dom.setAttribute("data-has-focus", "");
+    } else {
+      dom.removeAttribute("data-has-focus");
+    }
+
     if (isEmpty) {
       dom.setAttribute("data-empty", "");
     } else {
@@ -56,15 +64,19 @@ export class CustomParagraphNode extends ParagraphNode {
     return isUpdated;
   }
 
-  updateFocusTest() {
-    console.log("updateFocusTest");
+  updateFocusTest(newValue: boolean) {
     const self = this.getWritable();
-    self.__hasFocus = true;
+
+    if (newValue !== self.__hasFocus) {
+      self.__hasFocus = newValue;
+      self.markDirty();
+    }
+
     return self;
   }
 }
 
-export function $createCustomParagraphNode(hasFocus = false) {
+export function $createCustomParagraphNode(hasFocus?: boolean) {
   return $applyNodeReplacement(new CustomParagraphNode(hasFocus));
 }
 

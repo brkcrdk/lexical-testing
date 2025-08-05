@@ -1,37 +1,45 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useEffect } from "react";
 import { $isCustomParagraphNode } from "../nodes/CustomParagraphNode";
-import { $getSelection, $isRangeSelection, COMMAND_PRIORITY_LOW, SELECTION_CHANGE_COMMAND } from "lexical";
+import {
+  $getRoot,
+  $getSelection,
+  $isRangeSelection,
+  COMMAND_PRIORITY_LOW,
+  SELECTION_CHANGE_COMMAND,
+} from "lexical";
+import { $getNearestBlockElementAncestorOrThrow } from "@lexical/utils";
 
 function ParagraphNodeChangeListener() {
   const [editor] = useLexicalComposerContext();
 
-  
-  useEffect(()=>{
-    // const unregisterUpdateListener = editor.registerMutationListener(
-    //   CustomParagraphNode,
-    //   (mutatedNodes) => {
-    //     for (const [key, mutation] of mutatedNodes) {
-    //       if (mutation === "updated") {
-    //         // const node = editor.getEditorState().toJSON();
-    //         console.log("ParagraphNode created",key);
-    //         // console.log(node);
-    //       }
-    //     }
-    //   }
-    // );
-
+  useEffect(() => {
     const unregisterTest = editor.registerCommand(
       SELECTION_CHANGE_COMMAND,
       () => {
         const selection = $getSelection();
 
         if ($isRangeSelection(selection)) {
+          const caretNode = selection.anchor.getNode();
           const anchorNode = selection.anchor.getNode();
           const isParagraphNode = $isCustomParagraphNode(anchorNode);
+          if (isParagraphNode) {
+            const root = $getRoot();
 
-          if(isParagraphNode){
-            anchorNode.updateFocusTest();
+            const paragraphNodes = root
+              .getChildren()
+              .filter((node) => $isCustomParagraphNode(node));
+            const selectedNode =
+              $getNearestBlockElementAncestorOrThrow(caretNode);
+
+            paragraphNodes.forEach((node) => {
+              if (node.getKey() === selectedNode.getKey()) {
+                node.updateFocusTest(true);
+              } else {
+                node.updateFocusTest(false);
+              }
+            });
+
             return true;
           }
         }
@@ -44,8 +52,7 @@ function ParagraphNodeChangeListener() {
     return () => {
       unregisterTest();
     };
-  },[editor])
-
+  }, [editor]);
 
   return null;
 }
