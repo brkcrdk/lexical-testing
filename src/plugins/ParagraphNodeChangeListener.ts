@@ -26,13 +26,14 @@ function ParagraphNodeChangeListener() {
           if (isParagraphNode) {
             const root = $getRoot();
 
-            const paragraphNodes = root
-              .getChildren()
-              .filter((node) => $isCustomParagraphNode(node));
+            const paragraphNodes = root.getChildren().filter((node) => {
+              return $isCustomParagraphNode(node);
+            });
             const selectedNode =
               $getNearestBlockElementAncestorOrThrow(caretNode);
 
             paragraphNodes.forEach((node) => {
+              if (node.isEmpty()) return;
               if (node.getKey() === selectedNode.getKey()) {
                 node.updateFocusTest(true);
               } else {
