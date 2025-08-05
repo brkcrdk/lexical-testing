@@ -30,7 +30,6 @@ function ParagraphNodeChangeListener() {
       () => {
         const selection = $getSelection();
 
-        // Early return pattern kullanarak if'leri azaltalım
         if (!$isRangeSelection(selection)) return false;
 
         const anchorNode = selection.anchor.getNode();
