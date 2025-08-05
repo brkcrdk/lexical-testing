@@ -12,49 +12,51 @@ import {
   SELECTION_CHANGE_COMMAND,
 } from "lexical";
 
+/**
+ * @description Custom paragraf node'larında focus değişikliklerini takip eder ve focus durumlarını günceller.
+ * Performans için sadece önceki focus'lu ve şu anki focus'lu node'ları günceller.
+ * Bu, çok sayıda paragraf içeren büyük dokümanlarda gereksiz DOM güncellemelerini önler.
+ * 
+ */
 function ParagraphNodeChangeListener() {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    let prevFocusedNodeKey: null | string = null;
+    let prevFocusedNodeKey: string | null = null;
 
     const unregisterTest = editor.registerCommand(
       SELECTION_CHANGE_COMMAND,
       () => {
         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
-          const anchorNode = selection.anchor.getNode();
-          const isParagraphNode = $isCustomParagraphNode(anchorNode);
+        // Early return pattern kullanarak if'leri azaltalım
+        if (!$isRangeSelection(selection)) return false;
 
-          if (isParagraphNode) {
-            const currentFocusedNodeKey = anchorNode.getKey();
+        const anchorNode = selection.anchor.getNode();
+        if (!$isCustomParagraphNode(anchorNode)) return false;
 
-            if (prevFocusedNodeKey !== currentFocusedNodeKey) {
-              if (prevFocusedNodeKey) {
-                const prevFocusedNode =
-                  $getNodeByKey<CustomParagraphNode>(prevFocusedNodeKey);
+        const currentFocusedNodeKey = anchorNode.getKey();
 
-                if (prevFocusedNode) {
-                  prevFocusedNode.updateFocusTest(false);
-                }
-              }
+        // Focus değişmediyse hiçbir şey yapma
+        if (prevFocusedNodeKey === currentFocusedNodeKey) return true;
 
-              anchorNode.updateFocusTest(true);
-            }
-            prevFocusedNodeKey = currentFocusedNodeKey;
-
-            return true;
-          }
+        // Önceki node'un focus'unu kaldır
+        if (prevFocusedNodeKey) {
+          const prevNode =
+            $getNodeByKey<CustomParagraphNode>(prevFocusedNodeKey);
+          prevNode?.updateFocusTest(false);
         }
-        return false;
+
+        // Yeni node'a focus ver
+        anchorNode.updateFocusTest(true);
+        prevFocusedNodeKey = currentFocusedNodeKey;
+
+        return true;
       },
       COMMAND_PRIORITY_LOW
     );
 
-    return () => {
-      unregisterTest();
-    };
+    return () => unregisterTest();
   }, [editor]);
 
   return null;
