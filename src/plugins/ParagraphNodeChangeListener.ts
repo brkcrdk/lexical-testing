@@ -17,6 +17,7 @@ import {
  * Performans için sadece önceki focus'lu ve şu anki focus'lu node'ları günceller.
  * Bu, çok sayıda paragraf içeren büyük dokümanlarda gereksiz DOM güncellemelerini önler.
  * 
+ * Amaç: caretın aktif olarak buluduğu paragraf nodeune data-focus attributeu eklemek.
  */
 function ParagraphNodeChangeListener() {
   const [editor] = useLexicalComposerContext();
