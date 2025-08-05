@@ -20,7 +20,7 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HeadingNode } from "@lexical/rich-text";
 import MainHeadingPlugin from "./plugins/MainHeadingPlugin";
 import CustomTreeView from "./plugins/CustomTreeView";
-import ParagraphNodeChangeListener from "./plugins/ParagraphNodeChangeListener";
+import ParagraphNodeFocusPlugin from "./plugins/ParagraphNodeFocusPlugin";
 
 const theme = {
   // Theme styling goes here
@@ -100,7 +100,7 @@ function Editor() {
       <HistoryPlugin />
       <AutoFocusPlugin />
       <MainHeadingPlugin />
-      <ParagraphNodeChangeListener />
+      <ParagraphNodeFocusPlugin />
     </LexicalComposer>
   );
 }

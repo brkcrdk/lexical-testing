@@ -78,8 +78,8 @@ h1[data-placeholder][data-empty]:before {
   inset: 0;
 }
 
-p[data-placeholder][data-empty]:hover:before,
-p[data-placeholder][data-empty]:focus-within:before {
+p[data-placeholder][data-empty][data-focus]:before,
+p[data-placeholder][data-empty]:hover:before {
   content: attr(data-placeholder);
   pointer-events: none;
   opacity: 0.3;

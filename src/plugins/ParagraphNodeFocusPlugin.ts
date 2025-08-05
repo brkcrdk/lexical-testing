@@ -19,7 +19,7 @@ import {
  * 
  * Amaç: caretın aktif olarak buluduğu paragraf nodeune data-focus attributeu eklemek.
  */
-function ParagraphNodeChangeListener() {
+function ParagraphNodeFocusPlugin() {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -62,4 +62,4 @@ function ParagraphNodeChangeListener() {
   return null;
 }
 
-export default ParagraphNodeChangeListener;
+export default ParagraphNodeFocusPlugin;

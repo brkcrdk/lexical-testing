@@ -31,10 +31,10 @@ export class CustomParagraphNode extends ParagraphNode {
     const isEmpty = this.isEmpty();
 
     el.setAttribute("data-node-type", "custom-paragraph");
-    el.setAttribute("data-placeholder", "Paragraf girin...");
+    el.setAttribute("data-placeholder", "Yazın, '/' ile komutları kullanın...");
 
     if (this.__hasFocus) {
-      el.setAttribute("data-has-focus", "");
+      el.setAttribute("data-focus", "");
     }
 
     if (isEmpty) {
@@ -49,9 +49,9 @@ export class CustomParagraphNode extends ParagraphNode {
     const isEmpty = this.isEmpty();
 
     if (this.__hasFocus) {
-      dom.setAttribute("data-has-focus", "");
+      dom.setAttribute("data-focus", "");
     } else {
-      dom.removeAttribute("data-has-focus");
+      dom.removeAttribute("data-focus");
     }
 
     if (isEmpty) {
