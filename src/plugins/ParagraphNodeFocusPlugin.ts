@@ -13,11 +13,8 @@ import {
 } from "lexical";
 
 /**
- * @description Custom paragraf node'larında focus değişikliklerini takip eder ve focus durumlarını günceller.
- * Performans için sadece önceki focus'lu ve şu anki focus'lu node'ları günceller.
- * Bu, çok sayıda paragraf içeren büyük dokümanlarda gereksiz DOM güncellemelerini önler.
- * 
- * Amaç: caretın aktif olarak buluduğu paragraf nodeune data-focus attributeu eklemek.
+ * @description Aktif paragrafa data-focus attribute eklemek için oluşturduğumuz plugindir.
+ * Sadece bir önceki node ve mevcut nodedan attribute silip ekleyerek 3 işlemde güncelleme yapıyoruz.
  */
 function ParagraphNodeFocusPlugin() {
   const [editor] = useLexicalComposerContext();
