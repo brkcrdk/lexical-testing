@@ -21,6 +21,7 @@ import { HeadingNode } from "@lexical/rich-text";
 import MainHeadingPlugin from "./plugins/MainHeadingPlugin";
 import CustomTreeView from "./plugins/CustomTreeView";
 import ParagraphNodeChangeListener from "./plugins/ParagraphNodeChangeListener";
+import { useDataAttributes } from "./hooks/useDataAttributes";
 
 const theme = {
   // Theme styling goes here
@@ -60,6 +61,115 @@ const initialConfig: InitialConfigType = {
   },
 };
 
+function TestButton() {
+  const {
+    setAttributeOnSelection,
+    setHighlighted,
+    setPriority,
+    setStatus,
+    setFocus,
+    removeHighlighted,
+    removePriority,
+    setMultipleAttributesOnSelection,
+    removeMultipleAttributesFromSelection,
+  } = useDataAttributes();
+
+  const buttonStyle = {
+    padding: "8px 16px",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "12px",
+    margin: "5px",
+  };
+
+  return (
+    <div style={{ padding: "10px", borderRadius: "8px", margin: "10px" }}>
+      <h4 style={{ margin: "0 0 10px 0", fontSize: "14px" }}>
+        Data Attribute Controls:
+      </h4>
+
+      <button
+        onClick={() => setFocus()}
+        style={{ ...buttonStyle, backgroundColor: "#007acc" }}
+      >
+        Set Focus
+      </button>
+
+      <button
+        onClick={() => setHighlighted()}
+        style={{ ...buttonStyle, backgroundColor: "#28a745" }}
+      >
+        Set Highlighted
+      </button>
+
+      <button
+        onClick={() => setPriority("high")}
+        style={{ ...buttonStyle, backgroundColor: "#dc3545" }}
+      >
+        Set Priority High
+      </button>
+
+      <button
+        onClick={() => setStatus("draft")}
+        style={{ ...buttonStyle, backgroundColor: "#6c757d" }}
+      >
+        Set Status Draft
+      </button>
+
+      <button
+        onClick={() => removeHighlighted()}
+        style={{ ...buttonStyle, backgroundColor: "#fd7e14" }}
+      >
+        Remove Highlighted
+      </button>
+
+      <button
+        onClick={() => removePriority()}
+        style={{ ...buttonStyle, backgroundColor: "#fd7e14" }}
+      >
+        Remove Priority
+      </button>
+
+      <button
+        onClick={() =>
+          setMultipleAttributesOnSelection({
+            "custom-attr": "test-value",
+            "another-attr": true,
+            "third-attr": "multiple",
+          })
+        }
+        style={{ ...buttonStyle, backgroundColor: "#6f42c1" }}
+      >
+        Set Multiple Attrs
+      </button>
+
+      <button
+        onClick={() =>
+          removeMultipleAttributesFromSelection([
+            "custom-attr",
+            "another-attr",
+            "third-attr",
+          ])
+        }
+        style={{ ...buttonStyle, backgroundColor: "#6f42c1" }}
+      >
+        Remove Multiple Attrs
+      </button>
+
+      <button
+        onClick={() =>
+          setAttributeOnSelection("dynamic", new Date().getTime().toString())
+        }
+        style={{ ...buttonStyle, backgroundColor: "#20c997" }}
+      >
+        Set Dynamic Value
+      </button>
+    </div>
+  );
+}
+
 function Editor() {
   const onChange = (editorState: EditorState) => {
     // console.log(editorState);
@@ -73,7 +183,8 @@ function Editor() {
           gridTemplateColumns: "0.7fr 0.3fr",
           width: "100%",
           height: "100%",
-        }}>
+        }}
+      >
         <RichTextPlugin
           contentEditable={
             <ContentEditable
@@ -101,6 +212,7 @@ function Editor() {
       <AutoFocusPlugin />
       <MainHeadingPlugin />
       <ParagraphNodeChangeListener />
+      <TestButton />
     </LexicalComposer>
   );
 }
