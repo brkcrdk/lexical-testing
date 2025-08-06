@@ -65,6 +65,15 @@ function Editor() {
     // console.log(editorState);
   };
 
+  //  const onRef = (_floatingAnchorElem: HTMLDivElement) => {
+  //    if (_floatingAnchorElem !== null) {
+  //      setFloatingAnchorElem(_floatingAnchorElem);
+  //    }
+  //  };
+
+  // const [floatingAnchorElem, setFloatingAnchorElem] =
+  //   useState<HTMLDivElement | null>(null);
+
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div
@@ -74,21 +83,37 @@ function Editor() {
           width: "100%",
           height: "100%",
         }}>
+        {/* <RichTextPlugin
+          contentEditable={
+            <div className="editor-scroller">
+              <div className="editor" ref={onRef}>
+                <ContentEditable placeholder={placeholder} />
+              </div>
+            </div>
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        /> */}
+        {/* <DraggableBlockPlugin anchorElem={floatingAnchorElem} /> */}
         <RichTextPlugin
           contentEditable={
-            <ContentEditable
-              className="editor-container"
-              style={{
-                width: "100%",
-                height: "100%",
-                outline: "none",
-                maxHeight: "60svh",
-                overflow: "auto",
-              }}
-              data-placeholder={"Enter some text..."}
-              aria-placeholder={"Enter some text..."}
-              placeholder={<div />}
-            />
+            <div style={{ position: "relative" }}>
+              <button style={{ position: "absolute", top: 0, left: 0 }}>
+                test button
+              </button>
+              <ContentEditable
+                className="editor-container"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  outline: "none",
+                  maxHeight: "60svh",
+                  overflow: "auto",
+                }}
+                data-placeholder={"Enter some text..."}
+                aria-placeholder={"Enter some text..."}
+                placeholder={<div />}
+              />
+            </div>
           }
           ErrorBoundary={LexicalErrorBoundary}
         />
