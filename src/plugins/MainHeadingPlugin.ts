@@ -5,6 +5,7 @@ import {
   $isRangeSelection,
   COMMAND_PRIORITY_LOW,
   INSERT_LINE_BREAK_COMMAND,
+  KEY_BACKSPACE_COMMAND,
 } from "lexical";
 import { useEffect } from "react";
 import {
@@ -24,7 +25,33 @@ import {
 function MainHeadingPlugin() {
   const [editor] = useLexicalComposerContext();
 
+  /**
+   * Eğer cursor h1 taginin başında ise silinme işlemini bloklamak istiyoruz çünkü bu işlemin
+   * default davranışı elementi silmeye çalışıyor.
+   */
   useEffect(() => {
+    const unregiserBackSpaceCommand = editor.registerCommand(
+      KEY_BACKSPACE_COMMAND,
+      (payload) => {
+        const selection = $getSelection();
+
+        if ($isRangeSelection(selection)) {
+          const anchorNode = selection.anchor.getNode();
+          const anchorParent = anchorNode.getParent();
+
+          if (
+            $isMainHeadingNode(anchorParent) &&
+            selection.anchor.offset === 0
+          ) {
+            payload.preventDefault();
+            return true;
+          }
+        }
+        return false;
+      },
+      COMMAND_PRIORITY_LOW
+    );
+
     const unregisterInsertLineBreakCommand = editor.registerCommand(
       INSERT_LINE_BREAK_COMMAND,
       () => {
@@ -62,6 +89,7 @@ function MainHeadingPlugin() {
     );
 
     return () => {
+      unregiserBackSpaceCommand();
       unregisterInsertLineBreakCommand();
       unregisterMutationListener();
     };
