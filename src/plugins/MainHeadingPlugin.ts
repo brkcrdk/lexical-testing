@@ -11,6 +11,7 @@ import {
 } from "../nodes/MainHeadingNode";
 
 /**
+ * @description
  * NOTE: Bu tag default heading tagleri gibi olmadığı için backspace, del vb şekilde silinip kaldırılamıyor.
  * Bu nedenle fixed layout mantığımıza direk uyum sağlıyor.
  * 

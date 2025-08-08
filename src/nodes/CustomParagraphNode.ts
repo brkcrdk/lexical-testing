@@ -44,7 +44,9 @@ export class CustomParagraphNode extends ParagraphNode {
     return el;
   }
 
-  // Bu event sadece dom değiştiğinde çalışır. Amacımız block içerği boş olduğu zaman güncellemek ve data attributelarını güncellemek.
+  /**
+   * Bu event sadece dom değiştiğinde çalışır. Amacımız block içerği boş olduğu zaman güncellemek ve data attributelarını güncellemek.
+   */
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig) {
     const isUpdated = super.updateDOM(prevNode, dom, config);
     const isEmpty = this.isEmpty();

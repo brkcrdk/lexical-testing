@@ -42,6 +42,10 @@ export class MainHeadingNode extends ElementNode {
     return element;
   }
 
+  /**
+   * Bu event paragraf ve default heading taglerindeki gibi updateDom eventlerini barındırmadığı için bu şekilde kendimiz
+   * kontrollerimizi yapıyoruz.
+   */
   updateDOM(prevNode: this, dom: HTMLElement): boolean {
     const wasEmpty = prevNode.isEmpty();
     const isEmpty = this.isEmpty();
