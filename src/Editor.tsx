@@ -12,6 +12,7 @@ import { $createMainHeadingNode } from "./nodes/MainHeadingNode";
 
 import nodes from "./nodes";
 import Plugins from "./Plugins";
+import { $createCustomParagraphNode } from "./nodes/CustomParagraphNode";
 
 const theme = {
   // Theme styling goes here
@@ -33,7 +34,6 @@ const initialConfig: InitialConfigType = {
   editorState: () => {
     const root = $getRoot();
     const initialHeading = $createMainHeadingNode();
-    // const initialParagraph = $createCustomParagraphNode();
     root.append(initialHeading);
   },
 };

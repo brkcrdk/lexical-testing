@@ -2,7 +2,8 @@ import { Fragment, type PropsWithChildren } from "react";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
-import FixedHeaderPlugin from "./FixedHeaderPlugin";
+import MainHeadingPlugin from "./MainHeadingPlugin";
+import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -10,17 +11,20 @@ import FixedHeaderPlugin from "./FixedHeaderPlugin";
  * renderı içinde kalır.
  */
 function Plugins({ children }: PropsWithChildren) {
-    return (
-      <Fragment>
-        {children}
-        <OnChangePlugin onChange={editorState => {
+  return (
+    <Fragment>
+      {children}
+      <OnChangePlugin
+        onChange={(editorState) => {
           // console.log(editorState);
-        }} />
-        <HistoryPlugin />
-        <FixedHeaderPlugin />
-        <AutoFocusPlugin />
-      </Fragment>
-    );
+        }}
+      />
+      <HistoryPlugin />
+      <MainHeadingPlugin />
+      <ParagraphNodeFocusPlugin />
+      <AutoFocusPlugin />
+    </Fragment>
+  );
 }
 
 export default Plugins;

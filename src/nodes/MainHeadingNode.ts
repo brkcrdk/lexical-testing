@@ -3,8 +3,13 @@ import {
   ElementNode,
   type LexicalNode,
   type NodeKey,
+  type RangeSelection,
   type SerializedElementNode,
 } from "lexical";
+import {
+  $createCustomParagraphNode,
+  CustomParagraphNode,
+} from "./CustomParagraphNode";
 
 export class MainHeadingNode extends ElementNode {
   constructor(key?: NodeKey) {
@@ -53,6 +58,17 @@ export class MainHeadingNode extends ElementNode {
     }
 
     return false;
+  }
+
+  override insertNewAfter(
+    _: RangeSelection,
+    restoreSelection?: boolean
+  ): CustomParagraphNode {
+    const newNode = $createCustomParagraphNode();
+    const direction = this.getDirection();
+    newNode.setDirection(direction);
+    this.insertAfter(newNode, restoreSelection);
+    return newNode;
   }
 
   override isEmpty(): boolean {
