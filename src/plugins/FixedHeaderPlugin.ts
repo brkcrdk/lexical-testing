@@ -22,7 +22,7 @@ import {
  * Bu pluginde ayrıca bu tagin içindeyken `shift+enter` tuşlarına basıldığında yeni bir satır oluşturulmasını
  * engelleyecek command de yer alır.
  */
-function MainHeadingPlugin() {
+function FixedHeaderPlugin() {
   const [editor] = useLexicalComposerContext();
 
   /**
@@ -98,4 +98,4 @@ function MainHeadingPlugin() {
   return null;
 }
 
-export default MainHeadingPlugin;
+export default FixedHeaderPlugin;

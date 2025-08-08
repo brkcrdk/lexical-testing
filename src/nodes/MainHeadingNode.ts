@@ -1,29 +1,33 @@
-import { HeadingNode, type SerializedHeadingNode } from "@lexical/rich-text";
-import { $applyNodeReplacement, type LexicalNode, type NodeKey, type EditorConfig } from "lexical";
 import {
-  $createCustomParagraphNode,
-  type CustomParagraphNode,
-} from "./CustomParagraphNode";
+  $applyNodeReplacement,
+  ElementNode,
+  type LexicalNode,
+  type NodeKey,
+  type SerializedElementNode,
+} from "lexical";
 
-export class MainHeadingNode extends HeadingNode {
-  static getType(): string {
-    return "main-heading";
+export class MainHeadingNode extends ElementNode {
+  constructor(key?: NodeKey) {
+    super(key);
   }
 
-  constructor(key?: NodeKey) {
-    super("h1", key);
+  static getType(): string {
+    return "main-heading";
   }
 
   static clone(node: MainHeadingNode): MainHeadingNode {
     return new MainHeadingNode(node.__key);
   }
 
-  // Bu elementi doma ilk koyuşumuzda bu event çalışıyor.
-  createDOM(config: EditorConfig): HTMLElement {
-    const element = super.createDOM(config);
-    // Data attribute ekleme
+  static importJSON(serializedNode: SerializedElementNode): MainHeadingNode {
+    return $createMainHeadingNode().updateFromJSON(serializedNode);
+  }
+
+  createDOM(): HTMLElement {
+    const element = document.createElement("h1");
     element.setAttribute("data-node-type", "main-heading");
     element.setAttribute("data-placeholder", "Başlık girin...");
+
     const isEmpty = this.isEmpty();
 
     if (isEmpty) {
@@ -33,35 +37,26 @@ export class MainHeadingNode extends HeadingNode {
     return element;
   }
 
-  updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
-    const isUpdated = super.updateDOM(prevNode, dom, config);
-
+  updateDOM(prevNode: this, dom: HTMLElement): boolean {
+    const wasEmpty = prevNode.isEmpty();
     const isEmpty = this.isEmpty();
 
-    if (isEmpty) {
-      dom.setAttribute("data-empty", "");
-    } else {
-      dom.removeAttribute("data-empty");
+    const currentDomHasEmptyAttr = dom.hasAttribute("data-empty");
+
+    if (wasEmpty !== isEmpty || currentDomHasEmptyAttr !== isEmpty) {
+      if (isEmpty) {
+        dom.setAttribute("data-empty", "");
+      } else {
+        dom.removeAttribute("data-empty");
+      }
+      return true;
     }
 
-    return isUpdated;
+    return false;
   }
 
-  exportJSON(): SerializedHeadingNode {
-    return {
-      ...super.exportJSON(),
-      type: "main-heading",
-    };
-  }
-  static importJSON(serializedNode: SerializedHeadingNode): MainHeadingNode {
-    return new MainHeadingNode().updateFromJSON(serializedNode);
-  }
-
-  override insertNewAfter(): CustomParagraphNode {
-    const paragraph = $createCustomParagraphNode();
-    const writable = this.getWritable();
-    writable.insertAfter(paragraph);
-    return paragraph;
+  override isEmpty(): boolean {
+    return super.isEmpty() && this.getTextContent().trim() === "";
   }
 }
 
