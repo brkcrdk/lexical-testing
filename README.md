@@ -9,8 +9,8 @@ TODOS:
   - [ ] Quote elementi
   - [ ] Liste elementinde en son liste elementi boşsa
 - [x] Paragraph nodelarında hover olduğu zaman placeholder görünür olmalı.
-- [ ] Blockların sol tarafına yönetim alanı eklenmeli.
-- [ ] Bu yönetim alanı sadece hover yapıldığı zaman görünür olmalı.
+- [x] Blockların sol tarafına yönetim alanı eklenmeli.
+- [x] Bu yönetim alanı sadece hover yapıldığı zaman görünür olmalı.
 - [ ] Inline node ekleme dropdownu eklenmeli.
 - [ ] Yönetim alanına eklenen artı butonuna tıklanıldığı zaman default olarak paragraph node eklenmeli ve bu node seçme alanı açılmalı.
 - [ ] Herhangi bir text nodeunda `/` yazıldığında yine bu dropdown açılmalı.
