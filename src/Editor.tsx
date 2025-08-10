@@ -12,7 +12,8 @@ import { $createMainHeadingNode } from "./nodes/MainHeadingNode";
 
 import nodes from "./nodes";
 import Plugins from "./Plugins";
-import { $createCustomParagraphNode } from "./nodes/CustomParagraphNode";
+import DraggableBlockPlugin from "./Plugins/DraggableBlockPlugin";
+import { useRef } from "react";
 
 const theme = {
   // Theme styling goes here
@@ -39,43 +40,38 @@ const initialConfig: InitialConfigType = {
 };
 
 function Editor() {
-  //  const onRef = (_floatingAnchorElem: HTMLDivElement) => {
-  //    if (_floatingAnchorElem !== null) {
-  //      setFloatingAnchorElem(_floatingAnchorElem);
-  //    }
-  //  };
-
-  // const [floatingAnchorElem, setFloatingAnchorElem] =
-  //   useState<HTMLDivElement | null>(null);
+  const contentEditableRef = useRef<HTMLDivElement | undefined>(undefined);
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <Plugins>
-        <div className="grid grid-cols-2 size-full">
-          {/* <RichTextPlugin
-          contentEditable={
-            <div className="editor-scroller">
-              <div className="editor" ref={onRef}>
-                <ContentEditable placeholder={placeholder} />
-              </div>
-            </div>
-          }
-          ErrorBoundary={LexicalErrorBoundary}
-        /> */}
-          {/* <DraggableBlockPlugin anchorElem={floatingAnchorElem} /> */}
+        <div className="grid grid-cols-2 size-full relative border-2 border-blue-900">
           <RichTextPlugin
             contentEditable={
-              <ContentEditable
-                className="size-full outline-none overflow-auto max-h-10/12"
-                data-placeholder={"Enter some text..."}
-                aria-placeholder={"Enter some text..."}
-                placeholder={<div />}
-              />
+              <div
+                className="relative"
+                ref={(ref) => {
+                  if (ref) {
+                    contentEditableRef.current = ref;
+                  }
+                }}>
+                <ContentEditable
+                  className="size-full outline-none overflow-auto max-h-10/12"
+                  data-placeholder={"Enter some text..."}
+                  aria-placeholder={"Enter some text..."}
+                  placeholder={
+                    <div>
+                      <p>Enter some text...</p>
+                    </div>
+                  }
+                />
+              </div>
             }
             ErrorBoundary={LexicalErrorBoundary}
           />
           <CustomTreeView />
         </div>
+        <DraggableBlockPlugin anchorElem={contentEditableRef.current} />
       </Plugins>
     </LexicalComposer>
   );
