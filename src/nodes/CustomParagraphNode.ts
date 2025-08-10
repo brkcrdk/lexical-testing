@@ -32,7 +32,6 @@ export class CustomParagraphNode extends ParagraphNode {
 
     el.setAttribute("data-node-type", "custom-paragraph");
     el.setAttribute("data-placeholder", "Yazın, '/' ile komutları kullanın...");
-    el.classList.add("border-2");
 
     if (this.__hasFocus) {
       el.setAttribute("data-focus", "");
