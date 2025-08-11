@@ -32,7 +32,7 @@ const nodeOptions = [
   new CustomNodeOption("h1", {
     nodeName: "h1",
     title: "Heading 1",
-    triggerPattern: "/",
+    triggerPattern: "#",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a heading 1",
@@ -41,7 +41,7 @@ const nodeOptions = [
   new CustomNodeOption("h2", {
     nodeName: "h2",
     title: "Heading 2",
-    triggerPattern: "/",
+    triggerPattern: "##",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a heading 2",
@@ -50,7 +50,7 @@ const nodeOptions = [
   new CustomNodeOption("h3", {
     nodeName: "h3",
     title: "Heading 3",
-    triggerPattern: "/",
+    triggerPattern: "###",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a heading 3",
@@ -59,7 +59,7 @@ const nodeOptions = [
   new CustomNodeOption("h4", {
     nodeName: "h4",
     title: "Heading 4",
-    triggerPattern: "/",
+    triggerPattern: "####",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a heading 4",
@@ -68,7 +68,7 @@ const nodeOptions = [
   new CustomNodeOption("h5", {
     nodeName: "h5",
     title: "Heading 5",
-    triggerPattern: "/",
+    triggerPattern: "#####",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a heading 5",
@@ -77,7 +77,7 @@ const nodeOptions = [
   new CustomNodeOption("h6", {
     nodeName: "h6",
     title: "Heading 6",
-    triggerPattern: "/",
+    triggerPattern: "######",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a heading 6",
@@ -86,7 +86,7 @@ const nodeOptions = [
   new CustomNodeOption("ul", {
     nodeName: "ul",
     title: "Unordered List",
-    triggerPattern: "/",
+    triggerPattern: "*",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a unordered list",
@@ -95,7 +95,7 @@ const nodeOptions = [
   new CustomNodeOption("ol", {
     nodeName: "ol",
     title: "Ordered List",
-    triggerPattern: "/",
+    triggerPattern: "1.",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a ordered list",
@@ -104,7 +104,7 @@ const nodeOptions = [
   new CustomNodeOption("blockquote", {
     nodeName: "blockquote",
     title: "Blockquote",
-    triggerPattern: "/",
+    triggerPattern: ">",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a blockquote",
@@ -113,7 +113,7 @@ const nodeOptions = [
   new CustomNodeOption("callout", {
     nodeName: "callout",
     title: "Callout",
-    triggerPattern: "/",
+    triggerPattern: "::",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a callout",
@@ -122,7 +122,7 @@ const nodeOptions = [
   new CustomNodeOption("divider", {
     nodeName: "divider",
     title: "Divider",
-    triggerPattern: "/",
+    triggerPattern: "---",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a divider",
@@ -131,7 +131,7 @@ const nodeOptions = [
   new CustomNodeOption("callout", {
     nodeName: "callout",
     title: "Callout",
-    triggerPattern: "/",
+    triggerPattern: "::",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a callout",
@@ -140,7 +140,7 @@ const nodeOptions = [
   new CustomNodeOption("toggle-list", {
     nodeName: "toggle-list",
     title: "Toggle List",
-    triggerPattern: "/",
+    triggerPattern: "::",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a toggle list",
