@@ -12,7 +12,6 @@ import { $createMainHeadingNode } from "./nodes/MainHeadingNode";
 
 import nodes from "./nodes";
 import Plugins from "./Plugins";
-import DraggableBlockPlugin from "./Plugins/DraggableBlockPlugin";
 
 const theme = {
   // Theme styling goes here
@@ -60,7 +59,6 @@ function Editor() {
           />
           <CustomTreeView />
         </div>
-        <DraggableBlockPlugin />
       </Plugins>
     </LexicalComposer>
   );
