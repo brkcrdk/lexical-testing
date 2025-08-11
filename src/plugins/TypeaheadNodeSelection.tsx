@@ -53,14 +53,25 @@ function TypeaheadNodeSelection() {
         return anchorElementRef.current && options.length
           ? createPortal(
               <ul className="bg-white shadow-md rounded-md p-2 relative w-2xs">
-                {filteredOptions.length ? filteredOptions.map((option: OptionItem, index) => (
-                  <li
-                    aria-selected={selectedIndex === index}
-                    key={option.key}
-                    className="flex items-center text-black justify-between aria-selected:bg-black/40 aria-selected:text-white p-1 rounded-md">
-                    {option.__nodeName}
+                {filteredOptions.length ? (
+                  filteredOptions.map((option: OptionItem, index) => (
+                    <li
+                      aria-selected={selectedIndex === index}
+                      key={option.key}
+                      onPointerEnter={() => setHighlightedIndex(index)}
+                      onClick={() => {
+                        setHighlightedIndex(index);
+                        selectOptionAndCleanUp(option);
+                      }}
+                      className="flex items-center text-black justify-between aria-selected:bg-black/40 aria-selected:text-white p-1 rounded-md">
+                      {option.__nodeName}
+                    </li>
+                  ))
+                ) : (
+                  <li className="flex items-center text-black justify-between aria-selected:bg-black/40 aria-selected:text-white p-1 rounded-md">
+                    No options found
                   </li>
-                )) : <li className="flex items-center text-black justify-between aria-selected:bg-black/40 aria-selected:text-white p-1 rounded-md">No options found</li>}
+                )}
               </ul>,
               anchorElementRef.current
             )
