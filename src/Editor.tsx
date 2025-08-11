@@ -27,6 +27,7 @@ function onError(error: Error) {
   console.error(error);
 }
 
+
 const initialConfig: InitialConfigType = {
   namespace: "MyEditor",
   theme,
@@ -45,11 +46,12 @@ function Editor() {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <Plugins>
-        <div className="grid grid-cols-2 size-full relative border-2 border-blue-900">
+        <div className="grid grid-cols-2 size-full relative">
           <RichTextPlugin
             contentEditable={
               <div
-                className="relative"
+                id="editor-content"
+                className="relative border-2 border-red-900 border-dashed px-20"
                 ref={(ref) => {
                   if (ref) {
                     contentEditableRef.current = ref;
@@ -59,11 +61,7 @@ function Editor() {
                   className="size-full outline-none overflow-auto max-h-10/12"
                   data-placeholder={"Enter some text..."}
                   aria-placeholder={"Enter some text..."}
-                  placeholder={
-                    <div>
-                      <p>Enter some text...</p>
-                    </div>
-                  }
+                  placeholder={<div />}
                 />
               </div>
             }
@@ -78,3 +76,4 @@ function Editor() {
 }
 
 export default Editor;
+

@@ -2,7 +2,7 @@ import Editor from './Editor'
 
 function App() {
   return (
-    <div className="p-4 px-10">
+    <div className="p-4 px-20">
       <Editor />
     </div>
   );
