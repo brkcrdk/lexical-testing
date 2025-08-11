@@ -5,6 +5,8 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import MainHeadingPlugin from "./MainHeadingPlugin";
 import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
 import DraggableBlockPlugin from "./DraggableBlockPlugin";
+import TypeaheadPluginTest from "./TypeaheadPluginTest";
+import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -25,6 +27,8 @@ function Plugins({ children }: PropsWithChildren) {
       <ParagraphNodeFocusPlugin />
       <AutoFocusPlugin />
       <DraggableBlockPlugin />
+      <TypeaheadPluginTest />
+      <TypeaheadNodeSelection />
     </Fragment>
   );
 }
