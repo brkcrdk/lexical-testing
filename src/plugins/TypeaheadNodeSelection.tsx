@@ -1,7 +1,9 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { LexicalTypeaheadMenuPlugin, MenuOption, useBasicTypeaheadTriggerMatch } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { useMemo, useState } from "react";
+import { $getSelection, $isRangeSelection } from "lexical";
+import { useCallback, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import { $isMainHeadingNode } from "../nodes/MainHeadingNode";
 
 
 class OptionItem extends MenuOption {
@@ -23,24 +25,42 @@ const options:OptionItem[] = [
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
+  
+  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
+    minLength: 0,
+    punctuation: "/",
+  });
 
-
-   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
-     minLength: 0,
-     punctuation: "/",
-   });
-
-   const filteredOptions = useMemo(() => {
+  const filteredOptions = useMemo(() => {
     return options.filter((option) => {
-      return option.__nodeName.toLowerCase().includes(queryString?.toLowerCase() || '');
+      return option.__nodeName
+        .toLowerCase()
+        .includes(queryString?.toLowerCase() || "");
     });
-   }, [queryString]);
+  }, [queryString]);
+
+  // Node type kontrolü ekleyin
+  const $shouldShowTypeahead = useCallback(
+    (text: string) => {
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection)) return null;
+      
+      const anchorNode = selection.anchor.getNode();
+      const parentNode = anchorNode.getParent();
+      
+      const isMainHeadingNode = $isMainHeadingNode(parentNode);
+      if(isMainHeadingNode){
+        return null;
+      }
+      return checkForTriggerMatch(text, editor);
+    }
+  ,[editor,checkForTriggerMatch]);
 
   return (
     <LexicalTypeaheadMenuPlugin
       onQueryChange={setQueryString}
-      onSelectOption={()=>console.log('xx')}
-      triggerFn={checkForTriggerMatch}
+      onSelectOption={() => console.log("xx")}
+      triggerFn={$shouldShowTypeahead}
       options={options}
       menuRenderFn={(
         anchorElementRef,
@@ -49,7 +69,6 @@ function TypeaheadNodeSelection() {
         if (anchorElementRef.current == null || options.length === 0) {
           return null;
         }
-
         return anchorElementRef.current && options.length
           ? createPortal(
               <ul className="bg-white shadow-md rounded-md p-2 relative w-2xs">
