@@ -4,7 +4,6 @@ import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import MainHeadingPlugin from "./MainHeadingPlugin";
 import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
-import OnDropPlugin from "./OnDropPlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -24,7 +23,6 @@ function Plugins({ children }: PropsWithChildren) {
       <MainHeadingPlugin />
       <ParagraphNodeFocusPlugin />
       <AutoFocusPlugin />
-      <OnDropPlugin />
     </Fragment>
   );
 }
