@@ -5,7 +5,6 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import MainHeadingPlugin from "./MainHeadingPlugin";
 import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
 import DraggableBlockPlugin from "./DraggableBlockPlugin";
-import TypeaheadPluginTest from "./TypeaheadPluginTest";
 import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
 
 /**
@@ -27,7 +26,6 @@ function Plugins({ children }: PropsWithChildren) {
       <ParagraphNodeFocusPlugin />
       <AutoFocusPlugin />
       <DraggableBlockPlugin />
-      <TypeaheadPluginTest />
       <TypeaheadNodeSelection />
     </Fragment>
   );

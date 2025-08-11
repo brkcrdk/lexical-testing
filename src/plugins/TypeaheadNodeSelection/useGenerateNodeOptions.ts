@@ -110,15 +110,6 @@ const nodeOptions = [
       caption: "This is a blockquote",
     },
   }),
-  new CustomNodeOption("callout", {
-    nodeName: "callout",
-    title: "Callout",
-    triggerPattern: "::",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a callout",
-    },
-  }),
   new CustomNodeOption("divider", {
     nodeName: "divider",
     title: "Divider",

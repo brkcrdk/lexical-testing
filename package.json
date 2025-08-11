@@ -12,6 +12,7 @@
     "updatePackageVersions": "npx npm-check-updates -u && pnpm install"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.15",
     "@lexical/react": "^0.34.0",
     "@lexical/rich-text": "^0.34.0",
     "@lexical/selection": "^0.34.0",

@@ -58,6 +58,7 @@ function TypeaheadNodeSelection() {
             selectedIndex={selectedIndex}
             selectOptionAndCleanUp={selectOptionAndCleanUp} 
             setHighlightedIndex={setHighlightedIndex} 
+            anchorElement={anchorElementRef.current}
           />,
           anchorElementRef.current
         );
