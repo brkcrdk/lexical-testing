@@ -13,7 +13,6 @@ import { $createMainHeadingNode } from "./nodes/MainHeadingNode";
 import nodes from "./nodes";
 import Plugins from "./Plugins";
 import DraggableBlockPlugin from "./Plugins/DraggableBlockPlugin";
-import { useRef } from "react";
 
 const theme = {
   // Theme styling goes here
@@ -26,7 +25,6 @@ const theme = {
 function onError(error: Error) {
   console.error(error);
 }
-
 
 const initialConfig: InitialConfigType = {
   namespace: "MyEditor",
@@ -41,8 +39,6 @@ const initialConfig: InitialConfigType = {
 };
 
 function Editor() {
-  const contentEditableRef = useRef<HTMLDivElement | undefined>(undefined);
-
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <Plugins>
@@ -51,12 +47,7 @@ function Editor() {
             contentEditable={
               <div
                 id="editor-content"
-                className="relative border-2 border-red-900 border-dashed px-20"
-                ref={(ref) => {
-                  if (ref) {
-                    contentEditableRef.current = ref;
-                  }
-                }}>
+                className="relative border-2 border-red-900 border-dashed pl-14">
                 <ContentEditable
                   className="size-full outline-none overflow-auto max-h-10/12"
                   data-placeholder={"Enter some text..."}
@@ -69,7 +60,7 @@ function Editor() {
           />
           <CustomTreeView />
         </div>
-        <DraggableBlockPlugin anchorElem={contentEditableRef.current} />
+        <DraggableBlockPlugin />
       </Plugins>
     </LexicalComposer>
   );
