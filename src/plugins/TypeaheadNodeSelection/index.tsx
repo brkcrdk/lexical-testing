@@ -8,14 +8,14 @@ import { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
-  import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
-import useFocusNode from "./useFocusNode";
+import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
+import useSlashBadge from "./useSlashBadge";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
 
-  useFocusNode();
+  useSlashBadge();
 
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,
