@@ -9,10 +9,13 @@ import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
   import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
+import useFocusNode from "./useFocusNode";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
+
+  useFocusNode();
 
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,
