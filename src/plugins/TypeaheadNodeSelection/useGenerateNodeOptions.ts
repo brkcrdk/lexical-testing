@@ -140,12 +140,15 @@ const nodeOptions = [
 ];
 
 function useNodeOptions(queryString:string|null):CustomNodeOption[] {
-
   const filteredOptions = useMemo(() => {
+
+    if(!queryString) return nodeOptions;
+
+    const query = queryString.toLowerCase();
     return nodeOptions.filter((option) => {
-      return option.__nodeOption.nodeName
-        .toLowerCase()
-        .includes(queryString?.toLowerCase() || "");
+      const nodeNameLower = option.__nodeOption.nodeName.toLowerCase();
+      const titleLower = option.__nodeOption.title.toLowerCase();
+      return nodeNameLower.includes(query) || titleLower.includes(query);
     });
   }, [queryString]);
 
