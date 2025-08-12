@@ -19,30 +19,30 @@ const expectedWords= ['paragrapgh','heading1', 'text', 'text block']
  * bir şekilde gösterebilmek normal TextNode'u SlashTextNode'una çeviriyoruz.
  */
 function useSlashBadge() {
-   const $getSlashMatch = useCallback((text: string) => {
-     const selection = $getSelection();
+  //  const $getSlashMatch = useCallback((text: string) => {
+  //    const selection = $getSelection();
 
-     if (!$isRangeSelection(selection)) return null;
+  //    if (!$isRangeSelection(selection)) return null;
 
-     const anchorNode = selection.anchor.getNode();
-     const anchorParent = anchorNode.getParent();
+  //    const anchorNode = selection.anchor.getNode();
+  //    const anchorParent = anchorNode.getParent();
 
-     if (!anchorParent) return null;
+  //    if (!anchorParent) return null;
 
-     if (FORBIDDEN_PARENT_TYPES.includes(anchorParent.getType())) return null;
+  //    if (FORBIDDEN_PARENT_TYPES.includes(anchorParent.getType())) return null;
 
-     const matchArr = /^\/[^/\n]+/.exec(text);
+  //    const matchArr = /^\/[^/\n]+/.exec(text);
 
-     if (!matchArr) return null;
+  //    if (!matchArr) return null;
 
-    const slashWord = matchArr[0].substring(1);
-    const hasMatch = expectedWords.some((expected) =>
-      expected.toLowerCase().startsWith(slashWord.toLowerCase())
-    );
+  //   const slashWord = matchArr[0].substring(1);
+  //   const hasMatch = expectedWords.some((expected) =>
+  //     expected.toLowerCase().startsWith(slashWord.toLowerCase())
+  //   );
 
-    if (hasMatch) {
-      return { start: 0, end: matchArr[0].length, text: matchArr[0] };
-    }
+  //   if (hasMatch) {
+  //     return { start: 0, end: matchArr[0].length, text: matchArr[0] };
+  //   }
 
      // Slash'ten sonraki karakterleri bul (iki space'e kadar)
      // const match = text.match(/\/[^/\s]*(?:\s[^/\s]*)*/);
@@ -63,18 +63,18 @@ function useSlashBadge() {
      //   };
      // }
      // return null;
-     return null;
-   }, []);
+  //    return null;
+  //  }, []);
 
-  const $createSlashBadgeNode_ = useCallback((textNode: TextNode): SlashBadgeNode => {
-    return $createSlashBadgeNode(textNode.getTextContent());
-  }, []);
+  // const $createSlashBadgeNode_ = useCallback((textNode: TextNode): SlashBadgeNode => {
+  //   return $createSlashBadgeNode(textNode.getTextContent());
+  // }, []);
 
-  useLexicalTextEntity<SlashBadgeNode>(
-    $getSlashMatch,
-    SlashBadgeNode,
-    $createSlashBadgeNode_,
-  );
+  // useLexicalTextEntity<SlashBadgeNode>(
+  //   $getSlashMatch,
+  //   SlashBadgeNode,
+  //   $createSlashBadgeNode_,
+  // );
 }
 
 export default useSlashBadge;
