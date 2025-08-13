@@ -14,9 +14,11 @@ function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
 
+
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,
     allowWhitespace: true,
+    punctuation:':/'
   });
 
   const filteredOptions = useNodeOptions(queryString);
@@ -34,6 +36,11 @@ function TypeaheadNodeSelection() {
       if (isMainHeadingNode) {
         return null;
       }
+
+      // const textNode = $createTextNode('fılter herer');
+
+      console.log(parentNode)
+
       return checkForTriggerMatch(text, editor);
     },
     [editor, checkForTriggerMatch]
@@ -53,7 +60,6 @@ function TypeaheadNodeSelection() {
         if (anchorElementRef.current == null || options.length === 0) {
           return null;
         }
-        // anchorElementRef.current.style.minWidth='200px';
         return createPortal(
           <NodeList 
             options={options}
