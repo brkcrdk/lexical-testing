@@ -9,15 +9,14 @@ import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
 import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
-import useSlashBadge from "./useSlashBadge";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
 
-
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,
+    allowWhitespace: true,
   });
 
   const filteredOptions = useNodeOptions(queryString);
@@ -46,7 +45,7 @@ function TypeaheadNodeSelection() {
       onSelectOption={() => console.log("xx")}
       triggerFn={$shouldShowTypeahead}
       options={filteredOptions}
-      anchorClassName="relative before:content-['arama yapınız'] before:absolute before:top-0 before:left-0 before:min-w-10 before:size-full before:bg-red-500/50"
+      anchorClassName="bg-red-500"
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex, options }
