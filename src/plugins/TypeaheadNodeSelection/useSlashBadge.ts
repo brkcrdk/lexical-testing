@@ -25,10 +25,11 @@ const allowedWords = ['test', 'text', 'heading', 'paragraph']
 
   const getHashtagMatch = useCallback((text: string) => {
     const slashRegex = /(?:^|\s)\/(?!\/)\S*/g;
+    const allMatches = text.matchAll(slashRegex)
 
-    for (const match of text.matchAll(slashRegex)) {
+    for (const match of allMatches) {
       const rawText = match[0];
-      const index = match.index ?? 0;
+      const index = match.index;
 
       // Başındaki boşlukları ve ilk slash'i kaldır
       const command = rawText.trim().replace(/^\//, "");
