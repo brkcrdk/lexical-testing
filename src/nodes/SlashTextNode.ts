@@ -60,5 +60,5 @@ export class SlashBadgeNode extends TextNode {
 }
 
 export function $createSlashBadgeNode(text: string): SlashBadgeNode {
-  return new SlashBadgeNode(text).setMode("token");
+  return new SlashBadgeNode(text);
 }
