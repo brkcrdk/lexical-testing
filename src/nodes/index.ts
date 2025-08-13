@@ -11,8 +11,8 @@ import { SlashBadgeNode } from "./SlashTextNode";
 const nodes: InitialConfigType["nodes"] = [
   HeadingNode,
   MainHeadingNode,
-  CustomParagraphNode,
   SlashBadgeNode,
+  CustomParagraphNode,
   {
     replace: ParagraphNode,
     with: () => $createCustomParagraphNode(),

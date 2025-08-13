@@ -12,62 +12,62 @@ import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
 import useSlashBadge from "./useSlashBadge";
 
 function TypeaheadNodeSelection() {
-  // const [editor] = useLexicalComposerContext();
-  // const [queryString, setQueryString] = useState<string | null>(null);
+  const [editor] = useLexicalComposerContext();
+  const [queryString, setQueryString] = useState<string | null>(null);
 
   useSlashBadge();
 
-  // const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
-  //   minLength: 0,
-  //   punctuation: "/",
-  // });
+  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
+    minLength: 0,
+  });
 
-  // const filteredOptions = useNodeOptions(queryString);
+  const filteredOptions = useNodeOptions(queryString);
 
-  // // Node type kontrolü ekleyin
-  // const $shouldShowTypeahead = useCallback(
-  //   (text: string) => {
-  //     const selection = $getSelection();
-  //     if (!$isRangeSelection(selection)) return null;
+  // Node type kontrolü ekleyin
+  const $shouldShowTypeahead = useCallback(
+    (text: string) => {
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection)) return null;
 
-  //     const anchorNode = selection.anchor.getNode();
-  //     const parentNode = anchorNode.getParent();
+      const anchorNode = selection.anchor.getNode();
+      const parentNode = anchorNode.getParent();
 
-  //     const isMainHeadingNode = $isMainHeadingNode(parentNode);
-  //     if (isMainHeadingNode) {
-  //       return null;
-  //     }
-  //     return checkForTriggerMatch(text, editor);
-  //   },
-  //   [editor, checkForTriggerMatch]
-  // );
+      const isMainHeadingNode = $isMainHeadingNode(parentNode);
+      if (isMainHeadingNode) {
+        return null;
+      }
+      return checkForTriggerMatch(text, editor);
+    },
+    [editor, checkForTriggerMatch]
+  );
 
   return (
-    // <LexicalTypeaheadMenuPlugin<CustomNodeOption>
-    //   onQueryChange={setQueryString}
-    //   onSelectOption={() => console.log("xx")}
-    //   triggerFn={$shouldShowTypeahead}
-    //   options={filteredOptions}
-    //   menuRenderFn={(
-    //     anchorElementRef,
-    //     { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex, options }
-    //   ) => {
-    //     if (anchorElementRef.current == null || options.length === 0) {
-    //       return null;
-    //     }
-    //     return createPortal(
-    //       <NodeList 
-    //         options={options}
-    //         selectedIndex={selectedIndex}
-    //         selectOptionAndCleanUp={selectOptionAndCleanUp} 
-    //         setHighlightedIndex={setHighlightedIndex} 
-    //         anchorElement={anchorElementRef.current}
-    //       />,
-    //       anchorElementRef.current
-    //     );
-    //   }}
-    // />
-    null
+    <LexicalTypeaheadMenuPlugin<CustomNodeOption>
+      onQueryChange={setQueryString}
+      onSelectOption={() => console.log("xx")}
+      triggerFn={$shouldShowTypeahead}
+      options={filteredOptions}
+      menuRenderFn={(
+        anchorElementRef,
+        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex, options }
+      ) => {
+        console.log({anchorElementRef, selectedIndex, selectOptionAndCleanUp, setHighlightedIndex, options})
+        if (anchorElementRef.current == null || options.length === 0) {
+          return null;
+        }
+        return createPortal(
+          <NodeList 
+            options={options}
+            selectedIndex={selectedIndex}
+            selectOptionAndCleanUp={selectOptionAndCleanUp} 
+            setHighlightedIndex={setHighlightedIndex} 
+            anchorElement={anchorElementRef.current}
+          />,
+          anchorElementRef.current
+        );
+      }}
+    />
+
   );
 }
 

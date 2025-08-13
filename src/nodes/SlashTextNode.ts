@@ -1,43 +1,28 @@
 import type {
-  DOMExportOutput,
   EditorConfig,
-  LexicalEditor,
+  LexicalNode,
   NodeKey,
   SerializedTextNode,
-  Spread,
 } from "lexical";
 
 import { TextNode } from "lexical";
 
-
 export class SlashBadgeNode extends TextNode {
+  constructor(text: string, key?: NodeKey) {
+    super(text, key);
+  }
+  static getType() {
+    return "slash-badge";
+  }
+
   static clone(node: SlashBadgeNode): SlashBadgeNode {
     return new SlashBadgeNode(node.__text, node.__key);
   }
 
-  static getType(): "slash-badge" {
-    return "slash-badge";
-  }
+  createDOM(config: EditorConfig): HTMLElement {
+    const dom = super.createDOM(config);
 
-  static importDOM() {
-    // Never import from DOM
-    return null;
-  }
-
-  static importJSON(serializedNode: SerializedTextNode): SlashBadgeNode {
-    return $createSlashBadgeNode(
-      serializedNode.text,
-    ).updateFromJSON(serializedNode);
-  }
-
-  exportJSON(): SerializedTextNode {
-    return {
-      ...super.exportJSON(),
-    };
-  }
-
-  constructor(text: string, key?: NodeKey) {
-    super(text, key);
+    return dom;
   }
 
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
@@ -45,21 +30,26 @@ export class SlashBadgeNode extends TextNode {
     return isUpdated;
   }
 
-  exportDOM(_: LexicalEditor): DOMExportOutput {
-    return { element: null };
+  static importJSON(serializedNode: SerializedTextNode): SlashBadgeNode {
+    return $createSlashBadgeNode(serializedNode.text).updateFromJSON(
+      serializedNode
+    );
   }
 
-  excludeFromCopy() {
-    return true;
-  }
-
-  createDOM(config: EditorConfig): HTMLElement {
-    const dom = super.createDOM(config);
-    dom.classList.add(config.theme.autocomplete);
-    return dom;
+  exportJSON(): SerializedTextNode {
+    return {
+      ...super.exportJSON(),
+    };
   }
 }
 
 export function $createSlashBadgeNode(text: string): SlashBadgeNode {
   return new SlashBadgeNode(text);
 }
+
+export function $isSlashBadgeNode(
+  node: LexicalNode | null | undefined
+): node is SlashBadgeNode {
+  return node instanceof SlashBadgeNode;
+}
+
