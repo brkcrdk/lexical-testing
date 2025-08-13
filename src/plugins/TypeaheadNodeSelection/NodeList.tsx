@@ -7,7 +7,12 @@ interface Props {
   selectedIndex: number | null;
   selectOptionAndCleanUp: (option: CustomNodeOption) => void;
   setHighlightedIndex: (index: number) => void;
-  anchorElement: HTMLElement; // Yeni prop
+  /**
+   * @description
+   * Bu element typeaheadin parentını ifade eden reftir. Bunu useFloatingde kullanarak listenin
+   * portalda alabileceği yüksekliği belirtebiliyoruz.
+   */
+  anchorElement: HTMLElement;
 }
 
 function NodeList({ options,selectedIndex,selectOptionAndCleanUp,setHighlightedIndex,anchorElement }:Props) {
