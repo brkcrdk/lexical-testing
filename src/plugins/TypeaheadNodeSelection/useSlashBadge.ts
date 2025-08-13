@@ -8,6 +8,11 @@ const blockedNodeTypes =['main-heading']
 
 const allowedWords = ['test', 'text', 'heading', 'paragraph']
 
+/**
+ * @description
+ * Metinler içinde slash yazıldığında typeahead nodunda yazılan filtrelemeyi textten badge şeklinde döndüren hooktur.
+ * Bu hook sayesinde filtrede yazılan arama değeri normal text dışında render edilebilir hale getirilir.
+ */
  function useSlashBadge(){
    const $createSlashBadgeNode_ = useCallback(
      (textNode: TextNode): SlashBadgeNode => {
