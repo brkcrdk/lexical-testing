@@ -20,12 +20,12 @@ function TypeaheadNodeSelection() {
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,
     allowWhitespace: true,
-    punctuation:':/'
+    punctuation:'/'
   });
 
   const filteredOptions = useNodeOptions(queryString);
 
-  // Node type kontrolü ekleyin
+
   const $shouldShowTypeahead = useCallback(
     (text: string) => {
       const selection = $getSelection();
@@ -42,6 +42,7 @@ function TypeaheadNodeSelection() {
     },
     [editor, checkForTriggerMatch]
   );
+
 
   return (
     <LexicalTypeaheadMenuPlugin<CustomNodeOption>

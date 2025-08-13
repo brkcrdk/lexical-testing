@@ -24,7 +24,7 @@ export class SlashBadgeNode extends TextNode {
 
     dom.setAttribute("data-node-type", "slash-placeholder");
     dom.setAttribute("data-placeholder", "Filter here...");
-    dom.classList.add('slash-placeholder');
+    dom.classList.add("slash-placeholder");
     return dom;
   }
 
