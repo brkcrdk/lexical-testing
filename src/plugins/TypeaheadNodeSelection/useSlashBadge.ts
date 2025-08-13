@@ -24,7 +24,7 @@ const allowedWords = ['test', 'text', 'heading', 'paragraph']
    );
 
   const getHashtagMatch = useCallback((text: string) => {
-    const slashRegex = /(?:^|\s)\/(?!\/)\S+/g;
+    const slashRegex = /(?:^|\s)\/(?!\/)\S*/g;
 
     for (const match of text.matchAll(slashRegex)) {
       const rawText = match[0];
