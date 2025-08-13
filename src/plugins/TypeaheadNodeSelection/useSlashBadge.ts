@@ -251,43 +251,64 @@ function getHashtagRegexString(): string {
 }
 
 // const matches = text.match(/(?:^|\s)\/(?!\/)\S+/g);
-const REGEX = /(?:^|\s)\/(?!\/)\S+/;
+   const REGEX = /(?:^|\s)\/(?!\/)\S+/g;
+
+const allowedWords = ['test', 'text', 'heading', 'paragraph']
 
  function useSlashBadge(){
+   const $createSlashBadgeNode_ = useCallback(
+     (textNode: TextNode): SlashBadgeNode => {
+       return $createSlashBadgeNode(textNode.getTextContent());
+     },
+     []
+   );
 
-  const $createSlashBadgeNode_ = useCallback((textNode: TextNode): SlashBadgeNode => {
-    return $createSlashBadgeNode(textNode.getTextContent());
-  }, []);
+   // Eski regex'e geri dön
 
-  const getHashtagMatch = useCallback((text: string) => {
-    const match = REGEX.exec(text);
+const getHashtagMatch = useCallback((text: string) => {
+  // Regex'i sıfırla
+  REGEX.lastIndex = 0;
 
+  let match;
+  const matches = [];
 
-    if (match === null) {
-      return null;
+  // Tüm eşleşmeleri bul
+  while ((match = REGEX.exec(text)) !== null) {
+    matches.push({
+      text: match[0],
+      index: match.index,
+    });
+  }
+
+  if (matches.length === 0) {
+    return null;
+  }
+
+  // İlk geçerli eşleşmeyi bul
+  for (const match of matches) {
+    // Boşluk ve / karakterini temizle
+    const slashCommand = match.text.replace(/^[\s/]+/, "");
+
+    // Contains matching kontrolü
+    if (
+      allowedWords.some((word) =>
+        word.toLowerCase().includes(slashCommand.toLowerCase())
+      )
+    ) {
+      return {
+        start: match.index,
+        end: match.index + match.text.length,
+      };
     }
-    
-    const textInput = match.input
+  }
 
-    // if(textInput.includes('test')){
-    //   return null
-    // }
+  return null;
+}, []);
 
-    console.log({index:match.index, length:match[0].length})
-
-    const startOffset = match.index;
-    const endOffset = startOffset + match[0].length;
-
-    return {
-      start: startOffset,
-      end: endOffset,
-    };
-  }, []);
-
-  useLexicalTextEntity<SlashBadgeNode>(
-    getHashtagMatch,
-    SlashBadgeNode,
-    $createSlashBadgeNode_
-  );
-}
+   useLexicalTextEntity<SlashBadgeNode>(
+     getHashtagMatch,
+     SlashBadgeNode,
+     $createSlashBadgeNode_
+   );
+ }
 export default useSlashBadge;

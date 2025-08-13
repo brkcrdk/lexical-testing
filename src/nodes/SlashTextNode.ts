@@ -41,7 +41,8 @@ export class SlashBadgeNode extends TextNode {
   }
 
   updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
-    return false;
+    const isUpdated = super.updateDOM(prevNode, dom, config);
+    return isUpdated;
   }
 
   exportDOM(_: LexicalEditor): DOMExportOutput {
