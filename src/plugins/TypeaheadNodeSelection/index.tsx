@@ -14,7 +14,6 @@ function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
 
-
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,
     allowWhitespace: true,
@@ -48,7 +47,7 @@ function TypeaheadNodeSelection() {
       onSelectOption={() => console.log("xx")}
       triggerFn={$shouldShowTypeahead}
       options={filteredOptions}
-      anchorClassName="bg-red-500"
+      anchorClassName="slash-placeholder"
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex, options }
@@ -56,6 +55,13 @@ function TypeaheadNodeSelection() {
         if (anchorElementRef.current == null || options.length === 0) {
           return null;
         }
+
+        if(queryString){
+          anchorElementRef.current.removeAttribute("data-placeholder");
+        }else{
+          anchorElementRef.current.setAttribute("data-placeholder",'filter her..');
+        }
+        
         return createPortal(
           <NodeList 
             options={options}

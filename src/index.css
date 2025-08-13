@@ -91,9 +91,15 @@ p[data-placeholder][data-empty]:hover:before {
   pointer-events: none;
   opacity: 0.3;
   position: absolute;
-  inset: 0;
   width: 100px;
   padding-left: 6px;
+  top: -24px;
   display: flex;
   align-items: center;
+}
+
+.slash-placeholder{
+  position: relative;
+  /* background-color: red; */
+  color: white;
 }
