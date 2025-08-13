@@ -262,18 +262,26 @@ const REGEX = /(?:^|\s)\/(?!\/)\S+/;
   const getHashtagMatch = useCallback((text: string) => {
     const match = REGEX.exec(text);
 
-  if (match === null) {
-    return null;
-  }
 
-  // / karakterinin pozisyonunu bul
-  const startOffset = match.index;
-  const endOffset = startOffset + match[0].length;
+    if (match === null) {
+      return null;
+    }
+    
+    const textInput = match.input
 
-  return {
-    start: startOffset,
-    end: endOffset,
-  };
+    // if(textInput.includes('test')){
+    //   return null
+    // }
+
+    console.log({index:match.index, length:match[0].length})
+
+    const startOffset = match.index;
+    const endOffset = startOffset + match[0].length;
+
+    return {
+      start: startOffset,
+      end: endOffset,
+    };
   }, []);
 
   useLexicalTextEntity<SlashBadgeNode>(
