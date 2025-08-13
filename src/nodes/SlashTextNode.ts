@@ -22,12 +22,14 @@ export class SlashBadgeNode extends TextNode {
   createDOM(config: EditorConfig): HTMLElement {
     const dom = super.createDOM(config);
 
+    dom.setAttribute("data-node-type", "slash-placeholder");
+    dom.setAttribute("data-placeholder", "Filter here...");
+    dom.classList.add('slash-placeholder');
     return dom;
   }
 
-  updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
-    const isUpdated = super.updateDOM(prevNode, dom, config);
-    return isUpdated;
+  updateDOM(): boolean {
+    return false;
   }
 
   static importJSON(serializedNode: SerializedTextNode): SlashBadgeNode {

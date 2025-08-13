@@ -85,3 +85,15 @@ p[data-placeholder][data-empty]:hover:before {
   position: absolute;
   inset: 0;
 }
+
+.slash-placeholder::before{
+  content: attr(data-placeholder);
+  pointer-events: none;
+  opacity: 0.3;
+  position: absolute;
+  inset: 0;
+  width: 100px;
+  padding-left: 6px;
+  display: flex;
+  align-items: center;
+}

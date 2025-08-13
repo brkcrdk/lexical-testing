@@ -9,11 +9,13 @@ import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
 import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
+import useSlashBadge from "./useSlashBadge";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
 
+  useSlashBadge();
 
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch("/", {
     minLength: 0,
@@ -36,11 +38,6 @@ function TypeaheadNodeSelection() {
       if (isMainHeadingNode) {
         return null;
       }
-
-      // const textNode = $createTextNode('fılter herer');
-
-      console.log(parentNode)
-
       return checkForTriggerMatch(text, editor);
     },
     [editor, checkForTriggerMatch]
