@@ -1,8 +1,10 @@
-import type { TextNode } from "lexical";
+import { $getSelection, $isRangeSelection, type TextNode } from "lexical";
 
 import { useLexicalTextEntity } from "@lexical/react/useLexicalTextEntity";
 import { useCallback,  } from "react";
 import { $createSlashBadgeNode, SlashBadgeNode } from "../../nodes/SlashTextNode";
+
+const blockedNodeTypes =['main-heading']
 
 const allowedWords = ['test', 'text', 'heading', 'paragraph']
 
@@ -14,35 +16,65 @@ const allowedWords = ['test', 'text', 'heading', 'paragraph']
      []
    );
 
-  const getHashtagMatch = useCallback((text: string) => {
-    const slashRegex = /(?:^|\s)\/(?!\/)\S*/g;
-    const allMatches = text.matchAll(slashRegex)
+   /**
+    * @description
+    * Metin içinde `/` ile başlayan ve `//` ile başlamayan komut benzeri ifadeleri arar.
+    * Eşleşme bulunduğunda, izin verilen kelimeler (`allowedWords`) listesinde yer alıp almadığını kontrol eder.
+    * İlk geçerli eşleşmenin başlangıç ve bitiş indexlerini döner, aksi halde `null` döner.
+    *
+    * @example
+    * const allowedWords = ["komut", "deneme"];
+    * getHashtagMatch("/komut çalışıyor") ve bu text slash-badge nodeuna dönüşüyor.
+    * // → { start: 0, end: 6 }
+    *
+    * getHashtagMatch("bu bir //yorum satırı");
+    * // → null (çünkü // ile başlıyor)
+    *
+    * getHashtagMatch("/bilinmeyen");
+    * // → null (çünkü allowedWords içinde yok)
+    */
+   const $getHashtagMatch = useCallback((text: string) => {
+     const selection = $getSelection();
 
-    for (const match of allMatches) {
-      const rawText = match[0];
-      const index = match.index;
+     if (!$isRangeSelection(selection)) return null;
 
-      // Başındaki boşlukları ve ilk slash'i kaldır
-      const command = rawText.trim().replace(/^\//, "");
+     const anchorNode = selection.anchor.getNode();
+     const parentNode = anchorNode.getParent();
 
-      // İzinli kelimelerden biriyle eşleşiyorsa hemen dön
-      const isAllowed = allowedWords.some((word) =>
-        word.toLowerCase().includes(command.toLowerCase())
-      );
+     if (!parentNode) return null;
 
-      if (isAllowed) {
-        return {
-          start: index,
-          end: index + rawText.length,
-        };
-      }
-    }
+     const isBlockedNode = blockedNodeTypes.includes(parentNode.getType());
 
-    return null;
-  }, []);
+     if (isBlockedNode) return null;
+
+     const slashRegex = /(?:^|\s)\/(?!\/)\S*/g;
+     const allMatches = text.matchAll(slashRegex);
+
+     for (const match of allMatches) {
+       const rawText = match[0];
+       const index = match.index;
+
+       // Başındaki boşlukları ve ilk slash'i kaldır
+       const command = rawText.trim().replace(/^\//, "");
+
+       // İzinli kelimelerden biriyle eşleşiyorsa hemen dön
+       const isAllowed = allowedWords.some((word) =>
+         word.toLowerCase().includes(command.toLowerCase())
+       );
+
+       if (isAllowed) {
+         return {
+           start: index,
+           end: index + rawText.length,
+         };
+       }
+     }
+
+     return null;
+   }, []);
 
    useLexicalTextEntity<SlashBadgeNode>(
-     getHashtagMatch,
+     $getHashtagMatch,
      SlashBadgeNode,
      $createSlashBadgeNode_
    );
