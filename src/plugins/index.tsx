@@ -27,7 +27,7 @@ function Plugins({ children }: PropsWithChildren) {
       <ParagraphNodeFocusPlugin />
       <AutoFocusPlugin />
       <DraggableBlockPlugin />
-      <TypeaheadNodeSelection />
+      {/* <TypeaheadNodeSelection /> */}
       <TestPlugin />
     </Fragment>
   );

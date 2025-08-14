@@ -63,7 +63,6 @@ function useSlashBadge() {
       const rawText = match[0];
       const index = match.index;
       
-      console.log(match);
       // Başındaki boşlukları ve ilk slash'i kaldır
       const command = rawText.trim().replace(/^\//, "");
 
