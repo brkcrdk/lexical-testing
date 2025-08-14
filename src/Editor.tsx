@@ -41,7 +41,7 @@ function Editor() {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <Plugins>
-        <div className="grid grid-cols-2 size-full relative p-500 max-h-400">
+        <div className="grid grid-cols-2 size-full relative">
           <RichTextPlugin
             contentEditable={
               <div
