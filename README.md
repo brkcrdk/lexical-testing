@@ -18,10 +18,10 @@ TODOS:
 - [ ] Quote bloğu eklenmeli.
 - [ ] PDF bloğu eklenmeli.
 - [ ] Eğer sürükleme bırakma işlemi headerın üstüne olacak şekilde olursa izin verilmemeli.
-- [ ] Slash commandi yazıldığında slash badge node eklenmeli:
-  - [ ] ESC ye basıldığında slash badge silinmeli ve yazılan içerik texte dönüştürülmeli.
-  - [ ] Slash-node yaklaşımını typeaheadde yer alan anchor ref elementine before ekelyerek çözeceğiz. Bu işimizi görüyor.
-  - [ ] Slash-nodeu kaldıracağız.
-  - [ ] Kullanıcı slash yazdığı anda sonrasında bir text ekleyip /filter veya /type-to-filter şekilinde bir yazı ile dolduracağız. Bu textler whitelist olacak ve tüm optionları return edecekler.
-  - [ ] Slashten sonra eklenen textin rengini güncellemeliyiz. Böylece placeholder gibi görünmesini sağlayabiliriz.
+- [x] Slash commandi yazıldığında slash badge node eklenmeli:
+  - [x] ESC ye basıldığında slash badge silinmeli ve yazılan içerik texte dönüştürülmeli.
+  - [x] Slash-node yaklaşımını typeaheadde yer alan anchor ref elementine before ekelyerek çözeceğiz. Bu işimizi görüyor.
+  - [x] Slash-nodeu kaldıracağız.
+  - [x] Kullanıcı slash yazdığı anda sonrasında bir text ekleyip /filter veya /type-to-filter şekilinde bir yazı ile dolduracağız. Bu textler whitelist olacak ve tüm optionları return edecekler.
+  - [x] Slashten sonra eklenen textin rengini güncellemeliyiz. Böylece placeholder gibi görünmesini sağlayabiliriz.
   - [x] Typeahead'in sadece slash-badge nodeunda çalışmasını sağlayıp, slashe basınca da sadece slash-badge çıkmasını sağlayabiliriz. Böylece dropdow'un sadece slash-badgede çıkmassını sağlayabilir ve aramalar yaparken textte çıkmamaasını garanti etmiş olabiliriz.
