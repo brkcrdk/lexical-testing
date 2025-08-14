@@ -103,3 +103,7 @@ p[data-placeholder][data-empty]:hover:before {
   /* background-color: red; */
   color: white;
 }
+/* 
+@theme{
+  --spacing-xxl: 500px;
+} */
