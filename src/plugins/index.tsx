@@ -6,7 +6,6 @@ import MainHeadingPlugin from "./MainHeadingPlugin";
 import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
 import DraggableBlockPlugin from "./DraggableBlockPlugin";
 import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
-import TestPlugin from "./TestPlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -27,8 +26,7 @@ function Plugins({ children }: PropsWithChildren) {
       <ParagraphNodeFocusPlugin />
       <AutoFocusPlugin />
       <DraggableBlockPlugin />
-      {/* <TypeaheadNodeSelection /> */}
-      <TestPlugin />
+      <TypeaheadNodeSelection />
     </Fragment>
   );
 }

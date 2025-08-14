@@ -59,7 +59,7 @@ function TypeaheadNodeSelection() {
         if(queryString){
           anchorElementRef.current.removeAttribute("data-placeholder");
         }else{
-          anchorElementRef.current.setAttribute("data-placeholder",'filter her..');
+          anchorElementRef.current.setAttribute("data-placeholder",'Filter here..');
         }
         
         return createPortal(

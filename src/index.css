@@ -86,20 +86,25 @@ p[data-placeholder][data-empty]:hover:before {
   inset: 0;
 }
 
-/* .slash-placeholder::before{
+.slash-placeholder::before{
   content: attr(data-placeholder);
   pointer-events: none;
   opacity: 0.3;
   position: absolute;
-  width: 100px;
-  padding-left: 6px;
+  width: calc(100% + 20px);
+  min-width: 140px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 14px;
+  padding-left: 18px;
   top: -24px;
+  left: -10px;
   display: flex;
   align-items: center;
+  border-radius: 8px;
 }
 
 .slash-placeholder{
   position: relative;
   color: white;
-} */
-/* 
+} 

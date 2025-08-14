@@ -6,12 +6,10 @@ import {
   CustomParagraphNode,
 } from "./CustomParagraphNode";
 import type { InitialConfigType } from "@lexical/react/LexicalComposer";
-import { SlashBadgeNode } from "./SlashTextNode";
 
 const nodes: InitialConfigType["nodes"] = [
   HeadingNode,
   MainHeadingNode,
-  SlashBadgeNode,
   CustomParagraphNode,
   {
     replace: ParagraphNode,
