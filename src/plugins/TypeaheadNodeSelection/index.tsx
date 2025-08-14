@@ -44,7 +44,9 @@ function TypeaheadNodeSelection() {
   return (
     <LexicalTypeaheadMenuPlugin<CustomNodeOption>
       onQueryChange={setQueryString}
-      onSelectOption={() => console.log("xx")}
+      onSelectOption={(val) => {
+        console.log(val)
+      }}
       triggerFn={$shouldShowTypeahead}
       options={filteredOptions}
       anchorClassName="slash-placeholder"
