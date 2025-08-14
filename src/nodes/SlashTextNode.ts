@@ -28,8 +28,9 @@ export class SlashBadgeNode extends TextNode {
     return dom;
   }
 
-  updateDOM(): boolean {
-    return false;
+  updateDOM(prevNode: this, dom: HTMLElement, config: EditorConfig): boolean {
+    const isUpdated = super.updateDOM(prevNode, dom, config);
+    return isUpdated;
   }
 
   static importJSON(serializedNode: SerializedTextNode): SlashBadgeNode {
