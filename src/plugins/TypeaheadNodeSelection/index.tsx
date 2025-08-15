@@ -13,6 +13,7 @@ import { $createCustomHeadingNode } from "../../nodes/CustomHeadingNode";
 import { $createListItemNode, $createListNode } from "@lexical/list";
 import { $createQuoteNode  } from "@lexical/rich-text";
 import {  INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
+import { INSERT_COLLAPSIBLE_COMMAND } from "../CollapsiblePlugin";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -49,19 +50,19 @@ function TypeaheadNodeSelection() {
     if($isRangeSelection(selection)){
       const anchorNode = selection.anchor.getNode();
 
-      if (val.nodeOption.nodeName === "text") {
+      if (val.__nodeOption.nodeName === "text") {
         editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined);
       }
 
-      if (val.nodeOption.type === "heading") {
+      if (val.__nodeOption.type === "heading") {
         const newHeading = $createCustomHeadingNode(
-          val.nodeOption.headingLevel
+          val.__nodeOption.headingLevel
         );
         $insertNodes([newHeading]);
       }
 
-      if (val.nodeOption.type === "list") {
-        const isOrderedList = val.nodeOption.listType === "ordered";
+      if (val.__nodeOption.type === "list") {
+        const isOrderedList = val.__nodeOption.listType === "ordered";
         const listNode = $createListNode(isOrderedList ? "number" : "bullet");
         const listItemNode = $createListItemNode();
         const textNode = $createTextNode("");
@@ -70,19 +71,24 @@ function TypeaheadNodeSelection() {
         $insertNodes([listNode]);
       }
 
-      if (val.nodeOption.nodeName === "quote") {
+      if (val.__nodeOption.nodeName === "quote") {
         const quoteNode = $createQuoteNode();
         $insertNodes([quoteNode]);
       }
 
-      if (val.nodeOption.nodeName === "divider") {
+      if (val.__nodeOption.nodeName === "divider") {
         editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined);
       }
 
+      if (val.__nodeOption.nodeName === "toggle-list") {
+        return editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined);
+      }
+     
       // Ekleme işlemleri bittikten sonra typeahead değerini temizliyoruz.
       if($isTextNode(anchorNode)){
         anchorNode.setTextContent('')
       }
+
     }
   },[editor])
 

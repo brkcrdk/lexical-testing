@@ -26,10 +26,10 @@ type NodeOptionProps =
 
 
 export class CustomNodeOption extends MenuOption {
-  nodeOption: NodeOptionProps;
+  __nodeOption: NodeOptionProps;
   constructor(key: string, nodeOption: NodeOptionProps) {
     super(key);
-    this.nodeOption = nodeOption;
+    this.__nodeOption = nodeOption;
   }
 }
 
@@ -123,8 +123,8 @@ function useNodeOptions(queryString:string|null):CustomNodeOption[] {
 
     const query = queryString.toLowerCase();
     return nodeOptions.filter((option) => {
-      const nodeNameLower = option.nodeOption.nodeName.toLowerCase();
-      const titleLower = option.nodeOption.title.toLowerCase();
+      const nodeNameLower = option.__nodeOption.nodeName.toLowerCase();
+      const titleLower = option.__nodeOption.title.toLowerCase();
       return nodeNameLower.includes(query) || titleLower.includes(query);
     });
   }, [queryString]);

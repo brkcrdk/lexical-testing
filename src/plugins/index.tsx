@@ -9,6 +9,7 @@ import DraggableBlockPlugin from "./DraggableBlockPlugin";
 import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
 import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
 import { TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
+import CollapsiblePlugin from "./CollapsiblePlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -33,6 +34,7 @@ function Plugins({ children }: PropsWithChildren) {
       <ListPlugin hasStrictIndent/>
       <HorizontalRulePlugin />
       <TabIndentationPlugin />
+      <CollapsiblePlugin />
     </Fragment>
   );
 }

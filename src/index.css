@@ -129,3 +129,12 @@ blockquote{
   padding-left: 16px;
   margin-left: 16px;
 }
+
+details{
+  height: auto;
+  overflow: hidden;
+}
+
+details:open {
+  height: 100%;
+}

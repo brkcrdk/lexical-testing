@@ -12,12 +12,18 @@ import {
   CustomHeadingNode,
 } from "./CustomHeadingNode";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
+import { CollapsibleContainerNode } from "./CollapsibleContainerNode";
+import { CollapsibleTitleNode } from "./CollapsibleTitleNode";
+import { CollapsibleContentNode } from "./CollapsibleContentNode";
 
 const nodes: InitialConfigType["nodes"] = [
   CustomHeadingNode,
   ListNode,
   ListItemNode,
   QuoteNode,
+  CollapsibleContainerNode,
+  CollapsibleTitleNode,
+  CollapsibleContentNode,
   HorizontalRuleNode,
   {
     replace: HeadingNode,
