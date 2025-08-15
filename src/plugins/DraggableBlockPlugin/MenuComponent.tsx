@@ -1,5 +1,5 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createParagraphNode, $getNearestNodeFromDOMNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $getNearestNodeFromDOMNode } from "lexical";
 import { GripVertical, Plus } from "lucide-react";
 import type { Ref } from "react";
 
@@ -24,9 +24,12 @@ function MenuComponent({menuRef, targetElement}:Props) {
         return;
       }
 
-      const pNode = $createParagraphNode();
-      node.insertAfter(pNode);
-      pNode.select();
+      const newNode = $createParagraphNode();
+      // Slash commandini eklediğimiz zaman otomatik olarak yeni node seçme dropdownı açılıyor.
+      const textNode = $createTextNode("/");
+      newNode.append(textNode);
+      node.insertAfter(newNode);
+      newNode.select();
     });
   }
 
