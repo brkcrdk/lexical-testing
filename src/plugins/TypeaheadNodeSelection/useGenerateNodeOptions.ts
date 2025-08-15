@@ -23,7 +23,7 @@ const nodeOptions = [
   new CustomNodeOption("p", {
     nodeName: "p",
     title: "Text",
-    triggerPattern: "/",
+    triggerPattern: "",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a text",
@@ -122,7 +122,7 @@ const nodeOptions = [
   new CustomNodeOption("callout", {
     nodeName: "callout",
     title: "Callout",
-    triggerPattern: "::",
+    triggerPattern: "",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a callout",
@@ -131,7 +131,7 @@ const nodeOptions = [
   new CustomNodeOption("toggle-list", {
     nodeName: "toggle-list",
     title: "Toggle List",
-    triggerPattern: "::",
+    triggerPattern: "",
     description: {
       descriptionHeroImage: "https://via.placeholder.com/150",
       caption: "This is a toggle list",

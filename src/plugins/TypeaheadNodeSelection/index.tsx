@@ -3,7 +3,7 @@ import {
   LexicalTypeaheadMenuPlugin,
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { $getSelection, $isRangeSelection } from "lexical";
+import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND } from "lexical";
 import { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
@@ -22,7 +22,6 @@ function TypeaheadNodeSelection() {
 
   const filteredOptions = useNodeOptions(queryString);
 
-
   const $shouldShowTypeahead = useCallback(
     (text: string) => {
       const selection = $getSelection();
@@ -40,13 +39,17 @@ function TypeaheadNodeSelection() {
     [editor, checkForTriggerMatch]
   );
 
+  const handleSelectOption = useCallback((val:CustomNodeOption)=>{
+    console.log(val)
+    
+    // editor.dispatchCommand(FORMAT_TEXT_COMMAND,'')
+  },[editor])
+
 
   return (
     <LexicalTypeaheadMenuPlugin<CustomNodeOption>
       onQueryChange={setQueryString}
-      onSelectOption={(val) => {
-        console.log(val)
-      }}
+      onSelectOption={handleSelectOption}
       triggerFn={$shouldShowTypeahead}
       options={filteredOptions}
       anchorClassName="slash-placeholder"
