@@ -53,8 +53,8 @@ function NodeList({ options,selectedIndex,selectOptionAndCleanUp,setHighlightedI
             setHighlightedIndex(index);
           }}
           >
-          <span className="text-sm">{option.__nodeOption.title}</span>
-          <span className="text-xs">{option.__nodeOption.triggerPattern}</span>
+          <span className="text-sm">{option.nodeOption.title}</span>
+          <span className="text-xs">{option.nodeOption.triggerPattern}</span>
         </li>
       ))}
     </ul>

@@ -1,141 +1,115 @@
 import { MenuOption } from "@lexical/react/LexicalTypeaheadMenuPlugin";
+import type { HeadingTagType } from "@lexical/rich-text";
 import { useMemo } from "react";
 
-interface NodeOptionProps {
-  nodeName: string;
-  title: string;
-  triggerPattern: string;
-  description: {
-    descriptionHeroImage: string;
-    caption: string;
-  };
-}
+type NodeOptionProps =
+  | {
+      type:'default'
+      nodeName: string;
+      title: string;
+      triggerPattern: string;
+    }
+  | {
+      type: 'heading';
+      nodeName: 'heading';
+      headingLevel: HeadingTagType
+      title: string;
+      triggerPattern: string;
+    };
+
 
 export class CustomNodeOption extends MenuOption {
-  __nodeOption: NodeOptionProps;
+  nodeOption: NodeOptionProps;
   constructor(key: string, nodeOption: NodeOptionProps) {
     super(key);
-    this.__nodeOption = nodeOption;
+    this.nodeOption = nodeOption;
   }
 }
 
 const nodeOptions = [
-  new CustomNodeOption("p", {
-    nodeName: "p",
+  new CustomNodeOption("text", {
+    type: 'default',
+    nodeName: "text",
     title: "Text",
     triggerPattern: "",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a text",
-    },
   }),
   new CustomNodeOption("h1", {
-    nodeName: "h1",
+    type: 'heading',
+    nodeName: "heading",
+    headingLevel: "h1",
     title: "Heading 1",
     triggerPattern: "#",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a heading 1",
-    },
   }),
   new CustomNodeOption("h2", {
-    nodeName: "h2",
+    type: 'heading',
+    nodeName: "heading",
+    headingLevel: "h2",
     title: "Heading 2",
     triggerPattern: "##",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a heading 2",
-    },
   }),
   new CustomNodeOption("h3", {
-    nodeName: "h3",
+    type: 'heading',
+    nodeName: "heading",
+    headingLevel: "h3",
     title: "Heading 3",
     triggerPattern: "###",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a heading 3",
-    },
   }),
   new CustomNodeOption("h4", {
-    nodeName: "h4",
+    type: 'heading',
+    nodeName: "heading",
+    headingLevel: "h4",
     title: "Heading 4",
     triggerPattern: "####",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a heading 4",
-    },
   }),
   new CustomNodeOption("h5", {
-    nodeName: "h5",
+    type: 'heading',
+    nodeName: "heading",
+    headingLevel: "h5",
     title: "Heading 5",
     triggerPattern: "#####",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a heading 5",
-    },
   }),
   new CustomNodeOption("h6", {
-    nodeName: "h6",
+    type: 'heading',
+    nodeName: "heading",
+    headingLevel: "h6",
     title: "Heading 6",
     triggerPattern: "######",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a heading 6",
-    },
   }),
   new CustomNodeOption("ul", {
-    nodeName: "ul",
+    type: 'default',
+    nodeName: "list",
     title: "Unordered List",
     triggerPattern: "*",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a unordered list",
-    },
   }),
   new CustomNodeOption("ol", {
-    nodeName: "ol",
+    type: 'default',
+    nodeName: "list",
     title: "Ordered List",
     triggerPattern: "1.",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a ordered list",
-    },
   }),
   new CustomNodeOption("blockquote", {
+    type: 'default',
     nodeName: "blockquote",
     title: "Blockquote",
     triggerPattern: ">",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a blockquote",
-    },
   }),
   new CustomNodeOption("divider", {
+    type: 'default',
     nodeName: "divider",
     title: "Divider",
     triggerPattern: "---",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a divider",
-    },
   }),
   new CustomNodeOption("callout", {
+    type: 'default',
     nodeName: "callout",
     title: "Callout",
     triggerPattern: "",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a callout",
-    },
   }),
   new CustomNodeOption("toggle-list", {
+    type: 'default',
     nodeName: "toggle-list",
     title: "Toggle List",
     triggerPattern: "",
-    description: {
-      descriptionHeroImage: "https://via.placeholder.com/150",
-      caption: "This is a toggle list",
-    },
   }),
 ];
 
@@ -146,8 +120,8 @@ function useNodeOptions(queryString:string|null):CustomNodeOption[] {
 
     const query = queryString.toLowerCase();
     return nodeOptions.filter((option) => {
-      const nodeNameLower = option.__nodeOption.nodeName.toLowerCase();
-      const titleLower = option.__nodeOption.title.toLowerCase();
+      const nodeNameLower = option.nodeOption.nodeName.toLowerCase();
+      const titleLower = option.nodeOption.title.toLowerCase();
       return nodeNameLower.includes(query) || titleLower.includes(query);
     });
   }, [queryString]);

@@ -19,6 +19,7 @@ TODOS:
 - [ ] PDF bloğu eklenmeli.
 - [x] Eğer sürükleme bırakma işlemi headerın üstüne olacak şekilde olursa izin verilmemeli.
 - [x] Slash commandi yazıldığında slash badge node eklenmeli:
+  - [ ] Slash-badge'i anchor ile yapmak yerine text nodeuna farklı bir format tipi ekleyerek stillendirmeyi yapacağız.
   - [x] ESC ye basıldığında slash badge silinmeli ve yazılan içerik texte dönüştürülmeli.
   - [x] Slash-node yaklaşımını typeaheadde yer alan anchor ref elementine before ekelyerek çözeceğiz. Bu işimizi görüyor.
   - [x] Slash-nodeu kaldıracağız.

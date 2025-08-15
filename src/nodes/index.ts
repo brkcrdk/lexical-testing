@@ -6,9 +6,19 @@ import {
   CustomParagraphNode,
 } from "./CustomParagraphNode";
 import type { InitialConfigType } from "@lexical/react/LexicalComposer";
+import {
+  $createCustomHeadingNode,
+  CustomHeadingNode,
+} from "./CustomHeadingNode";
 
 const nodes: InitialConfigType["nodes"] = [
-  HeadingNode,
+  CustomHeadingNode,
+  // HeadingNode,
+  {
+    replace: HeadingNode,
+    with: () => $createCustomHeadingNode(),
+    withKlass: CustomHeadingNode,
+  },
   MainHeadingNode,
   CustomParagraphNode,
   {

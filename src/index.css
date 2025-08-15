@@ -69,6 +69,11 @@ button:focus-visible {
   position: relative
 }
 
+h2[data-placeholder][data-empty]:before,
+h3[data-placeholder][data-empty]:before,
+h4[data-placeholder][data-empty]:before,
+h5[data-placeholder][data-empty]:before,
+h6[data-placeholder][data-empty]:before,
 h1[data-placeholder][data-empty]:before {
   content: attr(data-placeholder);
   pointer-events: none;
@@ -97,7 +102,7 @@ p[data-placeholder][data-empty]:hover:before {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 14px;
   padding-left: 18px;
-  top: -24px;
+  top: -100%;
   left: -10px;
   display: flex;
   align-items: center;
@@ -107,4 +112,4 @@ p[data-placeholder][data-empty]:hover:before {
 .slash-placeholder{
   position: relative;
   color: white;
-} 
+}

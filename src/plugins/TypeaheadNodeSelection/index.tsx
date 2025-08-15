@@ -3,12 +3,14 @@ import {
   LexicalTypeaheadMenuPlugin,
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND } from "lexical";
+import { $getNearestNodeFromDOMNode, $getSelection, $insertNodes, $isRangeSelection, FORMAT_TEXT_COMMAND, INSERT_PARAGRAPH_COMMAND } from "lexical";
 import { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
 import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
+import { $createHeadingNode } from "@lexical/rich-text";
+import { $createCustomHeadingNode } from "../../nodes/CustomHeadingNode";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -39,20 +41,59 @@ function TypeaheadNodeSelection() {
     [editor, checkForTriggerMatch]
   );
 
-  const handleSelectOption = useCallback((val:CustomNodeOption)=>{
-    console.log(val)
-    
-    // editor.dispatchCommand(FORMAT_TEXT_COMMAND,'')
+  const $handleSelectOption = useCallback((val:CustomNodeOption)=>{
+    if(val.nodeOption.nodeName==='text'){
+     return  editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
+    }
+
+    if(val.nodeOption.type==='heading'){
+      // val.nodeOption.headingLevel
+      const newHeading = $createCustomHeadingNode(val.nodeOption.headingLevel)
+      editor.update(()=>{
+
+        // const selection = $getSelection();
+        // const anchorNode = selection.anchor.getNode();
+        // const parentNode = anchorNode.getParent();
+        // parentNode.insertAfter(newHeading);
+        $insertNodes([newHeading])
+      })
+    }
+
+    // if()
+
+    // if(val.__nodeOption.nodeName==='heading'){
+    //   const newHeading = $createHeadingNode(val.__nodeOption.headingLevel)
+    //   editor.update(()=>{
+    //     const selection = $getSelection();
+    //     const anchorNode = selection.anchor.getNode();
+    //     const parentNode = anchorNode.getParent();
+    //     parentNode.insertAfter(newHeading);
+    //   })
+    //   // return editor.dispatchCommand(INSERT_HEADING_COMMAND,val.__nodeOption.nodeName)
+    // }
+
+    // editor.update(() => {
+
+    //   // if()
+
+    //   // const pNode = $createParagraphNode();
+    //   // if (e.altKey || e.ctrlKey) {
+    //   //   node.insertBefore(pNode);
+    //   // } else {
+    //   //   node.insertAfter(pNode);
+    //   // }
+    //   // pNode.select();
+    // });
   },[editor])
 
 
   return (
     <LexicalTypeaheadMenuPlugin<CustomNodeOption>
       onQueryChange={setQueryString}
-      onSelectOption={handleSelectOption}
+      onSelectOption={$handleSelectOption}
       triggerFn={$shouldShowTypeahead}
       options={filteredOptions}
-      anchorClassName="slash-placeholder"
+      anchorClassName={filteredOptions.length > 0 ? "slash-placeholder" : ""}
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex, options }
@@ -79,7 +120,6 @@ function TypeaheadNodeSelection() {
         );
       }}
     />
-
   );
 }
 
