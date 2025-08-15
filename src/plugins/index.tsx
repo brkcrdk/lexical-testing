@@ -7,7 +7,7 @@ import MainHeadingPlugin from "./MainHeadingPlugin";
 import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
 import DraggableBlockPlugin from "./DraggableBlockPlugin";
 import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
-
+import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -29,7 +29,8 @@ function Plugins({ children }: PropsWithChildren) {
       <AutoFocusPlugin />
       <DraggableBlockPlugin />
       <TypeaheadNodeSelection />
-      <ListPlugin />
+      <ListPlugin hasStrictIndent/>
+      <HorizontalRulePlugin />
     </Fragment>
   );
 }

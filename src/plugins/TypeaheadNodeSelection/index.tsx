@@ -12,6 +12,7 @@ import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
 import { $createCustomHeadingNode } from "../../nodes/CustomHeadingNode";
 import { $createListItemNode, $createListNode } from "@lexical/list";
 import { $createQuoteNode  } from "@lexical/rich-text";
+import { $createHorizontalRuleNode, INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -73,6 +74,11 @@ function TypeaheadNodeSelection() {
       if(val.nodeOption.nodeName==='quote'){
         const quoteNode = $createQuoteNode()
         $insertNodes([quoteNode])
+      }
+
+      if(val.nodeOption.nodeName==='divider'){
+        const horizontalRuleNode = $createHorizontalRuleNode()
+        $insertNodes([horizontalRuleNode])
       }
    }
   },[editor])

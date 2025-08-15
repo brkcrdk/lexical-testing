@@ -11,12 +11,14 @@ import {
   $createCustomHeadingNode,
   CustomHeadingNode,
 } from "./CustomHeadingNode";
+import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 
 const nodes: InitialConfigType["nodes"] = [
   CustomHeadingNode,
   ListNode,
   ListItemNode,
   QuoteNode,
+  HorizontalRuleNode,
   {
     replace: HeadingNode,
     with: (val) => $createCustomHeadingNode(val),
