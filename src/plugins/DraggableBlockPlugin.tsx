@@ -1,8 +1,9 @@
 import { DraggableBlockPlugin_EXPERIMENTAL } from "@lexical/react/LexicalDraggableBlockPlugin";
 import { useRef, useState } from "react";
-import { Plus, GripVertical } from "lucide-react";
+import { Plus, GripVertical, CloudLightning } from "lucide-react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createParagraphNode, $getNearestNodeFromDOMNode } from "lexical";
+import { $isMainHeadingNode } from "../nodes/MainHeadingNode";
 
 
 function DraggableBlockPlugin() {
@@ -38,7 +39,7 @@ function DraggableBlockPlugin() {
       menuComponent={
         <div
           data-draggable-block-menu
-          className="rounded-sm opacity-0 absolute left-0 top-0 will-change-transform flex gap-0.5 p-0.5"
+          className="rounded-sm absolute left-0 top-0 will-change-transform flex gap-0.5 p-0.5"
           ref={menuRef}>
           <button className="p-1" onClick={insertBlock}>
             <Plus size={14} />
@@ -55,11 +56,11 @@ function DraggableBlockPlugin() {
       targetLineComponent={
         <div
           ref={targetLineRef}
-          className="pointer-events-none bg-blue-600 h-1 absolute left-0 top-0 opacity-0 will-change-transform"
+          className="pointer-events-none bg-blue-600 h-1 absolute left-0 top-0 will-change-transform"
         />
       }
       isOnMenu={(element) => {
-        return !!element.closest("[data-draggable-block-menu]");
+        return Boolean(element.closest("[data-draggable-block-menu]"));
       }}
       onElementChanged={setDraggableElement}
     />
