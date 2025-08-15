@@ -17,7 +17,7 @@ TODOS:
 - [x] Yönetim alanından nodelar sürüklenip bırakılabilmeli.
 - [ ] Quote bloğu eklenmeli.
 - [ ] PDF bloğu eklenmeli.
-- [ ] Eğer sürükleme bırakma işlemi headerın üstüne olacak şekilde olursa izin verilmemeli.
+- [x] Eğer sürükleme bırakma işlemi headerın üstüne olacak şekilde olursa izin verilmemeli.
 - [x] Slash commandi yazıldığında slash badge node eklenmeli:
   - [x] ESC ye basıldığında slash badge silinmeli ve yazılan içerik texte dönüştürülmeli.
   - [x] Slash-node yaklaşımını typeaheadde yer alan anchor ref elementine before ekelyerek çözeceğiz. Bu işimizi görüyor.
