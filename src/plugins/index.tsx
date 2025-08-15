@@ -8,6 +8,7 @@ import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
 import DraggableBlockPlugin from "./DraggableBlockPlugin";
 import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
 import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
+import { TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -31,6 +32,7 @@ function Plugins({ children }: PropsWithChildren) {
       <TypeaheadNodeSelection />
       <ListPlugin hasStrictIndent/>
       <HorizontalRulePlugin />
+      <TabIndentationPlugin />
     </Fragment>
   );
 }
