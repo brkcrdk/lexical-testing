@@ -3,14 +3,14 @@ import {
   LexicalTypeaheadMenuPlugin,
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { $getNearestNodeFromDOMNode, $getSelection, $insertNodes, $isRangeSelection, FORMAT_TEXT_COMMAND, INSERT_PARAGRAPH_COMMAND } from "lexical";
+import { $getSelection, $insertNodes, $isRangeSelection, $isTextNode, INSERT_PARAGRAPH_COMMAND } from "lexical";
 import { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
 import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
-import { $createHeadingNode } from "@lexical/rich-text";
 import { $createCustomHeadingNode } from "../../nodes/CustomHeadingNode";
+import { $createListNode } from "@lexical/list";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -42,16 +42,32 @@ function TypeaheadNodeSelection() {
   );
 
   const $handleSelectOption = useCallback((val:CustomNodeOption)=>{
-    if(val.nodeOption.nodeName==='text'){
-     return  editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
-    }
+    const selection = $getSelection();
 
-    if(val.nodeOption.type==='heading'){
-      const newHeading = $createCustomHeadingNode(val.nodeOption.headingLevel)
-      editor.update(()=>{
-        $insertNodes([newHeading])
-      })
-    }
+    if($isRangeSelection(selection)){
+      const anchorNode = selection.anchor.getNode();
+      if($isTextNode(anchorNode)){
+        anchorNode.setTextContent('')
+      }
+
+      if(val.nodeOption.nodeName==='text'){
+        return  editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
+      }
+
+      if(val.nodeOption.type==='heading'){
+        const newHeading = $createCustomHeadingNode(val.nodeOption.headingLevel)
+        editor.update(()=>{
+          $insertNodes([newHeading])
+        })
+      }
+
+      if(val.nodeOption.nodeName==='list'){
+        const newList = $createListNode()
+        editor.update(()=>{
+          $insertNodes([newList])
+        })
+      }
+   }
   },[editor])
 
 

@@ -2,10 +2,12 @@ import { Fragment, type PropsWithChildren } from "react";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import MainHeadingPlugin from "./MainHeadingPlugin";
 import ParagraphNodeFocusPlugin from "./ParagraphNodeFocusPlugin";
 import DraggableBlockPlugin from "./DraggableBlockPlugin";
 import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
+
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -27,6 +29,7 @@ function Plugins({ children }: PropsWithChildren) {
       <AutoFocusPlugin />
       <DraggableBlockPlugin />
       <TypeaheadNodeSelection />
+      <ListPlugin />
     </Fragment>
   );
 }
