@@ -32,6 +32,7 @@ export class MainHeadingNode extends ElementNode {
     const element = document.createElement("h1");
     element.setAttribute("data-node-type", "main-heading");
     element.setAttribute("data-placeholder", "Başlık girin...");
+    element.setAttribute("data-block-draggable", "");
 
     const isEmpty = this.isEmpty();
 
