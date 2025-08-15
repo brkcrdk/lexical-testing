@@ -113,3 +113,8 @@ p[data-placeholder][data-empty]:hover:before {
   position: relative;
   color: white;
 }
+
+ol{
+  border: 1px solid red;
+  background: red;
+}
