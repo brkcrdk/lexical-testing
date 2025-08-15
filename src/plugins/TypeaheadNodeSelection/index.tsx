@@ -3,14 +3,14 @@ import {
   LexicalTypeaheadMenuPlugin,
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { $getSelection, $insertNodes, $isRangeSelection, $isTextNode, INSERT_PARAGRAPH_COMMAND } from "lexical";
+import { $createTextNode, $getSelection, $insertNodes, $isRangeSelection, $isTextNode, INSERT_PARAGRAPH_COMMAND } from "lexical";
 import { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
 import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
 import { $createCustomHeadingNode } from "../../nodes/CustomHeadingNode";
-import { $createListNode } from "@lexical/list";
+import { $createListItemNode, $createListNode, } from "@lexical/list";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -51,20 +51,26 @@ function TypeaheadNodeSelection() {
       }
 
       if(val.nodeOption.nodeName==='text'){
-        return  editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
+        return editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
       }
 
       if(val.nodeOption.type==='heading'){
         const newHeading = $createCustomHeadingNode(val.nodeOption.headingLevel)
-        editor.update(()=>{
+        return editor.update(()=>{
           $insertNodes([newHeading])
         })
       }
 
-      if(val.nodeOption.nodeName==='list'){
-        const newList = $createListNode()
-        editor.update(()=>{
-          $insertNodes([newList])
+      if(val.nodeOption.type==='list'){
+        const isOrderedList = val.nodeOption.listType==='ordered'
+        const listNode = $createListNode(isOrderedList ? 'number' : 'bullet')
+        const listItemNode = $createListItemNode()
+        const textNode = $createTextNode('')
+        listItemNode.append(textNode)
+        listNode.append(listItemNode)
+
+        return editor.update(()=>{
+          $insertNodes([listNode])
         })
       }
    }

@@ -15,7 +15,14 @@ type NodeOptionProps =
       headingLevel: HeadingTagType
       title: string;
       triggerPattern: string;
-    };
+    } | 
+    {
+      type: 'list';
+      nodeName: 'list';
+      title: string;
+      listType: 'ordered' | 'unordered';
+      triggerPattern: string;
+    }
 
 
 export class CustomNodeOption extends MenuOption {
@@ -76,14 +83,16 @@ const nodeOptions = [
     triggerPattern: "######",
   }),
   new CustomNodeOption("ul", {
-    type: 'default',
+    type: 'list',
     nodeName: "list",
+    listType: 'unordered',
     title: "Unordered List",
     triggerPattern: "*",
   }),
   new CustomNodeOption("ol", {
-    type: 'default',
+    type: 'list',
     nodeName: "list",
+    listType: 'ordered',
     title: "Ordered List",
     triggerPattern: "1.",
   }),

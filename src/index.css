@@ -114,7 +114,12 @@ p[data-placeholder][data-empty]:hover:before {
   color: white;
 }
 
-ol{
-  border: 1px solid red;
-  background: red;
+ol > li{
+  list-style-position: inside;
+  list-style-type: decimal;
+}
+
+ul > li{
+  list-style-position: inside;
+  list-style-type: disc;
 }
