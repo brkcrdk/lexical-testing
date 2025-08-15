@@ -1,5 +1,5 @@
 import { ParagraphNode } from "lexical";
-import { HeadingNode } from "@lexical/rich-text";
+import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { MainHeadingNode } from "./MainHeadingNode";
 import { ListItemNode, ListNode } from "@lexical/list";
 import {
@@ -16,6 +16,7 @@ const nodes: InitialConfigType["nodes"] = [
   CustomHeadingNode,
   ListNode,
   ListItemNode,
+  QuoteNode,
   {
     replace: HeadingNode,
     with: (val) => $createCustomHeadingNode(val),

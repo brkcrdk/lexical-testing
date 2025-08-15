@@ -96,10 +96,10 @@ const nodeOptions = [
     title: "Ordered List",
     triggerPattern: "1.",
   }),
-  new CustomNodeOption("blockquote", {
+  new CustomNodeOption("quote", {
     type: 'default',
-    nodeName: "blockquote",
-    title: "Blockquote",
+    nodeName: "quote",
+    title: "Quote",
     triggerPattern: ">",
   }),
   new CustomNodeOption("divider", {

@@ -10,7 +10,8 @@ import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
 import NodeList from "./NodeList";
 import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
 import { $createCustomHeadingNode } from "../../nodes/CustomHeadingNode";
-import { $createListItemNode, $createListNode, } from "@lexical/list";
+import { $createListItemNode, $createListNode } from "@lexical/list";
+import { $createQuoteNode  } from "@lexical/rich-text";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -51,14 +52,12 @@ function TypeaheadNodeSelection() {
       }
 
       if(val.nodeOption.nodeName==='text'){
-        return editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
+        editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
       }
 
       if(val.nodeOption.type==='heading'){
         const newHeading = $createCustomHeadingNode(val.nodeOption.headingLevel)
-        return editor.update(()=>{
-          $insertNodes([newHeading])
-        })
+        $insertNodes([newHeading])
       }
 
       if(val.nodeOption.type==='list'){
@@ -68,10 +67,12 @@ function TypeaheadNodeSelection() {
         const textNode = $createTextNode('')
         listItemNode.append(textNode)
         listNode.append(listItemNode)
+        $insertNodes([listNode])
+      }
 
-        return editor.update(()=>{
-          $insertNodes([listNode])
-        })
+      if(val.nodeOption.nodeName==='quote'){
+        const quoteNode = $createQuoteNode()
+        $insertNodes([quoteNode])
       }
    }
   },[editor])
