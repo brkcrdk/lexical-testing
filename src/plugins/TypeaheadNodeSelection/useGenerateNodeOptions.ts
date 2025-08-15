@@ -108,12 +108,6 @@ const nodeOptions = [
     title: "Divider",
     triggerPattern: "---",
   }),
-  new CustomNodeOption("callout", {
-    type: 'default',
-    nodeName: "callout",
-    title: "Callout",
-    triggerPattern: "",
-  }),
   new CustomNodeOption("toggle-list", {
     type: 'default',
     nodeName: "toggle-list",
