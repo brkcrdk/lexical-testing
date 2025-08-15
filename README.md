@@ -28,3 +28,4 @@ TODOS:
 - [ ] Slash-badge'i anchor ile yapmak yerine text nodeuna farklı bir format tipi ekleyerek stillendirmeyi yapacağız.
 - [ ] Accordion componenti eklenecek.
 - [ ] Tablo elementi eklenecek.
+- [ ] Text seçildiği zaman açılacak bir toolbar eklenecek.
