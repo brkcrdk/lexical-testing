@@ -13,10 +13,6 @@ import { $createMainHeadingNode } from "./nodes/MainHeadingNode";
 import nodes from "./nodes";
 import Plugins from "./Plugins";
 
-const theme = {
-  // Theme styling goes here
-  //...
-};
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -27,7 +23,6 @@ function onError(error: Error) {
 
 const initialConfig: InitialConfigType = {
   namespace: "MyEditor",
-  theme,
   onError,
   nodes,
   editorState: () => {
