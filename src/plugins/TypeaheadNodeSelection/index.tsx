@@ -47,43 +47,11 @@ function TypeaheadNodeSelection() {
     }
 
     if(val.nodeOption.type==='heading'){
-      // val.nodeOption.headingLevel
       const newHeading = $createCustomHeadingNode(val.nodeOption.headingLevel)
       editor.update(()=>{
-
-        // const selection = $getSelection();
-        // const anchorNode = selection.anchor.getNode();
-        // const parentNode = anchorNode.getParent();
-        // parentNode.insertAfter(newHeading);
         $insertNodes([newHeading])
       })
     }
-
-    // if()
-
-    // if(val.__nodeOption.nodeName==='heading'){
-    //   const newHeading = $createHeadingNode(val.__nodeOption.headingLevel)
-    //   editor.update(()=>{
-    //     const selection = $getSelection();
-    //     const anchorNode = selection.anchor.getNode();
-    //     const parentNode = anchorNode.getParent();
-    //     parentNode.insertAfter(newHeading);
-    //   })
-    //   // return editor.dispatchCommand(INSERT_HEADING_COMMAND,val.__nodeOption.nodeName)
-    // }
-
-    // editor.update(() => {
-
-    //   // if()
-
-    //   // const pNode = $createParagraphNode();
-    //   // if (e.altKey || e.ctrlKey) {
-    //   //   node.insertBefore(pNode);
-    //   // } else {
-    //   //   node.insertAfter(pNode);
-    //   // }
-    //   // pNode.select();
-    // });
   },[editor])
 
 
