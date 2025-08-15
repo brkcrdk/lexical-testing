@@ -12,7 +12,7 @@ import useNodeOptions, { CustomNodeOption } from "./useGenerateNodeOptions";
 import { $createCustomHeadingNode } from "../../nodes/CustomHeadingNode";
 import { $createListItemNode, $createListNode } from "@lexical/list";
 import { $createQuoteNode  } from "@lexical/rich-text";
-import { $createHorizontalRuleNode, INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
+import {  INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -48,39 +48,42 @@ function TypeaheadNodeSelection() {
 
     if($isRangeSelection(selection)){
       const anchorNode = selection.anchor.getNode();
+
+      if (val.nodeOption.nodeName === "text") {
+        editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined);
+      }
+
+      if (val.nodeOption.type === "heading") {
+        const newHeading = $createCustomHeadingNode(
+          val.nodeOption.headingLevel
+        );
+        $insertNodes([newHeading]);
+      }
+
+      if (val.nodeOption.type === "list") {
+        const isOrderedList = val.nodeOption.listType === "ordered";
+        const listNode = $createListNode(isOrderedList ? "number" : "bullet");
+        const listItemNode = $createListItemNode();
+        const textNode = $createTextNode("");
+        listItemNode.append(textNode);
+        listNode.append(listItemNode);
+        $insertNodes([listNode]);
+      }
+
+      if (val.nodeOption.nodeName === "quote") {
+        const quoteNode = $createQuoteNode();
+        $insertNodes([quoteNode]);
+      }
+
+      if (val.nodeOption.nodeName === "divider") {
+        editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined);
+      }
+
+      // Ekleme işlemleri bittikten sonra typeahead değerini temizliyoruz.
       if($isTextNode(anchorNode)){
         anchorNode.setTextContent('')
       }
-
-      if(val.nodeOption.nodeName==='text'){
-        editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, undefined)
-      }
-
-      if(val.nodeOption.type==='heading'){
-        const newHeading = $createCustomHeadingNode(val.nodeOption.headingLevel)
-        $insertNodes([newHeading])
-      }
-
-      if(val.nodeOption.type==='list'){
-        const isOrderedList = val.nodeOption.listType==='ordered'
-        const listNode = $createListNode(isOrderedList ? 'number' : 'bullet')
-        const listItemNode = $createListItemNode()
-        const textNode = $createTextNode('')
-        listItemNode.append(textNode)
-        listNode.append(listItemNode)
-        $insertNodes([listNode])
-      }
-
-      if(val.nodeOption.nodeName==='quote'){
-        const quoteNode = $createQuoteNode()
-        $insertNodes([quoteNode])
-      }
-
-      if(val.nodeOption.nodeName==='divider'){
-        const horizontalRuleNode = $createHorizontalRuleNode()
-        $insertNodes([horizontalRuleNode])
-      }
-   }
+    }
   },[editor])
 
 

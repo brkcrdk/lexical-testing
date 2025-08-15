@@ -91,7 +91,7 @@ p[data-placeholder][data-empty]:hover:before {
   inset: 0;
 }
 
-.slash-placeholder::before{
+/* .slash-placeholder::before{
   content: attr(data-placeholder);
   pointer-events: none;
   opacity: 0.3;
@@ -112,7 +112,7 @@ p[data-placeholder][data-empty]:hover:before {
 .slash-placeholder{
   position: relative;
   color: white;
-}
+} */
 
 ol > li{
   list-style-position: inside;
