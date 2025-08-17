@@ -1,10 +1,12 @@
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import type { MediaNodeWrapperProps } from "./MediaNodeWrapper";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 type DirectionTypes = "left" | "right";
 
-const MIN_WIDTH = 200;
-const MAX_WIDTH = 500;
+// Wrapperin min ve max genişliğini yüzdesel olarak ifade eder.
+const MIN_WIDTH = 30;
+const MAX_WIDTH = 100;
 
 /**
  * Genişlik değerinin min ve max arasında kalmasını sağlar.
@@ -19,6 +21,7 @@ interface PositioningState {
   isResizing: boolean;
   startWidth: number;
   currentWidth: number;
+  rootWidth: number;
 }
 
 const inititialPositioningState: PositioningState = {
@@ -27,11 +30,13 @@ const inititialPositioningState: PositioningState = {
   currentWidth: 0,
   startX: 0,
   isResizing: false,
+  rootWidth: 0,
 };
 
 type Props = Omit<MediaNodeWrapperProps, "children">;
 
 function useResizeHandler({ initialWidth, onResize }: Props) {
+  const [editor] = useLexicalComposerContext();
   const ref = useRef<HTMLDivElement>(null);
   const positioningRef = useRef<PositioningState>({
     ...inititialPositioningState,
@@ -40,42 +45,43 @@ function useResizeHandler({ initialWidth, onResize }: Props) {
 
   function handlePointerMove(event: PointerEvent) {
     if (positioningRef.current.isResizing) {
-      const pointerEvent = event as PointerEvent;
+      const state = positioningRef.current;
+      if (!state.isResizing) return;
 
-      // 1. Mevcut pointer pozisyonu
-      const currentX = pointerEvent.clientX;
+      state.isResizing = true;
+      const deltaX = event.clientX - state.startX;
+      const deltaPercent = (deltaX / state.rootWidth) * 100;
 
-      // 2. Başlangıç pozisyonu
-      const startX = positioningRef.current.startX;
+      let newWidth: number;
 
-      const deltaX = currentX - startX;
-      
-      let newWidth;
-      if (positioningRef.current.direction === "left") {
-        newWidth = positioningRef.current.currentWidth - deltaX * 2;
+      if (state.direction === "right") {
+        // sağ handle → sağa genişler, sola daralır
+        newWidth = state.startWidth + deltaPercent;
       } else {
-        newWidth = positioningRef.current.currentWidth + deltaX * 2;
+        // sol handle → sağa daralır, sola genişler
+        newWidth = state.startWidth - deltaPercent;
       }
 
-      const clampedPercentage = clamp(newWidth, MIN_WIDTH, MAX_WIDTH);
-      positioningRef.current.currentWidth = clampedPercentage;
+      newWidth = clamp(newWidth, MIN_WIDTH, MAX_WIDTH);
+
+      state.currentWidth = newWidth;
 
       if (ref.current) {
-        ref.current.setAttribute("data-resizing", "");
-        ref.current.style.width = clampedPercentage + "px";
+        ref.current.style.setProperty("--wrapper-width", `${newWidth}%`);
       }
     }
   }
 
   function handlePointerUp() {
+    positioningRef.current.isResizing = false;
+
     if (ref.current) {
       ref.current.removeAttribute("data-resizing");
     }
 
-    positioningRef.current.isResizing = false;
-
     document.removeEventListener("pointermove", handlePointerMove);
     document.removeEventListener("pointerup", handlePointerUp);
+
     if (onResize) {
       onResize(positioningRef.current.currentWidth);
     }
@@ -85,17 +91,20 @@ function useResizeHandler({ initialWidth, onResize }: Props) {
     event: ReactPointerEvent<HTMLSpanElement>,
     direction: DirectionTypes
   ) {
-    if (ref.current) {
-      event.preventDefault();
-      event.stopPropagation();
-      const { width } = ref.current.getBoundingClientRect();
-      positioningRef.current.startWidth = width;
-      positioningRef.current.currentWidth = width;
-      positioningRef.current.startX = event.clientX;
-      positioningRef.current.direction = direction;
-      positioningRef.current.isResizing = true;
+    const rootElement = editor.getRootElement();
+    if (ref.current && rootElement) {
+      const { width: rootWidth } = rootElement.getBoundingClientRect();
 
-      ref.current.removeAttribute("data-resizing");
+      positioningRef.current = {
+        ...positioningRef.current,
+        direction,
+        isResizing: true,
+        startX: event.clientX,
+        startWidth: positioningRef.current.currentWidth,
+        rootWidth,
+      };
+
+      ref.current.setAttribute("data-resizing", "");
 
       document.addEventListener("pointermove", handlePointerMove);
       document.addEventListener("pointerup", handlePointerUp);
