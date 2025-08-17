@@ -104,7 +104,7 @@ function TypeaheadNodeSelection() {
       onSelectOption={$handleSelectOption}
       triggerFn={$shouldShowTypeahead}
       options={filteredOptions}
-      anchorClassName={filteredOptions.length > 0 ? "slash-placeholder" : ""}
+      anchorClassName="invisible"
       menuRenderFn={(
         anchorElementRef,
         { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex, options }
@@ -112,20 +112,12 @@ function TypeaheadNodeSelection() {
         if (anchorElementRef.current == null || options.length === 0) {
           return null;
         }
-
-        if(queryString){
-          anchorElementRef.current.removeAttribute("data-placeholder");
-        }else{
-          anchorElementRef.current.setAttribute("data-placeholder",'Filter here..');
-        }
-        
         return createPortal(
           <NodeList 
             options={options}
             selectedIndex={selectedIndex}
             selectOptionAndCleanUp={selectOptionAndCleanUp} 
             setHighlightedIndex={setHighlightedIndex} 
-            anchorElement={anchorElementRef.current}
           />,
           anchorElementRef.current
         );
