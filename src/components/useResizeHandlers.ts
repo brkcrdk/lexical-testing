@@ -19,6 +19,7 @@ interface PositioningState {
   isResizing: boolean;
   startWidth: number;
   currentWidth: number;
+  currentPercentage: number;
 }
 
 const inititialPositioningState: PositioningState = {
@@ -27,6 +28,7 @@ const inititialPositioningState: PositioningState = {
   currentWidth: 0,
   startX: 0,
   isResizing: false,
+  currentPercentage: 0,
 };
 
 interface Props {
@@ -58,6 +60,7 @@ function useResizeHandler({ width = 50, onResize }: Props) {
       }
 
       const clampedPercentage = clamp(newPercentage, MIN_WIDTH, MAX_WIDTH);
+      positioningRef.current.currentPercentage = clampedPercentage;
 
       if (ref.current) {
         ref.current.setAttribute("data-resizing", "");
@@ -74,7 +77,7 @@ function useResizeHandler({ width = 50, onResize }: Props) {
       ref.current.removeAttribute("data-resizing");
     }
     positioningRef.current = inititialPositioningState;
-    onResize(positioningRef.current.currentWidth);
+    onResize(positioningRef.current.currentPercentage);
 
     document.removeEventListener("pointermove", handlePointerMove);
     document.removeEventListener("pointerup", handlePointerUp);
