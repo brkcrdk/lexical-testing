@@ -49,7 +49,13 @@ function useResizeHandler({ initialWidth, onResize }: Props) {
       const startX = positioningRef.current.startX;
 
       const deltaX = currentX - startX;
-      const newWidth = positioningRef.current.startWidth + deltaX * 2; // 2x çünkü her iki yöne
+      
+      let newWidth;
+      if (positioningRef.current.direction === "left") {
+        newWidth = positioningRef.current.currentWidth - deltaX * 2;
+      } else {
+        newWidth = positioningRef.current.currentWidth + deltaX * 2;
+      }
 
       const clampedPercentage = clamp(newWidth, MIN_WIDTH, MAX_WIDTH);
       positioningRef.current.currentWidth = clampedPercentage;
