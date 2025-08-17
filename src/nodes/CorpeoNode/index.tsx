@@ -62,7 +62,13 @@ export class CorpeoNode extends DecoratorBlockNode {
     //     videoID={this.__id}
     //   />
     // );
-    return <CorpeoComponent />;
+    return (
+      <CorpeoComponent
+        hashCode={this.__hashCode}
+        format={this.__format}
+        nodeKey={this.getKey()}
+      />
+    );
   }
 }
 

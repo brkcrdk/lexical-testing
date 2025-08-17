@@ -3,7 +3,7 @@ import {
   LexicalTypeaheadMenuPlugin,
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { $createTextNode, $getSelection, $insertNodes, $isRangeSelection, $isTextNode, INSERT_PARAGRAPH_COMMAND } from "lexical";
+import { $createTextNode, $getRoot, $getSelection, $insertNodes, $isRangeSelection, $isTextNode, INSERT_PARAGRAPH_COMMAND } from "lexical";
 import { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
@@ -86,15 +86,19 @@ function TypeaheadNodeSelection() {
       }
 
       if(val.__nodeOption.nodeName === "corpeo"){
-        const corpeoNode = $createCorpeoNode("123");
-        $insertNodes([corpeoNode]);
+        const corpeoNode = $createCorpeoNode("");
+        editor.update(()=>{
+          const $root = $getRoot();
+          // $insertNodes([corpeoNode]);
+          $root.append(corpeoNode);
+        })
+        // $insertNodes([corpeoNode]);
       }
      
       // Ekleme işlemleri bittikten sonra typeahead değerini temizliyoruz.
       if($isTextNode(anchorNode)){
         anchorNode.setTextContent('')
       }
-
     }
   },[editor])
 
