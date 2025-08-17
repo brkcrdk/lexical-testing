@@ -1,4 +1,6 @@
-import MediaNodeWrapper from "../../components/MediaNodeWrapper";
+import MediaNodeWrapper, {
+  type AlignTypes,
+} from "../../components/MediaNodeWrapper";
 
 interface Props {
   hashCode: string;
@@ -8,7 +10,9 @@ interface Props {
    * @defaultValue `50`
    */
   width: number;
+  align?: AlignTypes;
   onResize?: (width: number) => void;
+  onAlignChange?: (align: AlignTypes) => void;
 }
 
 function CorpeoComponent({ hashCode, width = 50, onResize }: Props) {
@@ -17,11 +21,7 @@ function CorpeoComponent({ hashCode, width = 50, onResize }: Props) {
   // }
 
   return (
-    <MediaNodeWrapper
-      initialWidth={width}
-      onResize={(width) => {
-        console.log(width);
-      }}>
+    <MediaNodeWrapper initialWidth={width} onResize={onResize}>
       <iframe
         src="http://localhost:3000/v2/embed/93e81b36-512"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

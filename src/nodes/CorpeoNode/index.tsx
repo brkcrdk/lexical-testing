@@ -3,25 +3,28 @@ import {
   type SerializedDecoratorBlockNode,
 } from "@lexical/react/LexicalDecoratorBlockNode";
 
-import type {
-  EditorConfig,
-  ElementFormatType,
-  LexicalEditor,
-  LexicalNode,
-  NodeKey,
+import {
+  $applyNodeReplacement,
+  type EditorConfig,
+  type ElementFormatType,
+  type LexicalEditor,
+  type LexicalNode,
+  type NodeKey,
 } from "lexical";
 
 import CorpeoComponent from "./CorpeoComponent";
+import type { AlignTypes } from "../../components/MediaNodeWrapper";
 
 interface SerializedCorpeoNode extends SerializedDecoratorBlockNode {
   hashCode: string;
   width: number;
+  align: AlignTypes;
 }
 
 export class CorpeoNode extends DecoratorBlockNode {
   __hashCode: string;
   __width: number;
-
+  __align: AlignTypes;
   static getType(): string {
     return "corpeo";
   }
@@ -39,11 +42,13 @@ export class CorpeoNode extends DecoratorBlockNode {
     hashCode: string,
     width: number = 50,
     format?: ElementFormatType,
-    key?: NodeKey
+    key?: NodeKey,
+    align: AlignTypes = "left"
   ) {
     super(format, key);
     this.__hashCode = hashCode;
     this.__width = width;
+    this.__align = align;
   }
 
   updateDOM(): false {
@@ -53,7 +58,8 @@ export class CorpeoNode extends DecoratorBlockNode {
   static importJSON(serializedNode: SerializedCorpeoNode): CorpeoNode {
     return $createCorpeoNode(
       serializedNode.hashCode,
-      serializedNode.width
+      serializedNode.width,
+      serializedNode.align
     ).updateFromJSON(serializedNode);
   }
 
@@ -62,6 +68,7 @@ export class CorpeoNode extends DecoratorBlockNode {
       ...super.exportJSON(),
       hashCode: this.__hashCode,
       width: this.__width,
+      align: this.__align,
     };
   }
 
@@ -70,7 +77,12 @@ export class CorpeoNode extends DecoratorBlockNode {
     writable.__width = width;
   }
 
-  decorate(_editor: LexicalEditor, config: EditorConfig) {
+  setAlign(align: AlignTypes): void {
+    const writable = this.getWritable();
+    writable.__align = align;
+  }
+
+  decorate(editor: LexicalEditor, config: EditorConfig) {
     // const embedBlockTheme = config.theme.embedBlock || {};
     // const className = {
     //   base: embedBlockTheme.base || '',
@@ -84,15 +96,31 @@ export class CorpeoNode extends DecoratorBlockNode {
     //     videoID={this.__id}
     //   />
     // );
-    return <CorpeoComponent hashCode={this.__hashCode} width={this.__width} />;
+    return (
+      <CorpeoComponent
+        hashCode={this.__hashCode}
+        width={this.__width}
+        onResize={(width) => {
+          editor.update(() => {
+            this.setWidth(width);
+          });
+        }}
+        onAlignChange={(align) => {
+          editor.update(() => {
+            this.setAlign(align);
+          });
+        }}
+      />
+    );
   }
 }
 
 export function $createCorpeoNode(
   hashCode: string,
-  width?: number
+  width?: number,
+  align?: AlignTypes
 ): CorpeoNode {
-  return new CorpeoNode(hashCode, width);
+  return $applyNodeReplacement(new CorpeoNode(hashCode, width, align));
 }
 
 export function $isCorpeoNode(
