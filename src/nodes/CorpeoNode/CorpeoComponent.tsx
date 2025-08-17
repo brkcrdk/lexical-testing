@@ -18,7 +18,7 @@ function CorpeoComponent({ hashCode, width = 50, onResize }: Props) {
 
   return (
     <MediaNodeWrapper
-      width={width}
+      initialWidth={width}
       onResize={(width) => {
         console.log(width);
       }}>

@@ -2,8 +2,8 @@ import { type CSSProperties, type HTMLAttributes } from "react";
 import useResizeHandler from "./useResizeHandlers";
 import { useLexicalEditable } from "@lexical/react/useLexicalEditable";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  width: number;
+export interface MediaNodeWrapperProps extends HTMLAttributes<HTMLDivElement> {
+  initialWidth: number;
   onResize?: (width: number) => void;
 }
 
@@ -11,17 +11,21 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
  * Bu element wrapper elementi ile editore eklenen medya(video/resim/ses vb) nodeları hem
  * konumlandırmak hem de boyutlandırma işlemlerini yapmak için kullandığımız componenttir.
  */
-function MediaNodeWrapper({ children, width, onResize }: Props) {
+function MediaNodeWrapper({
+  children,
+  initialWidth,
+  onResize,
+}: MediaNodeWrapperProps) {
   const isEditable = useLexicalEditable();
   const { ref, handlePointerDown } = useResizeHandler({
-    width,
+    initialWidth,
     onResize,
   });
 
   return (
     <div
       ref={ref}
-      style={{ "--wrapper-width": `${width}%` } as CSSProperties}
+      style={{ "--wrapper-width": `${initialWidth}%` } as CSSProperties}
       className="relative aspect-video w-(--wrapper-width) overflow-hidden flex justify-self-center group data-resizing:pointer-events-none">
       {isEditable && (
         <span

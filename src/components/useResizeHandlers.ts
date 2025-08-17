@@ -1,5 +1,5 @@
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
+import type { MediaNodeWrapperProps } from "./MediaNodeWrapper";
 
 type DirectionTypes = "left" | "right";
 
@@ -29,16 +29,13 @@ const inititialPositioningState: PositioningState = {
   isResizing: false,
 };
 
-interface Props {
-  width: number;
-  onResize?: (width: number) => void;
-}
+type Props = Omit<MediaNodeWrapperProps, "children">;
 
-function useResizeHandler({ width, onResize }: Props) {
+function useResizeHandler({ initialWidth, onResize }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const positioningRef = useRef<PositioningState>({
     ...inititialPositioningState,
-    currentWidth: width,
+    currentWidth: initialWidth,
   });
 
   function handlePointerMove(event: PointerEvent) {
