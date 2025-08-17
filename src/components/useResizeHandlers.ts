@@ -37,7 +37,6 @@ interface Props {
 }
 
 function useResizeHandler({ width, onResize }: Props) {
-  const [editor] = useLexicalComposerContext();
   const ref = useRef<HTMLDivElement>(null);
   const positioningRef = useRef<PositioningState>(inititialPositioningState);
 
@@ -87,10 +86,6 @@ function useResizeHandler({ width, onResize }: Props) {
     event: ReactPointerEvent<HTMLSpanElement>,
     direction: DirectionTypes
   ) {
-    if (!editor.isEditable()) {
-      return;
-    }
-
     if (ref.current) {
       event.preventDefault();
       event.stopPropagation();
