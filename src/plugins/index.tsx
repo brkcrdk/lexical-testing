@@ -22,6 +22,7 @@ function Plugins({ children }: PropsWithChildren) {
       {children}
       <OnChangePlugin
         onChange={(editorState) => {
+          console.log(editorState);
           // console.log(editorState);
         }}
       />

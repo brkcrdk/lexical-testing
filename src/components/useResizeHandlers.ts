@@ -68,12 +68,12 @@ function useResizeHandler({ width, onResize }: Props) {
       ref.current.removeAttribute("data-resizing");
     }
     positioningRef.current = inititialPositioningState;
-    if (onResize) {
-      onResize(positioningRef.current.currentWidth);
-    }
 
     document.removeEventListener("pointermove", handlePointerMove);
     document.removeEventListener("pointerup", handlePointerUp);
+    if (onResize) {
+      onResize(positioningRef.current.currentWidth);
+    }
   }
 
   function handlePointerDown(
