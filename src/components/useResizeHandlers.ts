@@ -15,17 +15,15 @@ function clamp(value: number, min: number, max: number) {
 
 interface PositioningState {
   direction: DirectionTypes;
-  startWidth: number;
-  ratio: number;
-  currentWidth: number;
   startX: number;
   isResizing: boolean;
+  startWidth: number;
+  currentWidth: number;
 }
 
 const inititialPositioningState: PositioningState = {
   direction: "left",
   startWidth: 0,
-  ratio: 0,
   currentWidth: 0,
   startX: 0,
   isResizing: false,
@@ -33,9 +31,10 @@ const inititialPositioningState: PositioningState = {
 
 interface Props {
   width: number;
+  onResize: (width: number) => void;
 }
 
-function useResizeHandler({ width = 50 }: Props) {
+function useResizeHandler({ width = 50, onResize }: Props) {
   const [editor] = useLexicalComposerContext();
   const ref = useRef<HTMLDivElement>(null);
   const positioningRef = useRef<PositioningState>(inititialPositioningState);
@@ -70,11 +69,12 @@ function useResizeHandler({ width = 50 }: Props) {
     }
   }
 
-  function handlePointerUp(event: PointerEvent) {
+  function handlePointerUp() {
     if (ref.current) {
       ref.current.removeAttribute("data-resizing");
     }
     positioningRef.current = inititialPositioningState;
+    onResize(positioningRef.current.currentWidth);
 
     document.removeEventListener("pointermove", handlePointerMove);
     document.removeEventListener("pointerup", handlePointerUp);
@@ -91,9 +91,8 @@ function useResizeHandler({ width = 50 }: Props) {
     if (ref.current) {
       event.preventDefault();
       event.stopPropagation();
-      const { width, height } = ref.current.getBoundingClientRect();
+      const { width } = ref.current.getBoundingClientRect();
       positioningRef.current.startWidth = width;
-      positioningRef.current.ratio = width / height;
       positioningRef.current.currentWidth = width;
       positioningRef.current.startX = event.clientX;
       positioningRef.current.direction = direction;

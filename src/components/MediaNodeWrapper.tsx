@@ -3,14 +3,15 @@ import useResizeHandler from "./useResizeHandlers";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   width: number;
+  onResize: (width: number) => void;
 }
 
 /**
  * Bu element wrapper elementi ile editore eklenen medya(video/resim/ses vb) nodeları hem
  * konumlandırmak hem de boyutlandırma işlemlerini yapmak için kullandığımız componenttir.
  */
-function MediaNodeWrapper({ children, width }: Props) {
-  const { ref, handlePointerDown } = useResizeHandler({ width });
+function MediaNodeWrapper({ children, width, onResize }: Props) {
+  const { ref, handlePointerDown } = useResizeHandler({ width, onResize });
 
   return (
     <div

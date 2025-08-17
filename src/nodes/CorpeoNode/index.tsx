@@ -2,34 +2,48 @@ import {
   DecoratorBlockNode,
   type SerializedDecoratorBlockNode,
 } from "@lexical/react/LexicalDecoratorBlockNode";
+
 import type {
-  DOMExportOutput,
   EditorConfig,
   ElementFormatType,
   LexicalEditor,
   LexicalNode,
   NodeKey,
 } from "lexical";
+
 import CorpeoComponent from "./CorpeoComponent";
 
 interface SerializedCorpeoNode extends SerializedDecoratorBlockNode {
   hashCode: string;
+  width: number;
 }
 
 export class CorpeoNode extends DecoratorBlockNode {
   __hashCode: string;
+  __width: number;
 
   static getType(): string {
     return "corpeo";
   }
 
   static clone(node: CorpeoNode): CorpeoNode {
-    return new CorpeoNode(node.__hashCode, node.__format, node.__key);
+    return new CorpeoNode(
+      node.__hashCode,
+      node.__width,
+      node.__format,
+      node.__key
+    );
   }
 
-  constructor(hashCode: string, format?: ElementFormatType, key?: NodeKey) {
+  constructor(
+    hashCode: string,
+    width: number = 50,
+    format?: ElementFormatType,
+    key?: NodeKey
+  ) {
     super(format, key);
     this.__hashCode = hashCode;
+    this.__width = width;
   }
 
   updateDOM(): false {
@@ -37,15 +51,17 @@ export class CorpeoNode extends DecoratorBlockNode {
   }
 
   static importJSON(serializedNode: SerializedCorpeoNode): CorpeoNode {
-    return $createCorpeoNode(serializedNode.hashCode).updateFromJSON(
-      serializedNode
-    );
+    return $createCorpeoNode(
+      serializedNode.hashCode,
+      serializedNode.width
+    ).updateFromJSON(serializedNode);
   }
 
   exportJSON(): SerializedCorpeoNode {
     return {
       ...super.exportJSON(),
       hashCode: this.__hashCode,
+      width: this.__width,
     };
   }
 
@@ -63,12 +79,15 @@ export class CorpeoNode extends DecoratorBlockNode {
     //     videoID={this.__id}
     //   />
     // );
-    return <CorpeoComponent hashCode={this.__hashCode} />;
+    return <CorpeoComponent hashCode={this.__hashCode} width={this.__width} />;
   }
 }
 
-export function $createCorpeoNode(hashCode: string): CorpeoNode {
-  return new CorpeoNode(hashCode);
+export function $createCorpeoNode(
+  hashCode: string,
+  width?: number
+): CorpeoNode {
+  return new CorpeoNode(hashCode, width);
 }
 
 export function $isCorpeoNode(
