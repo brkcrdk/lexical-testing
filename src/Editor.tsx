@@ -36,14 +36,14 @@ function Editor() {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <Plugins>
-        <div className="grid grid-cols-2 size-full relative">
+        <div className="grid grid-cols-2 size-full relative min-h-svh">
           <RichTextPlugin
             contentEditable={
               <div
                 id="editor-content"
                 className="relative border-2 border-red-900 border-dashed pl-14">
                 <ContentEditable
-                  className="size-full outline-none overflow-auto max-h-10/12"
+                  className="size-full outline-none overflow-auto"
                   data-placeholder={"Enter some text..."}
                   aria-placeholder={"Enter some text..."}
                   placeholder={<div />}

@@ -1,62 +1,115 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { useRef, type PointerEvent } from "react";
+import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 
-type DirectionTypes = 'left' | 'right'
+type DirectionTypes = "left" | "right";
 
-interface PositioningState {
-  startWidth: number;
-  startHeight: number;
-  ratio: number;
-  currentWidth: number;
-  currentHeight: number;
+const MIN_WIDTH = 30;
+const MAX_WIDTH = 90;
+
+/**
+ * Genişlik değerinin min ve max arasında kalmasını sağlar.
+ */
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
 }
 
-function useResizeHandler() {
-  const ref = useRef<HTMLDivElement>(null);
-  const positioningRef = useRef<PositioningState>({
-    startWidth: 0,
-    startHeight: 0,
-    ratio: 0,
-    currentWidth: 0,
-    currentHeight: 0,
-  })
+interface PositioningState {
+  direction: DirectionTypes;
+  startWidth: number;
+  ratio: number;
+  currentWidth: number;
+  startX: number;
+  isResizing: boolean;
+}
+
+const inititialPositioningState: PositioningState = {
+  direction: "left",
+  startWidth: 0,
+  ratio: 0,
+  currentWidth: 0,
+  startX: 0,
+  isResizing: false,
+};
+
+interface Props {
+  width: number;
+}
+
+function useResizeHandler({ width = 50 }: Props) {
   const [editor] = useLexicalComposerContext();
+  const ref = useRef<HTMLDivElement>(null);
+  const positioningRef = useRef<PositioningState>(inititialPositioningState);
 
-  function handlePointerMove(event: PointerEvent<HTMLSpanElement>) {
-    event.preventDefault();
-    event.stopPropagation();
+  function handlePointerMove(event: PointerEvent) {
+    if (positioningRef.current.isResizing) {
+      const currentX = event.clientX;
+      const startX = positioningRef.current.startX;
+      const deltaX = currentX - startX;
 
-    console.log('pointer move')
+      const startWidth = positioningRef.current.startWidth;
+      const percentageChange = (deltaX / startWidth) * 100;
+
+      const direction = positioningRef.current.direction;
+      let newPercentage;
+
+      if (direction === "right") {
+        newPercentage = width + percentageChange;
+      } else {
+        newPercentage = width + percentageChange;
+      }
+
+      const clampedPercentage = clamp(newPercentage, MIN_WIDTH, MAX_WIDTH);
+
+      if (ref.current) {
+        ref.current.setAttribute("data-resizing", "");
+        ref.current.style.setProperty(
+          "--wrapper-width",
+          clampedPercentage + "%"
+        );
+      }
+    }
   }
 
-  function handlePointerUp(event: PointerEvent<HTMLSpanElement>) {
-    console.log(event)
-    event.preventDefault();
-    event.stopPropagation();
+  function handlePointerUp(event: PointerEvent) {
+    if (ref.current) {
+      ref.current.removeAttribute("data-resizing");
+    }
+    positioningRef.current = inititialPositioningState;
+
+    document.removeEventListener("pointermove", handlePointerMove);
+    document.removeEventListener("pointerup", handlePointerUp);
   }
 
-
-  function handlePointerDown(event: PointerEvent<HTMLSpanElement>, direction: DirectionTypes) {
+  function handlePointerDown(
+    event: ReactPointerEvent<HTMLSpanElement>,
+    direction: DirectionTypes
+  ) {
     if (!editor.isEditable()) {
       return;
     }
-    
-    if(ref.current){
+
+    if (ref.current) {
       event.preventDefault();
       event.stopPropagation();
       const { width, height } = ref.current.getBoundingClientRect();
       positioningRef.current.startWidth = width;
-      positioningRef.current.startHeight = height;
       positioningRef.current.ratio = width / height;
       positioningRef.current.currentWidth = width;
-      positioningRef.current.currentHeight = height;
+      positioningRef.current.startX = event.clientX;
+      positioningRef.current.direction = direction;
+      positioningRef.current.isResizing = true;
 
-      ref.current.style.width= width + 'px'
+      ref.current.removeAttribute("data-resizing");
+
+      document.addEventListener("pointermove", handlePointerMove);
+      document.addEventListener("pointerup", handlePointerUp);
     }
-    
   }
 
-  return { ref, handlePointerDown, handlePointerMove,handlePointerUp }
+  return {
+    ref,
+    handlePointerDown,
+  };
 }
 
 export default useResizeHandler;
