@@ -65,6 +65,7 @@ export class CorpeoNode extends DecoratorBlockNode {
     };
   }
 
+
   decorate(_editor: LexicalEditor, config: EditorConfig) {
     // const embedBlockTheme = config.theme.embedBlock || {};
     // const className = {

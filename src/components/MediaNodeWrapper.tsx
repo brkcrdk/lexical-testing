@@ -4,7 +4,7 @@ import { useLexicalEditable } from "@lexical/react/useLexicalEditable";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   width: number;
-  onResize: (width: number) => void;
+  onResize?: (width: number) => void;
 }
 
 /**
@@ -13,7 +13,10 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
  */
 function MediaNodeWrapper({ children, width, onResize }: Props) {
   const isEditable = useLexicalEditable();
-  const { ref, handlePointerDown } = useResizeHandler({ width, onResize });
+  const { ref, handlePointerDown } = useResizeHandler({
+    width,
+    onResize,
+  });
 
   return (
     <div

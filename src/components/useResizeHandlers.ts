@@ -3,8 +3,8 @@ import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 
 type DirectionTypes = "left" | "right";
 
-const MIN_WIDTH = 30;
-const MAX_WIDTH = 90;
+const MIN_WIDTH = 200;
+const MAX_WIDTH = 500;
 
 /**
  * Genişlik değerinin min ve max arasında kalmasını sağlar.
@@ -19,7 +19,6 @@ interface PositioningState {
   isResizing: boolean;
   startWidth: number;
   currentWidth: number;
-  currentPercentage: number;
 }
 
 const inititialPositioningState: PositioningState = {
@@ -28,45 +27,38 @@ const inititialPositioningState: PositioningState = {
   currentWidth: 0,
   startX: 0,
   isResizing: false,
-  currentPercentage: 0,
 };
 
 interface Props {
   width: number;
-  onResize: (width: number) => void;
+  onResize?: (width: number) => void;
 }
 
 function useResizeHandler({ width, onResize }: Props) {
   const ref = useRef<HTMLDivElement>(null);
-  const positioningRef = useRef<PositioningState>(inititialPositioningState);
+  const positioningRef = useRef<PositioningState>({
+    ...inititialPositioningState,
+    currentWidth: width,
+  });
 
   function handlePointerMove(event: PointerEvent) {
     if (positioningRef.current.isResizing) {
-      const currentX = event.clientX;
+      const pointerEvent = event as PointerEvent;
+
+      // 1. Mevcut pointer pozisyonu
+      const currentX = pointerEvent.clientX;
+
+      // 2. Başlangıç pozisyonu
       const startX = positioningRef.current.startX;
+
       const deltaX = currentX - startX;
+      const newWidth = positioningRef.current.startWidth + deltaX * 2; // 2x çünkü her iki yöne
 
-      const startWidth = positioningRef.current.startWidth;
-      const percentageChange = (deltaX / startWidth) * 100;
-
-      const direction = positioningRef.current.direction;
-      let newPercentage;
-
-      if (direction === "right") {
-        newPercentage = width + percentageChange;
-      } else {
-        newPercentage = width + percentageChange;
-      }
-
-      const clampedPercentage = clamp(newPercentage, MIN_WIDTH, MAX_WIDTH);
-      positioningRef.current.currentPercentage = clampedPercentage;
+      const clampedPercentage = clamp(newWidth, MIN_WIDTH, MAX_WIDTH);
 
       if (ref.current) {
         ref.current.setAttribute("data-resizing", "");
-        ref.current.style.setProperty(
-          "--wrapper-width",
-          clampedPercentage + "%"
-        );
+        ref.current.style.width = clampedPercentage + "px";
       }
     }
   }
@@ -76,7 +68,9 @@ function useResizeHandler({ width, onResize }: Props) {
       ref.current.removeAttribute("data-resizing");
     }
     positioningRef.current = inititialPositioningState;
-    onResize(positioningRef.current.currentPercentage);
+    if (onResize) {
+      onResize(positioningRef.current.currentWidth);
+    }
 
     document.removeEventListener("pointermove", handlePointerMove);
     document.removeEventListener("pointerup", handlePointerUp);
