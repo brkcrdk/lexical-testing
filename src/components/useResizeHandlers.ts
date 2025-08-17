@@ -36,7 +36,7 @@ interface Props {
   onResize: (width: number) => void;
 }
 
-function useResizeHandler({ width = 50, onResize }: Props) {
+function useResizeHandler({ width, onResize }: Props) {
   const [editor] = useLexicalComposerContext();
   const ref = useRef<HTMLDivElement>(null);
   const positioningRef = useRef<PositioningState>(inititialPositioningState);
