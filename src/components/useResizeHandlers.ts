@@ -52,6 +52,7 @@ function useResizeHandler({ initialWidth, onResize }: Props) {
       const newWidth = positioningRef.current.startWidth + deltaX * 2; // 2x çünkü her iki yöne
 
       const clampedPercentage = clamp(newWidth, MIN_WIDTH, MAX_WIDTH);
+      positioningRef.current.currentWidth = clampedPercentage;
 
       if (ref.current) {
         ref.current.setAttribute("data-resizing", "");
@@ -64,7 +65,8 @@ function useResizeHandler({ initialWidth, onResize }: Props) {
     if (ref.current) {
       ref.current.removeAttribute("data-resizing");
     }
-    positioningRef.current = inititialPositioningState;
+
+    positioningRef.current.isResizing = false;
 
     document.removeEventListener("pointermove", handlePointerMove);
     document.removeEventListener("pointerup", handlePointerUp);
