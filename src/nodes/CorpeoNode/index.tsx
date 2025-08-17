@@ -34,7 +34,6 @@ export class CorpeoNode extends DecoratorBlockNode {
   updateDOM(): false {
     return false;
   }
-
   static importJSON(serializedNode: SerializedCorpeoNode): CorpeoNode {
     return $createCorpeoNode(serializedNode.hashCode).updateFromJSON(
       serializedNode

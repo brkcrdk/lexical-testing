@@ -87,12 +87,7 @@ function TypeaheadNodeSelection() {
 
       if(val.__nodeOption.nodeName === "corpeo"){
         const corpeoNode = $createCorpeoNode("");
-        editor.update(()=>{
-          const $root = $getRoot();
-          // $insertNodes([corpeoNode]);
-          $root.append(corpeoNode);
-        })
-        // $insertNodes([corpeoNode]);
+        $insertNodes([corpeoNode]);
       }
      
       // Ekleme işlemleri bittikten sonra typeahead değerini temizliyoruz.
