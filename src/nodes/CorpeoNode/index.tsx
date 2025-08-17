@@ -3,6 +3,7 @@ import {
   type SerializedDecoratorBlockNode,
 } from "@lexical/react/LexicalDecoratorBlockNode";
 import type {
+  DOMExportOutput,
   EditorConfig,
   ElementFormatType,
   LexicalEditor,
@@ -34,6 +35,7 @@ export class CorpeoNode extends DecoratorBlockNode {
   updateDOM(): false {
     return false;
   }
+
   static importJSON(serializedNode: SerializedCorpeoNode): CorpeoNode {
     return $createCorpeoNode(serializedNode.hashCode).updateFromJSON(
       serializedNode
@@ -61,13 +63,7 @@ export class CorpeoNode extends DecoratorBlockNode {
     //     videoID={this.__id}
     //   />
     // );
-    return (
-      <CorpeoComponent
-        hashCode={this.__hashCode}
-        format={this.__format}
-        nodeKey={this.getKey()}
-      />
-    );
+    return <CorpeoComponent hashCode={this.__hashCode} />;
   }
 }
 

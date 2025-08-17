@@ -138,3 +138,7 @@ details{
 details:open {
   height: 100%;
 }
+
+[data-lexical-decorator="true"]{
+  display: contents;
+}
