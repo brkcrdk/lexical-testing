@@ -72,12 +72,12 @@ export class CorpeoNode extends DecoratorBlockNode {
     };
   }
 
-  setWidth(width: number): void {
+  setWidth(width: number) {
     const writable = this.getWritable();
     writable.__width = width;
   }
 
-  setAlign(align: AlignTypes): void {
+  setAlign(align: AlignTypes) {
     const writable = this.getWritable();
     writable.__align = align;
   }
