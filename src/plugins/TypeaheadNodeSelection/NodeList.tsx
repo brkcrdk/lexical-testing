@@ -15,7 +15,7 @@ function NodeList({ options, selectedIndex, selectOptionAndCleanUp, setHighlight
       <Popover.Trigger />
       <Popover.Portal>
         <Popover.Content
-          sideOffset={-20}
+          align="start"
           onOpenAutoFocus={(e) => e.preventDefault()}>
           <ul className="bg-white shadow-sm rounded-md p-2 relative w-2xs max-h-(--radix-popover-content-available-height) overflow-y-auto">
             {options.map((option, index) => (
