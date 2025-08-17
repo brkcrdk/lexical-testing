@@ -24,7 +24,6 @@ type NodeOptionProps =
       triggerPattern: string;
     }
 
-
 export class CustomNodeOption extends MenuOption {
   __nodeOption: NodeOptionProps;
   constructor(key: string, nodeOption: NodeOptionProps) {
@@ -112,6 +111,12 @@ const nodeOptions = [
     type: 'default',
     nodeName: "toggle-list",
     title: "Toggle List",
+    triggerPattern: "",
+  }),
+  new CustomNodeOption("corpeo", {
+    type: 'default',
+    nodeName: "corpeo",
+    title: "Corpeo",
     triggerPattern: "",
   }),
 ];

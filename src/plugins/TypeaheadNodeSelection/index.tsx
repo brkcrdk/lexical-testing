@@ -14,6 +14,7 @@ import { $createListItemNode, $createListNode } from "@lexical/list";
 import { $createQuoteNode  } from "@lexical/rich-text";
 import {  INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 import { INSERT_COLLAPSIBLE_COMMAND } from "../CollapsiblePlugin";
+import { $createCorpeoNode } from "../../nodes/CorpeoNode";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -82,6 +83,11 @@ function TypeaheadNodeSelection() {
 
       if (val.__nodeOption.nodeName === "toggle-list") {
         return editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined);
+      }
+
+      if(val.__nodeOption.nodeName === "corpeo"){
+        const corpeoNode = $createCorpeoNode("123");
+        $insertNodes([corpeoNode]);
       }
      
       // Ekleme işlemleri bittikten sonra typeahead değerini temizliyoruz.

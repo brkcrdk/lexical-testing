@@ -15,6 +15,7 @@ import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 import { CollapsibleContainerNode } from "./CollapsibleContainerNode";
 import { CollapsibleTitleNode } from "./CollapsibleTitleNode";
 import { CollapsibleContentNode } from "./CollapsibleContentNode";
+import { CorpeoNode } from "./CorpeoNode";
 
 const nodes: InitialConfigType["nodes"] = [
   CustomHeadingNode,
@@ -25,6 +26,7 @@ const nodes: InitialConfigType["nodes"] = [
   CollapsibleTitleNode,
   CollapsibleContentNode,
   HorizontalRuleNode,
+  CorpeoNode,
   {
     replace: HeadingNode,
     with: (val) => $createCustomHeadingNode(val),
