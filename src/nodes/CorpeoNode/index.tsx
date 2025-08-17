@@ -43,7 +43,7 @@ export class CorpeoNode extends DecoratorBlockNode {
     width: number = 50,
     format?: ElementFormatType,
     key?: NodeKey,
-    align: AlignTypes = "left"
+    align: AlignTypes = "start"
   ) {
     super(format, key);
     this.__hashCode = hashCode;
@@ -100,6 +100,7 @@ export class CorpeoNode extends DecoratorBlockNode {
       <CorpeoComponent
         hashCode={this.__hashCode}
         width={this.__width}
+        align={this.__align}
         onResize={(width) => {
           editor.update(() => {
             this.setWidth(width);

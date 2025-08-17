@@ -3,11 +3,13 @@ import useResizeHandler from "./useResizeHandlers";
 import { useLexicalEditable } from "@lexical/react/useLexicalEditable";
 import MediaActions from "./MediaActions";
 
-export type AlignTypes = "left" | "center" | "right";
+export type AlignTypes = "start" | "center" | "end";
 
 export interface MediaNodeWrapperProps extends HTMLAttributes<HTMLDivElement> {
   initialWidth: number;
   onResize?: (width: number) => void;
+  onAlignChange?: (align: AlignTypes) => void;
+  align: AlignTypes;
 }
 
 /**
@@ -18,6 +20,8 @@ function MediaNodeWrapper({
   children,
   initialWidth,
   onResize,
+  onAlignChange,
+  align,
 }: MediaNodeWrapperProps) {
   const isEditable = useLexicalEditable();
   const { ref, handlePointerDown } = useResizeHandler({
@@ -28,12 +32,17 @@ function MediaNodeWrapper({
   return (
     <div
       ref={ref}
-      style={{ "--wrapper-width": `${initialWidth}%` } as CSSProperties}
-      className="relative aspect-video w-(--wrapper-width) overflow-hidden flex justify-self-center group data-resizing:pointer-events-none">
-      <MediaActions />
+      style={
+        {
+          "--wrapper-width": `${initialWidth}%`,
+          justifySelf: align,
+        } as CSSProperties
+      }
+      className="relative aspect-video w-(--wrapper-width) overflow-hidden flex group data-resizing:pointer-events-none">
+      <MediaActions onAlignChange={onAlignChange} align={align} />
       {isEditable && (
         <span
-          className="w-2 h-16 bg-black/30 border-1 border-white/80 absolute left-0.5 top-1/2 -translate-y-1/2 rounded-full group-hover:block hidden cursor-col-resize"
+          className="w-2 h-16 bg-black/30 border-1 border-white/80 absolute left-0.5 top-1/2 -translate-y-1/2 rounded-full invisible group-hover:visible cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           onPointerDown={(event) => {
             handlePointerDown(event, "left");
           }}
@@ -42,7 +51,7 @@ function MediaNodeWrapper({
       {children}
       {isEditable && (
         <span
-          className="w-2 h-16 bg-black/30 border-1 border-white/80 absolute right-0.5 top-1/2 -translate-y-1/2 rounded-full group-hover:block hidden cursor-col-resize"
+          className="w-2 h-16 bg-black/30 border-1 border-white/80 absolute right-0.5 top-1/2 -translate-y-1/2 rounded-full invisible group-hover:visible cursor-col-resize opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           onPointerDown={(event) => {
             handlePointerDown(event, "right");
           }}

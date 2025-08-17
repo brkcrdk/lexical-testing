@@ -15,13 +15,23 @@ interface Props {
   onAlignChange?: (align: AlignTypes) => void;
 }
 
-function CorpeoComponent({ hashCode, width = 50, onResize }: Props) {
+function CorpeoComponent({
+  hashCode,
+  width = 50,
+  onResize,
+  align = "start",
+  onAlignChange,
+}: Props) {
   // if (!hashCode) {
   //   return <div>Please select a valid corpeo video</div>;
   // }
 
   return (
-    <MediaNodeWrapper initialWidth={width} onResize={onResize}>
+    <MediaNodeWrapper
+      initialWidth={width}
+      onResize={onResize}
+      align={align}
+      onAlignChange={onAlignChange}>
       <iframe
         src="http://localhost:3000/v2/embed/93e81b36-512"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

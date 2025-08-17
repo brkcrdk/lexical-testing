@@ -37,7 +37,10 @@ const inititialPositioningState: PositioningState = {
   isResizing: false,
 };
 
-type Props = Omit<MediaNodeWrapperProps, "children">;
+type Props = Omit<
+  MediaNodeWrapperProps,
+  "children" | "onAlignChange" | "align"
+>;
 
 function useResizeHandler({ initialWidth, onResize }: Props) {
   const [editor] = useLexicalComposerContext();

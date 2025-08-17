@@ -4,17 +4,21 @@ import {
   AlignHorizontalJustifyStart,
 } from "lucide-react";
 import { Popover, ToggleGroup } from "radix-ui";
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import type { AlignTypes } from "../MediaNodeWrapper";
 
 const alignOptions: Record<AlignTypes, ReactNode> = {
-  left: <AlignHorizontalJustifyStart size={16} />,
+  start: <AlignHorizontalJustifyStart size={16} />,
   center: <AlignHorizontalJustifyCenter size={16} />,
-  right: <AlignHorizontalJustifyEnd size={16} />,
+  end: <AlignHorizontalJustifyEnd size={16} />,
 };
 
-function AlignActions() {
-  const [align, setAlign] = useState<AlignTypes>("left");
+interface AlignActionsProps {
+  align: AlignTypes;
+  onAlignChange?: (align: AlignTypes) => void;
+}
+
+function AlignActions({ onAlignChange, align }: AlignActionsProps) {
   return (
     <Popover.Root>
       <Popover.Trigger className="bg-black/30 !rounded-none hover:bg-black/50 ">
@@ -26,7 +30,9 @@ function AlignActions() {
             type="single"
             defaultValue={align}
             onValueChange={(value) => {
-              setAlign(value as AlignTypes);
+              if (onAlignChange && value) {
+                onAlignChange(value as AlignTypes);
+              }
             }}>
             {Object.entries(alignOptions).map(([value, icon]) => (
               <ToggleGroup.Item
