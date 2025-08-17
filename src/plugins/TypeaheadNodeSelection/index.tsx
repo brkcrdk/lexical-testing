@@ -3,7 +3,7 @@ import {
   LexicalTypeaheadMenuPlugin,
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { $createTextNode, $getRoot, $getSelection, $insertNodes, $isRangeSelection, $isTextNode, INSERT_PARAGRAPH_COMMAND } from "lexical";
+import { $createTextNode, $getSelection, $insertNodes, $isRangeSelection, $isTextNode, INSERT_PARAGRAPH_COMMAND } from "lexical";
 import { useCallback, useState } from "react";
 import { createPortal } from "react-dom";
 import { $isMainHeadingNode } from "../../nodes/MainHeadingNode";
