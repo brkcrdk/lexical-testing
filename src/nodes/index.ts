@@ -16,6 +16,7 @@ import { CollapsibleContainerNode } from "./CollapsibleContainerNode";
 import { CollapsibleTitleNode } from "./CollapsibleTitleNode";
 import { CollapsibleContentNode } from "./CollapsibleContentNode";
 import { CorpeoNode } from "./CorpeoNode";
+import { PDFNode } from "./PDFNode";
 
 const nodes: InitialConfigType["nodes"] = [
   CustomHeadingNode,
@@ -27,6 +28,7 @@ const nodes: InitialConfigType["nodes"] = [
   CollapsibleContentNode,
   HorizontalRuleNode,
   CorpeoNode,
+  PDFNode,
   {
     replace: HeadingNode,
     with: (val) => $createCustomHeadingNode(val),

@@ -15,6 +15,7 @@ import { $createQuoteNode  } from "@lexical/rich-text";
 import {  INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 import { INSERT_COLLAPSIBLE_COMMAND } from "../CollapsiblePlugin";
 import { $createCorpeoNode } from "../../nodes/CorpeoNode";
+import { $createPDFNode } from "../../nodes/PDFNode";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -89,7 +90,12 @@ function TypeaheadNodeSelection() {
         const corpeoNode = $createCorpeoNode("");
         $insertNodes([corpeoNode]);
       }
-     
+
+      if(val.__nodeOption.nodeName === "pdf"){
+        const pdfNode = $createPDFNode();
+        $insertNodes([pdfNode]);
+      }
+
       // Ekleme işlemleri bittikten sonra typeahead değerini temizliyoruz.
       if($isTextNode(anchorNode)){
         anchorNode.setTextContent('')

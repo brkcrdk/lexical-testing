@@ -24,7 +24,7 @@ export class PDFNode extends DecoratorBlockNode {
   __width: number;
   __align: AlignTypes;
   static getType(): string {
-    return "corpeo";
+    return "pdf";
   }
 
   static clone(node: PDFNode): PDFNode {

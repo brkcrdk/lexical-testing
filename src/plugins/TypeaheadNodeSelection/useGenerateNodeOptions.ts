@@ -119,6 +119,12 @@ const nodeOptions = [
     title: "Corpeo",
     triggerPattern: "",
   }),
+  new CustomNodeOption("pdf", {
+    type: 'default',
+    nodeName: "pdf",
+    title: "PDF",
+    triggerPattern: "",
+  }),
 ];
 
 function useNodeOptions(queryString:string|null):CustomNodeOption[] {
