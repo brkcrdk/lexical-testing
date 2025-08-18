@@ -6,7 +6,7 @@ import {
 } from "lexical";
 import { useEffect } from "react";
 import { $insertNodeToNearestRoot } from "@lexical/utils";
-import { $createPDFNode } from "../nodes/PDFNode";
+import { $createPdfNode } from "../nodes/PdfNode";
 
 // Payload olarak bir şey gerekmediği için LexicalCommand typeına undefined parametre belirtiyoruz.
 export const INSERT_PDF_COMMAND: LexicalCommand<undefined> = createCommand(
@@ -20,7 +20,7 @@ function PdfPlugin() {
     const unregisterPdfCommand = editor.registerCommand(
       INSERT_PDF_COMMAND,
       () => {
-        const pdfNode = $createPDFNode();
+        const pdfNode = $createPdfNode();
         $insertNodeToNearestRoot(pdfNode);
         return true;
       },

@@ -12,20 +12,20 @@ import {
 } from "lexical";
 import type { AlignTypes } from "../../components/MediaNodeWrapper";
 
-interface SerializedPDFNode extends SerializedDecoratorBlockNode {
+interface SerializedPdfNode extends SerializedDecoratorBlockNode {
   width: number;
   align: AlignTypes;
 }
 
-export class PDFNode extends DecoratorBlockNode {
+export class PdfNode extends DecoratorBlockNode {
   __width: number;
   __align: AlignTypes;
   static getType(): string {
     return "pdf";
   }
 
-  static clone(node: PDFNode): PDFNode {
-    return new PDFNode(node.__width, node.__align, node.__format, node.__key);
+  static clone(node: PdfNode): PdfNode {
+    return new PdfNode(node.__width, node.__align, node.__format, node.__key);
   }
 
   constructor(
@@ -43,14 +43,14 @@ export class PDFNode extends DecoratorBlockNode {
     return false;
   }
 
-  static importJSON(serializedNode: SerializedPDFNode): PDFNode {
-    return $createPDFNode(
+  static importJSON(serializedNode: SerializedPdfNode): PdfNode {
+    return $createPdfNode(
       serializedNode.width,
       serializedNode.align
     ).updateFromJSON(serializedNode);
   }
 
-  exportJSON(): SerializedPDFNode {
+  exportJSON(): SerializedPdfNode {
     return {
       ...super.exportJSON(),
       width: this.__width,
@@ -73,12 +73,12 @@ export class PDFNode extends DecoratorBlockNode {
   }
 }
 
-export function $createPDFNode(width?: number, align?: AlignTypes): PDFNode {
-  return $applyNodeReplacement(new PDFNode(width, align));
+export function $createPdfNode(width?: number, align?: AlignTypes): PdfNode {
+  return $applyNodeReplacement(new PdfNode(width, align));
 }
 
-export function $isPDFNode(
-  node: PDFNode | LexicalNode | null | undefined
-): node is PDFNode {
-  return node instanceof PDFNode;
+export function $isPdfNode(
+  node: PdfNode | LexicalNode | null | undefined
+): node is PdfNode {
+  return node instanceof PdfNode;
 }
