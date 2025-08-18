@@ -7,9 +7,13 @@ import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
-// import testPdf from "./test.pdf";
 import testPdf from "./test2.pdf";
-import MediaNodeWrapper from "../../components/MediaNodeWrapper";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ZoomInIcon,
+  ZoomOutIcon,
+} from "lucide-react";
 
 function PdfComponent() {
   const [numPages, setNumPages] = useState<number | null>(null);
@@ -21,24 +25,40 @@ function PdfComponent() {
   }
 
   return (
-    <div className="relativeoverflow-hidden">
-      <Document file={testPdf} onLoadSuccess={onDocumentLoadSuccess}  className='aspect-video w-fit'>
-        <Page
-          pageNumber={pageNumber}
-          scale={1}
-          className="border-1 border-dashed border-blue-600"
-          loading="Sayfa yükleniyor..."
-          error="Sayfa yüklenirken hata oluştu."
-        />
-      </Document>
-      {/* <p>
-        Page {pageNumber} of {numPages}
-      </p> */}
-      <footer>
-            <button></button>
-
+    <section className="flex justify-center items-center flex-col gap-2">
+      <header className="flex items-center gap-2">
+        <button onClick={() => setScale((prev) => prev + 0.1)}>
+          <ZoomInIcon />
+        </button>
+        <h3>File Name</h3>
+        <button onClick={() => setScale((prev) => prev - 0.1)}>
+          <ZoomOutIcon />
+        </button>
+      </header>
+      <div className="relative overflow-hidden">
+        <Document
+          file={testPdf}
+          onLoadSuccess={onDocumentLoadSuccess}
+          className="aspect-video w-fit">
+          <Page
+            pageNumber={pageNumber}
+            scale={scale}
+            className="border-1 border-dashed border-blue-600"
+            loading="Sayfa yükleniyor..."
+            error="Sayfa yüklenirken hata oluştu."
+          />
+        </Document>
+      </div>
+      <footer className="flex items-center gap-2">
+        <button onClick={() => setPageNumber((prev) => prev - 1)}>
+          <ChevronLeftIcon />
+        </button>
+        <span>{pageNumber} / {numPages}</span>
+        <button onClick={() => setPageNumber((prev) => prev + 1)}>
+          <ChevronRightIcon />
+        </button>
       </footer>
-    </div>
+    </section>
   );
 }
 

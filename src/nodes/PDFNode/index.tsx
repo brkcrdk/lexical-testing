@@ -11,7 +11,7 @@ import {
   type NodeKey,
 } from "lexical";
 import type { AlignTypes } from "../../components/MediaNodeWrapper";
-import PdfComponent from "./PDFComponent";
+import PdfComponent from "./PdfComponent";
 
 interface SerializedPdfNode extends SerializedDecoratorBlockNode {
   width: number;
@@ -21,6 +21,7 @@ interface SerializedPdfNode extends SerializedDecoratorBlockNode {
 export class PdfNode extends DecoratorBlockNode {
   __width: number;
   __align: AlignTypes;
+
   static getType(): string {
     return "pdf";
   }
