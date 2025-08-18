@@ -6,16 +6,11 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { $getRoot, type EditorThemeClasses } from "lexical";
-// import { $createCustomParagraphNode } from "./nodes/CustomParagraphNode";
 import CustomTreeView from "./CustomTreeView";
 import { $createMainHeadingNode } from "./nodes/MainHeadingNode";
 
 import nodes from "./nodes";
 import Plugins from "./Plugins";
-
-// Catch any errors that occur during Lexical updates and log them
-// or throw them as needed. If you don't throw them, Lexical will
-// try to recover gracefully without losing user data.
 function onError(error: Error) {
   console.error(error);
 }
