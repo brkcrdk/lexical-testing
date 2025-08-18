@@ -8,9 +8,9 @@ import { type ReactNode } from "react";
 import type { AlignTypes } from "../MediaNodeWrapper";
 
 const alignOptions: Record<AlignTypes, ReactNode> = {
-  start: <AlignHorizontalJustifyStart size={16} />,
-  center: <AlignHorizontalJustifyCenter size={16} />,
-  end: <AlignHorizontalJustifyEnd size={16} />,
+  start: <AlignHorizontalJustifyStart className="size-full" />,
+  center: <AlignHorizontalJustifyCenter className="size-full" />,
+  end: <AlignHorizontalJustifyEnd className="size-full" />,
 };
 
 interface AlignActionsProps {
@@ -25,10 +25,11 @@ function AlignActions({ onAlignChange, align }: AlignActionsProps) {
         {alignOptions[align]}
       </Popover.Trigger>
       <Popover.Portal>
-        <Popover.Content className="flex gap-1 bg-black items-center justify-between">
+        <Popover.Content>
           <ToggleGroup.Root
             type="single"
             defaultValue={align}
+            className="flex gap-1 bg-black items-center justify-between p-0.5"
             onValueChange={(value) => {
               if (onAlignChange && value) {
                 onAlignChange(value as AlignTypes);
@@ -38,7 +39,7 @@ function AlignActions({ onAlignChange, align }: AlignActionsProps) {
               <ToggleGroup.Item
                 key={value}
                 value={value}
-                className="!rounded-none">
+                className="!rounded-none size-6">
                 {icon}
               </ToggleGroup.Item>
             ))}
