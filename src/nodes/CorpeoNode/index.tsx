@@ -33,6 +33,7 @@ export class CorpeoNode extends DecoratorBlockNode {
     return new CorpeoNode(
       node.__hashCode,
       node.__width,
+      node.__align,
       node.__format,
       node.__key
     );
@@ -41,9 +42,9 @@ export class CorpeoNode extends DecoratorBlockNode {
   constructor(
     hashCode: string,
     width: number = 50,
+    align: AlignTypes = "start",
     format?: ElementFormatType,
-    key?: NodeKey,
-    align: AlignTypes = "start"
+    key?: NodeKey
   ) {
     super(format, key);
     this.__hashCode = hashCode;
