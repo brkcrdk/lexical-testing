@@ -17,13 +17,13 @@
     "@lexical/rich-text": "^0.34.0",
     "@lexical/selection": "^0.34.0",
     "@lexical/utils": "^0.34.0",
-    "@react-pdf/renderer": "^4.3.0",
     "@tailwindcss/vite": "^4.1.12",
     "lexical": "^0.34.0",
     "lucide-react": "^0.539.0",
     "radix-ui": "^1.4.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-pdf": "^10.1.0",
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
