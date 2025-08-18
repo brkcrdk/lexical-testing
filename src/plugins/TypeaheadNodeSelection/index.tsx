@@ -14,8 +14,8 @@ import { $createListItemNode, $createListNode } from "@lexical/list";
 import { $createQuoteNode  } from "@lexical/rich-text";
 import {  INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 import { INSERT_COLLAPSIBLE_COMMAND } from "../CollapsiblePlugin";
-import { $createCorpeoNode } from "../../nodes/CorpeoNode";
-import { $createPDFNode } from "../../nodes/PDFNode";
+import { INSERT_CORPEO_COMMAND } from "../CorpeoPlugin";
+import { INSERT_PDF_COMMAND } from "../PdfPlugin";
 
 function TypeaheadNodeSelection() {
   const [editor] = useLexicalComposerContext();
@@ -83,22 +83,20 @@ function TypeaheadNodeSelection() {
       }
 
       if (val.__nodeOption.nodeName === "toggle-list") {
-        return editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined);
+        editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined);
       }
 
-      if(val.__nodeOption.nodeName === "corpeo"){
-        const corpeoNode = $createCorpeoNode("");
-        $insertNodes([corpeoNode]);
+      if (val.__nodeOption.nodeName === "corpeo") {
+        editor.dispatchCommand(INSERT_CORPEO_COMMAND, "");
       }
 
-      if(val.__nodeOption.nodeName === "pdf"){
-        const pdfNode = $createPDFNode();
-        $insertNodes([pdfNode]);
+      if (val.__nodeOption.nodeName === "pdf") {
+        editor.dispatchCommand(INSERT_PDF_COMMAND, undefined);
       }
 
       // Ekleme işlemleri bittikten sonra typeahead değerini temizliyoruz.
-      if($isTextNode(anchorNode)){
-        anchorNode.setTextContent('')
+      if ($isTextNode(anchorNode)) {
+        anchorNode.setTextContent("");
       }
     }
   },[editor])

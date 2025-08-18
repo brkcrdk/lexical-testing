@@ -10,6 +10,7 @@ import TypeaheadNodeSelection from "./TypeaheadNodeSelection";
 import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin";
 import { TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
 import CollapsiblePlugin from "./CollapsiblePlugin";
+import CorpeoPlugin from "./CorpeoPlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -35,6 +36,7 @@ function Plugins({ children }: PropsWithChildren) {
       <HorizontalRulePlugin />
       <TabIndentationPlugin />
       <CollapsiblePlugin />
+      <CorpeoPlugin />
     </Fragment>
   );
 }
