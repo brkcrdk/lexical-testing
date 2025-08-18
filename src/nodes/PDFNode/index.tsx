@@ -11,6 +11,7 @@ import {
   type NodeKey,
 } from "lexical";
 import type { AlignTypes } from "../../components/MediaNodeWrapper";
+import PdfComponent from "./PDFComponent";
 
 interface SerializedPdfNode extends SerializedDecoratorBlockNode {
   width: number;
@@ -69,7 +70,7 @@ export class PdfNode extends DecoratorBlockNode {
   }
 
   decorate(editor: LexicalEditor, config: EditorConfig) {
-    return <span>pdf block</span>;
+    return <PdfComponent />;
   }
 }
 

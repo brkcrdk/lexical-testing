@@ -11,6 +11,7 @@ import { HorizontalRulePlugin } from "@lexical/react/LexicalHorizontalRulePlugin
 import { TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
 import CollapsiblePlugin from "./CollapsiblePlugin";
 import CorpeoPlugin from "./CorpeoPlugin";
+import PdfPlugin from "./PdfPlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -23,7 +24,7 @@ function Plugins({ children }: PropsWithChildren) {
       {children}
       <OnChangePlugin
         onChange={(editorState) => {
-          console.log(editorState);
+          // console.log(editorState);
         }}
       />
       <HistoryPlugin />
@@ -37,6 +38,7 @@ function Plugins({ children }: PropsWithChildren) {
       <TabIndentationPlugin />
       <CollapsiblePlugin />
       <CorpeoPlugin />
+      <PdfPlugin />
     </Fragment>
   );
 }
