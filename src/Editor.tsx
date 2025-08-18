@@ -5,7 +5,7 @@ import {
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { $getRoot } from "lexical";
+import { $getRoot, type EditorThemeClasses } from "lexical";
 // import { $createCustomParagraphNode } from "./nodes/CustomParagraphNode";
 import CustomTreeView from "./CustomTreeView";
 import { $createMainHeadingNode } from "./nodes/MainHeadingNode";
@@ -20,10 +20,19 @@ function onError(error: Error) {
   console.error(error);
 }
 
+const theme: EditorThemeClasses = {
+  text: {
+    bold: "font-bold",
+    italic: "italic",
+    underline: "underline",
+  },
+};
+
 const initialConfig: InitialConfigType = {
   namespace: "MyEditor",
   onError,
   nodes,
+  theme,
   editorState: () => {
     const root = $getRoot();
     const initialHeading = $createMainHeadingNode();

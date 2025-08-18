@@ -12,6 +12,7 @@ import { TabIndentationPlugin} from '@lexical/react/LexicalTabIndentationPlugin'
 import CollapsiblePlugin from "./CollapsiblePlugin";
 import CorpeoPlugin from "./CorpeoPlugin";
 import PdfPlugin from "./PdfPlugin";
+import FloatingToolbarPlugin from "./FloatingToolbarPlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -39,6 +40,7 @@ function Plugins({ children }: PropsWithChildren) {
       <CollapsiblePlugin />
       <CorpeoPlugin />
       <PdfPlugin />
+      <FloatingToolbarPlugin />
     </Fragment>
   );
 }
