@@ -17,7 +17,15 @@ function onError(error: Error) {
 
 const theme: EditorThemeClasses = {
   list: {
+    ol: "ol",
+    ul: "ul",
     listitem: "list-item",
+    olDepth: ["ol-depth", "1"],
+    ulDepth: ["ul-depth", "1"],
+    nested: {
+      list: "neste-list",
+      listitem: "neste-list-item",
+    },
   },
   quote: "border-l-4 border-gray-300 pl-4 ml-4",
   heading: {
