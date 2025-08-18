@@ -2,7 +2,6 @@ import {
   DecoratorBlockNode,
   type SerializedDecoratorBlockNode,
 } from "@lexical/react/LexicalDecoratorBlockNode";
-import { BlockWithAlignableContents } from "@lexical/react/LexicalBlockWithAlignableContents";
 import {
   $applyNodeReplacement,
   type EditorConfig,
@@ -11,7 +10,7 @@ import {
   type LexicalNode,
   type NodeKey,
 } from "lexical";
-import type { AlignTypes } from "../components/MediaNodeWrapper";
+import type { AlignTypes } from "../../components/MediaNodeWrapper";
 
 interface SerializedPDFNode extends SerializedDecoratorBlockNode {
   width: number;
@@ -70,25 +69,12 @@ export class PDFNode extends DecoratorBlockNode {
   }
 
   decorate(editor: LexicalEditor, config: EditorConfig) {
-    return (
-      <BlockWithAlignableContents
-        className={{
-          base: "",
-          focus: "",
-        }}
-        nodeKey={this.getKey()}
-        format={this.__format}>
-        <span>pdf block</span>
-      </BlockWithAlignableContents>
-    );
+    return <span>pdf block</span>;
   }
 }
 
-export function $createPDFNode(
-  width?: number,
-  align?: AlignTypes
-): PDFNode {
-  return $applyNodeReplacement(new PDFNode( width, align));
+export function $createPDFNode(width?: number, align?: AlignTypes): PDFNode {
+  return $applyNodeReplacement(new PDFNode(width, align));
 }
 
 export function $isPDFNode(

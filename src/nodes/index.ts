@@ -27,8 +27,8 @@ const nodes: InitialConfigType["nodes"] = [
   CollapsibleTitleNode,
   CollapsibleContentNode,
   HorizontalRuleNode,
-  CorpeoNode,
   PDFNode,
+  CorpeoNode,
   {
     replace: HeadingNode,
     with: (val) => $createCustomHeadingNode(val),
