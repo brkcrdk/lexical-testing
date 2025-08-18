@@ -112,16 +112,6 @@ p[data-placeholder][data-empty]:hover:before {
   color: white;
 } */
 
-ol > li{
-  list-style-position: inside;
-  list-style-type: decimal;
-}
-
-ul > li {
-  list-style-position: inside;
-  list-style-type: disc;
-}
-
 details{
   height: auto;
   overflow: hidden;

@@ -31,6 +31,3 @@ TODOS:
 - [ ] Tablo elementi eklenecek.
 - [x] Text seçildiği zaman açılacak bir toolbar eklenecek.
   - [ ] Double click yapıldığında toolbar açılmıyor.
-- [ ] Stillerin tailwindden normal css'e çevirilmesi gerekebilir. 
-- [ ] Mevcut temaya yeni text stillerinin eklenebilip eklenemediğinin araştırılması gerekiyor.
-- [ ] Mevcut tema objesinin extend edilebilip edilmediğinin araştırılması gerekiyor.
