@@ -23,6 +23,7 @@ TODOS:
   - [x] Kullanıcı slash yazdığı anda sonrasında bir text ekleyip /filter veya /type-to-filter şekilinde bir yazı ile dolduracağız. Bu textler whitelist olacak ve tüm optionları return edecekler.
   - [x] Slashten sonra eklenen textin rengini güncellemeliyiz. Böylece placeholder gibi görünmesini sağlayabiliriz.
   - [x] Typeahead'in sadece slash-badge nodeunda çalışmasını sağlayıp, slashe basınca da sadece slash-badge çıkmasını sağlayabiliriz. Böylece dropdow'un sadece slash-badgede çıkmassını sağlayabilir ve aramalar yaparken textte çıkmamaasını garanti etmiş olabiliriz.
+- [x] Corpeo embed eklenecek.
 - [ ] PDF bloğu eklenmeli.
 - [ ] Listelerde tab indentation yapıldı ama `:marker` stili nedeniyle doğru görüntülenmiyor. Bu sorun giderilecek.
 - [ ] Slash-badge'i anchor ile yapmak yerine text nodeuna farklı bir format tipi ekleyerek stillendirmeyi yapacağız.
