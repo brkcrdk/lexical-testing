@@ -83,20 +83,12 @@ export class CorpeoNode extends DecoratorBlockNode {
     writable.__align = align;
   }
 
+  setHashCode(hashCode: string) {
+    const writable = this.getWritable();
+    writable.__hashCode = hashCode;
+  }
+
   decorate(editor: LexicalEditor, config: EditorConfig) {
-    // const embedBlockTheme = config.theme.embedBlock || {};
-    // const className = {
-    //   base: embedBlockTheme.base || '',
-    //   focus: embedBlockTheme.focus || '',
-    // };
-    // return (
-    //   <YouTubeComponent
-    //     className={className}
-    //     format={this.__format}
-    //     nodeKey={this.getKey()}
-    //     videoID={this.__id}
-    //   />
-    // );
     return (
       <CorpeoComponent
         hashCode={this.__hashCode}
@@ -110,6 +102,11 @@ export class CorpeoNode extends DecoratorBlockNode {
         onAlignChange={(align) => {
           editor.update(() => {
             this.setAlign(align);
+          });
+        }}
+        onSelect={(hashCode) => {
+          editor.update(() => {
+            this.setHashCode(hashCode);
           });
         }}
       />
