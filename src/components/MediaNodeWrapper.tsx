@@ -38,7 +38,7 @@ function MediaNodeWrapper({
           justifySelf: align,
         } as CSSProperties
       }
-      className="relative aspect-video w-(--wrapper-width) overflow-hidden flex group data-resizing:pointer-events-none overflow-hidden">
+      className="relative aspect-video w-(--wrapper-width) overflow-hidden flex group data-resizing:pointer-events-none">
       <MediaActions onAlignChange={onAlignChange} align={align} />
       {isEditable && (
         <span
