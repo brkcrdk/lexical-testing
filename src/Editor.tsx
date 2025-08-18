@@ -21,6 +21,18 @@ function onError(error: Error) {
 }
 
 const theme: EditorThemeClasses = {
+  list: {
+    listitem: "list-item",
+  },
+  quote: "border-l-4 border-gray-300 pl-4 ml-4",
+  heading: {
+    h1: "text-2xl font-bold",
+    h2: "text-xl font-bold",
+    h3: "text-lg font-bold",
+    h4: "text-base font-bold",
+    h5: "text-sm font-bold",
+    h6: "text-xs font-bold",
+  },
   text: {
     bold: "font-bold",
     italic: "italic",
