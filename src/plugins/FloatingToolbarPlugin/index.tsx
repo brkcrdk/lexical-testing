@@ -17,7 +17,6 @@ const [isItalic, setIsItalic] = useState(false);
 const [isUnderline, setIsUnderline] = useState(false);
 const [visible, setVisible] = useState(false);
 
-// Toolbar’ın pozisyonunu güncelle
 const updateToolbar = useCallback(() => {
   editor.getEditorState().read(() => {
     const selection = $getSelection();
@@ -41,10 +40,27 @@ const updateToolbar = useCallback(() => {
     }
     const range = nativeSelection.getRangeAt(0);
     const rect = range.getBoundingClientRect();
+    const rects = range.getClientRects();
+    const isMultiLine = rects.length > 1;
+
+    // if (toolbarElem) {
+    //   toolbarElem.style.top = `${rect.top - 70 + window.scrollY}px`;
+    //   toolbarElem.style.left = `${rect.left + rect.width / 2}px`;
+    //   toolbarElem.style.transform = `translateX(-50%)`;
+    // }
 
     if (toolbarElem) {
       toolbarElem.style.top = `${rect.top - 70 + window.scrollY}px`;
-      toolbarElem.style.left = `${rect.left + rect.width / 2}px`;
+
+      if (isMultiLine) {
+        // Çok satır: ilk satırın başlangıcında
+        toolbarElem.style.left = `${rects[0].left}px`;
+        toolbarElem.style.transform = "none";
+      } else {
+        // Tek satır: ortada
+        toolbarElem.style.left = `${rect.left + rect.width / 2}px`;
+        toolbarElem.style.transform = "translateX(-50%)";
+      }
     }
 
     setVisible(true);
