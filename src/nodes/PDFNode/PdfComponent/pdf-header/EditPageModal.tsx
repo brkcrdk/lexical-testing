@@ -12,15 +12,19 @@ interface Props{
 }
 
 function EditPageModal({ activePageMetadata }: Props) {
+  const [open, setOpen] = useState(false);
   const [editor] = useLexicalComposerContext();
-  const [pageName, setPageName] = useState(activePageMetadata.pageName);
-  const [readingTime, setReadingTime] = useState(activePageMetadata.readingTime);
+  const [pageName, setPageName] = useState('');
+  const [readingTime, setReadingTime] = useState(-1);
 
   const {nodeKey, pageMetadata} = usePdfContext();
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger onClick={() => {
+        setPageName(activePageMetadata.pageName);
+        setReadingTime(activePageMetadata.readingTime);
+      }}>
         <EditIcon />
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -51,6 +55,7 @@ function EditPageModal({ activePageMetadata }: Props) {
                 node.setPageMetadata(updatedPageMetadata);
               }
             });
+            setOpen(false);
           }}
            className='flex flex-col gap-2 p-4'
           >
