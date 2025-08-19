@@ -14,11 +14,11 @@ import {
 import PdfComponent from "./PdfComponent";
 
 interface SerializedPdfNode extends SerializedDecoratorBlockNode {
-  fileUrl?: Base64URLString;
+  fileUrl?: string;
 }
 
 export class PdfNode extends DecoratorBlockNode {
-  __fileUrl?: Base64URLString;
+  __fileUrl?: string;
 
   static getType(): string {
     return "pdf";
@@ -28,11 +28,7 @@ export class PdfNode extends DecoratorBlockNode {
     return new PdfNode(node.__fileUrl, node.__format, node.__key);
   }
 
-  constructor(
-    fileUrl?: Base64URLString,
-    format?: ElementFormatType,
-    key?: NodeKey
-  ) {
+  constructor(fileUrl?: string, format?: ElementFormatType, key?: NodeKey) {
     super(format, key);
     this.__fileUrl = fileUrl;
   }
@@ -53,11 +49,11 @@ export class PdfNode extends DecoratorBlockNode {
   }
 
   decorate(editor: LexicalEditor, config: EditorConfig) {
-    return <PdfComponent />;
+    return <PdfComponent fileUrl={this.__fileUrl} />;
   }
 }
 
-export function $createPdfNode(fileUrl?: Base64URLString): PdfNode {
+export function $createPdfNode(fileUrl?: string): PdfNode {
   return $applyNodeReplacement(new PdfNode(fileUrl));
 }
 

@@ -8,11 +8,11 @@ import { useCallback, useEffect } from "react";
 import { INSERT_PDF_COMMAND } from "./PdfPlugin";
 
 const ACCEPTABLE_IMAGE_TYPES = [
-  "image/",
-  "image/heic",
-  "image/heif",
-  "image/gif",
-  "image/webp",
+  // "image/",
+  // "image/heic",
+  // "image/heif",
+  // "image/gif",
+  // "image/webp",
   "application/pdf",
 ];
 
@@ -28,7 +28,7 @@ function DragDropPastePlugin() {
 
       for (const { file, result } of filesResult) {
         if (isMimeType(file, ACCEPTABLE_IMAGE_TYPES)) {
-          editor.dispatchCommand(INSERT_PDF_COMMAND, file);
+          editor.dispatchCommand(INSERT_PDF_COMMAND, result);
         }
       }
   }, [editor]);
@@ -38,21 +38,6 @@ function DragDropPastePlugin() {
       DRAG_DROP_PASTE,
       (files) => {
         handleDragDropPaste(files);
-        // (async () => {
-        //   const filesResult = await mediaFileReader(
-        //     files,
-        //     [ACCEPTABLE_IMAGE_TYPES].flatMap((x) => x)
-        //   );
-        //   console.log(filesResult);
-        //   // for (const { file, result } of filesResult) {
-        //   //   if (isMimeType(file, ACCEPTABLE_IMAGE_TYPES)) {
-        //   //     editor.dispatchCommand(INSERT_PDF_COMMAND, {
-        //   //       altText: file.name,
-        //   //       src: result,
-        //   //     });
-        //   //   }
-        //   // }
-        // })();
         return true;
       },
       COMMAND_PRIORITY_LOW
@@ -61,7 +46,8 @@ function DragDropPastePlugin() {
     return () => {
       unregisterDragDropPaste();
     };
-  }, [editor]);
+  }, [editor,handleDragDropPaste]);
+  
   return null;
 }
 export default DragDropPastePlugin;
