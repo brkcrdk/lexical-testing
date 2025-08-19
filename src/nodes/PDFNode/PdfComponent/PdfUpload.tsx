@@ -2,7 +2,11 @@ import { FileText } from "lucide-react";
 import UploadProvider from "../../../components/UploadProvider";
 import { mediaFileReader } from "@lexical/utils";
 
-function PdfUpload() {
+interface Props {
+  onSelect: (fileUrl: string) => void;
+}
+
+function PdfUpload({ onSelect }: Props) {
   return (
     <UploadProvider
       accept=".pdf"
@@ -13,7 +17,9 @@ function PdfUpload() {
            ["application/pdf"]
          );
 
-         console.log(filesResult)
+        if (filesResult.length > 0) {
+          onSelect(filesResult[0].result);
+        }
       }}
       rootProps={{
         className: "data-hovering:bg-red-500",

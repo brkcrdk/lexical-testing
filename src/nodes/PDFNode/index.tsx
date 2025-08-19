@@ -37,6 +37,11 @@ export class PdfNode extends DecoratorBlockNode {
     return false;
   }
 
+  setFileUrl(fileUrl: string) {
+    const writable = this.getWritable();
+    writable.__fileUrl = fileUrl;
+  }
+
   static importJSON(serializedNode: SerializedPdfNode): PdfNode {
     return $createPdfNode().updateFromJSON(serializedNode);
   }
@@ -49,7 +54,7 @@ export class PdfNode extends DecoratorBlockNode {
   }
 
   decorate(editor: LexicalEditor, config: EditorConfig) {
-    return <PdfComponent fileUrl={this.__fileUrl} />;
+    return <PdfComponent fileUrl={this.__fileUrl} nodeKey={this.getKey()} />;
   }
 }
 
