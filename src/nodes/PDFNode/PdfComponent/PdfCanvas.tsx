@@ -11,7 +11,6 @@ import { $isPdfNode } from "..";
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
-
 interface Props{
   fileUrl:string
 }
