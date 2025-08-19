@@ -2,6 +2,7 @@ import PdfHeader from "./pdf-header";
 import PdfCanvas from "./PdfCanvas";
 import { PdfContextProvider } from "./PdfContext";
 import PdfFooter from "./PdfFooter";
+import PdfUpload from "./PdfUpload";
 
 interface Props{
   fileUrl?:Base64URLString
@@ -9,7 +10,7 @@ interface Props{
 
 function PdfComponent({fileUrl}:Props) {
   if(!fileUrl){
-    return <div>PDF dosyası yüklemek için tıklayınız.</div>
+    return ( <PdfUpload />  );
   }
   return (
     <PdfContextProvider>
