@@ -17,7 +17,7 @@ interface Props{
 
 function PdfCanvas({ fileUrl }:Props) {
   const [editor] = useLexicalComposerContext();
-  const { activePage, scale, setInitialPage,nodeKey } = usePdfContext();
+  const { activePage, scale, nodeKey } = usePdfContext();
  
   return (
     <div className="relative overflow-hidden p-2 justify-center items-center flex">
@@ -28,12 +28,12 @@ function PdfCanvas({ fileUrl }:Props) {
           readingTime: 5,
         }));
         
-        setInitialPage(numPages, pageMetadata[0]);
         
         editor.update(() => {
           const node = $getNodeByKey(nodeKey);
           if (node && $isPdfNode(node)) {
             node.setPageMetadata(pageMetadata);
+            node.setTotalPage(numPages);
           }
         });
 

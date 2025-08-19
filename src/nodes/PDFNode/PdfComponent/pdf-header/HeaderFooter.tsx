@@ -1,5 +1,6 @@
 
 import { usePdfContext } from "../PdfContext";
+import EditPageModal from "./EditPageModal";
 
 function HeaderFooter() {
   const { activePageMetadata } = usePdfContext();
@@ -14,6 +15,7 @@ function HeaderFooter() {
         <strong>{activePageMetadata.pageName}</strong>
         <span>{activePageMetadata.readingTime}dk</span>
       </div>
+      <EditPageModal activePageMetadata={activePageMetadata} />
     </div>
   );
 }
