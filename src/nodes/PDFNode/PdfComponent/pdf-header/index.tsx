@@ -1,6 +1,6 @@
-import { Edit,File, MoreVertical, ZoomIn, ZoomOut } from "lucide-react";
-import { usePdfContext } from "./PdfContext";
-import { DropdownMenu } from "radix-ui";
+import { Edit, File, ZoomIn, ZoomOut } from "lucide-react";
+import { usePdfContext } from "../PdfContext";  
+import PageSelector from "./PageSelector";
 
 function PdfHeader() {
   const { scale, handleScaleChange } = usePdfContext();
@@ -12,27 +12,13 @@ function PdfHeader() {
           <h3>File Name</h3>
         </div>
         <div className="flex items-center gap-2">
-          <DropdownMenu.Root>
-            <DropdownMenu.Trigger className="bg-gray-900 rounded-md p-1">
-              <MoreVertical />
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Portal >
-              <DropdownMenu.Content className="bg-gray-500 p-1 rounded-sm">
-                <DropdownMenu.Item className="hover:bg-gray-900">
-                  <span>Sayfa 1</span>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item className="hover:bg-gray-900">
-                  <span>Sayfa 2</span>
-                </DropdownMenu.Item>
-              </DropdownMenu.Content>
-            </DropdownMenu.Portal>
-          </DropdownMenu.Root>
+          <PageSelector />
           <button onClick={() => handleScaleChange("increase")}>
-            <ZoomIn/>
+            <ZoomIn />
           </button>
           <span>{Math.trunc(scale * 100)}%</span>
           <button onClick={() => handleScaleChange("decrease")}>
-            <ZoomOut/>
+            <ZoomOut />
           </button>
         </div>
       </div>

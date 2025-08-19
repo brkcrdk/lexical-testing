@@ -1,8 +1,17 @@
 import { createContext, use, useState, type PropsWithChildren } from "react";
+import type { PageMetadata } from "..";
+import type { NodeKey } from "lexical";
 type ScaleChangeType = "increase" | "decrease";
-type PageChangeType = "next" | "prev";
+
+type PageChangeType = "next" | "prev" | { type: "select"; pageNumber: number };
 
 interface PdfContextType {
+  pageMetadata: PageMetadata[];
+  nodeKey: NodeKey;
+  /**
+   * @internal
+   * Bu veriler component içinde kullanılan stateler ve fonksiyonlardır
+  */
   activePage: number;
   totalPage: number;
   scale: number;
@@ -13,9 +22,16 @@ interface PdfContextType {
 
 const PdfContext = createContext<PdfContextType | null>(null);
 
+interface Props extends PropsWithChildren{
+  pageMetadata: PageMetadata[];
+  nodeKey: NodeKey;
+}
+
 export const PdfContextProvider = ({
   children,
-}: PropsWithChildren) => {
+  pageMetadata,
+  nodeKey,
+}: Props) => {
   const [activePage, setActivePage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [scale, setScale] = useState(1);
@@ -23,8 +39,10 @@ export const PdfContextProvider = ({
   function handlePageChange(type: PageChangeType) {
     if (type === "next") {
       setActivePage(activePage + 1 > totalPage ? totalPage : activePage + 1);
-    } else {
+    } else if (type === "prev") {
       setActivePage(activePage - 1 < 1 ? 1 : activePage - 1);
+    } else {
+      setActivePage(type.pageNumber);
     }
   }
 
@@ -42,6 +60,8 @@ export const PdfContextProvider = ({
 
   return (
     <PdfContext.Provider value={{
+      pageMetadata,
+      nodeKey,
       activePage,
       totalPage,
       scale,

@@ -9,8 +9,8 @@ function PdfFooter() {
         className="flex items-center gap-2 p-2 disabled:opacity-50 disabled:cursor-not-allowed" 
         onClick={() => handlePageChange("prev")}
       >
-        Önceki Sayfa
         <ChevronLeftIcon />
+        Önceki Sayfa
       </button>
     <div>
 

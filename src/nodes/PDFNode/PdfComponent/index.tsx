@@ -5,15 +5,16 @@ import { PdfContextProvider } from "./PdfContext";
 import PdfFooter from "./PdfFooter";
 import PdfUpload from "./PdfUpload";
 
-import { $isPdfNode } from "..";
+import { $isPdfNode, type PageMetadata } from "..";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 interface Props{
   fileUrl?:Base64URLString
+  pageMetadata: PageMetadata[]
   nodeKey:NodeKey
 }
 
-function PdfComponent({fileUrl,nodeKey}:Props) {
+function PdfComponent({fileUrl,nodeKey,pageMetadata}:Props) {
  const [editor] = useLexicalComposerContext()
 
   const onSelect = (fileUrl:string) => {
@@ -30,7 +31,7 @@ function PdfComponent({fileUrl,nodeKey}:Props) {
     return (<PdfUpload onSelect={onSelect} />  );
   }
   return (
-    <PdfContextProvider>
+    <PdfContextProvider pageMetadata={pageMetadata} nodeKey={nodeKey}>
         <section className="relative grid bg-black overflow-hidden">
           <PdfHeader />
           <PdfCanvas fileUrl={fileUrl} />
