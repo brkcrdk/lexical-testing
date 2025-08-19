@@ -3,7 +3,7 @@ interface CorpeoConfigProps {
 }
 
 const editorConfig: CorpeoConfigProps = {
-  baseUrl: "https://thy-demo.centriolxp.com/api/content-management",
+  baseUrl: "xxx",
 };
 
 export default editorConfig;
