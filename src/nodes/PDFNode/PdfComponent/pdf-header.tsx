@@ -1,6 +1,8 @@
 import { Edit,File, ZoomIn, ZoomOut } from "lucide-react";
+import { usePdfContext } from "./PdfContext";
 
 function PdfHeader() {
+  const { scale, handleScaleChange } = usePdfContext();
   return (
     <header className="flex flex-col gap-2 border rounded-t-sm">
       <div className="flex justify-between items-center p-2">
@@ -9,14 +11,11 @@ function PdfHeader() {
           <h3>File Name</h3>
         </div>
         <div className="flex items-center gap-2">
-          <button>
-            <Edit />
-          </button>
-          <button>
+          <button onClick={() => handleScaleChange("increase")}>
             <ZoomIn/>
           </button>
-          <span>100%</span>
-          <button>
+          <span>{Math.trunc(scale * 100)}%</span>
+          <button onClick={() => handleScaleChange("decrease")}>
             <ZoomOut/>
           </button>
         </div>

@@ -30,9 +30,9 @@ export const PdfContextProvider = ({
 
   function handleScaleChange(type: ScaleChangeType) {
     if (type === "increase") {
-      setScale(scale + 0.1);
+      setScale(scale < 2 ? scale + 0.1 : scale);
     } else {
-      setScale(scale - 0.1);
+      setScale(scale > 0.5 ? scale - 0.1 : scale);
     }
   }
 
