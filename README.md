@@ -37,3 +37,4 @@ TODOS:
 - [ ] PDF bloğunun stillendirilmeleri tamamlanacak.
 - [ ] Corpeo bloğunda da context yapısı eklenecek.
 - [ ] Corpeo tarafında video seçme modalı apiden videoları çekecek yapı kurulacak.
+- [ ] Main-heading seçilmişse floating toolbar çıkmasını engelleyeceğiz.
