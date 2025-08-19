@@ -31,3 +31,9 @@ TODOS:
 - [ ] Tablo elementi eklenecek.
 - [x] Text seçildiği zaman açılacak bir toolbar eklenecek.
   - [ ] Double click yapıldığında toolbar açılmıyor.
+- [ ] PDF bloğunda dosya apiye bağlanacak
+- [ ] PDF bloğunda sayfalar özelinde okuma süreleri özelleştirilecek.
+- [ ] PDF bloğuna okunma süreleri pdf yüklendikten sonra node stateine kaydedilecek. Aynı zamanda bu değer contextde de saklanacak.
+- [ ] PDF bloğunun stillendirilmeleri tamamlanacak.
+- [ ] Corpeo bloğunda da context yapısı eklenecek.
+- [ ] Corpeo tarafında video seçme modalı apiden videoları çekecek yapı kurulacak.
