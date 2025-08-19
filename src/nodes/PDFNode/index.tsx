@@ -11,35 +11,30 @@ import {
   type NodeKey,
 } from "lexical";
 
-import type { AlignTypes } from "../../components/MediaNodeWrapper";
 import PdfComponent from "./PdfComponent";
 
 interface SerializedPdfNode extends SerializedDecoratorBlockNode {
-  width: number;
-  align: AlignTypes;
+  fileUrl?: Base64URLString;
 }
 
 export class PdfNode extends DecoratorBlockNode {
-  __width: number;
-  __align: AlignTypes;
+  __fileUrl?: Base64URLString;
 
   static getType(): string {
     return "pdf";
   }
 
   static clone(node: PdfNode): PdfNode {
-    return new PdfNode(node.__width, node.__align, node.__format, node.__key);
+    return new PdfNode(node.__fileUrl, node.__format, node.__key);
   }
 
   constructor(
-    width: number = 50,
-    align: AlignTypes = "start",
+    fileUrl?: Base64URLString,
     format?: ElementFormatType,
     key?: NodeKey
   ) {
     super(format, key);
-    this.__width = width;
-    this.__align = align;
+    this.__fileUrl = fileUrl;
   }
 
   updateDOM(): false {
@@ -47,28 +42,14 @@ export class PdfNode extends DecoratorBlockNode {
   }
 
   static importJSON(serializedNode: SerializedPdfNode): PdfNode {
-    return $createPdfNode(
-      serializedNode.width,
-      serializedNode.align
-    ).updateFromJSON(serializedNode);
+    return $createPdfNode().updateFromJSON(serializedNode);
   }
 
   exportJSON(): SerializedPdfNode {
     return {
       ...super.exportJSON(),
-      width: this.__width,
-      align: this.__align,
+      fileUrl: this.__fileUrl,
     };
-  }
-
-  setWidth(width: number) {
-    const writable = this.getWritable();
-    writable.__width = width;
-  }
-
-  setAlign(align: AlignTypes) {
-    const writable = this.getWritable();
-    writable.__align = align;
   }
 
   decorate(editor: LexicalEditor, config: EditorConfig) {
@@ -76,8 +57,8 @@ export class PdfNode extends DecoratorBlockNode {
   }
 }
 
-export function $createPdfNode(width?: number, align?: AlignTypes): PdfNode {
-  return $applyNodeReplacement(new PdfNode(width, align));
+export function $createPdfNode(fileUrl?: Base64URLString): PdfNode {
+  return $applyNodeReplacement(new PdfNode(fileUrl));
 }
 
 export function $isPdfNode(

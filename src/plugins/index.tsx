@@ -13,6 +13,7 @@ import CollapsiblePlugin from "./CollapsiblePlugin";
 import CorpeoPlugin from "./CorpeoPlugin";
 import PdfPlugin from "./PdfPlugin";
 import FloatingToolbarPlugin from "./FloatingToolbarPlugin";
+import DragDropPastePlugin from "./DragDropPastePlugin";
 
 /**
  * Context kullanarak çalışabilecek ve kendi başına render yapabilecek(floating toolbar, flotating menu vb)
@@ -41,6 +42,7 @@ function Plugins({ children }: PropsWithChildren) {
       <CorpeoPlugin />
       <PdfPlugin />
       <FloatingToolbarPlugin />
+      <DragDropPastePlugin />
     </Fragment>
   );
 }

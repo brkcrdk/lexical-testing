@@ -9,6 +9,7 @@ import { useState } from "react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
+
 function PdfCanvas() {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -33,4 +34,4 @@ function PdfCanvas() {
     </div>
   );
 }
-export default PdfCanvas;
+export default PdfCanvas
