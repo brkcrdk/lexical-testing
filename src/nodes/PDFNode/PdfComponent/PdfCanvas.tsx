@@ -23,13 +23,14 @@ function PdfCanvas({ fileUrl }:Props) {
   return (
     <div className="relative overflow-hidden p-2 justify-center items-center flex">
       <Document file={fileUrl} onLoadSuccess={({ numPages, }) => {
-        setInitialPage(numPages);
         const pageMetadata = Array.from({ length: numPages }, (_, index) => ({
           pageNumber: index + 1,
           pageName: `Sayfa ${index + 1}`,
           readingTime: 5,
         }));
-
+        
+        setInitialPage(numPages, pageMetadata[0]);
+        
         editor.update(() => {
           const node = $getNodeByKey(nodeKey);
           if (node && $isPdfNode(node)) {

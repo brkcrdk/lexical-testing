@@ -17,7 +17,8 @@ interface PdfContextType {
   scale: number;
   handlePageChange: (type: PageChangeType) => void;
   handleScaleChange: (type: ScaleChangeType) => void;
-  setInitialPage: (pageNumber: number) => void;
+  setInitialPage: (pageNumber: number, initialPageMetadata: PageMetadata) => void;
+  activePageMetadata: PageMetadata | null;
 }
 
 const PdfContext = createContext<PdfContextType | null>(null);
@@ -35,14 +36,25 @@ export const PdfContextProvider = ({
   const [activePage, setActivePage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [scale, setScale] = useState(1);
+  const [activePageMetadata, setActivePageMetadata] = useState<PageMetadata | null>(null);
 
   function handlePageChange(type: PageChangeType) {
+    let metadata; 
     if (type === "next") {
-      setActivePage(activePage + 1 > totalPage ? totalPage : activePage + 1);
+      const nextPage = activePage + 1 > totalPage ? totalPage : activePage + 1;
+      setActivePage(nextPage);
+      metadata = pageMetadata.find((page) => page.pageNumber === nextPage);
     } else if (type === "prev") {
-      setActivePage(activePage - 1 < 1 ? 1 : activePage - 1);
+      const prevPage = activePage - 1 < 1 ? 1 : activePage - 1;
+      setActivePage(prevPage);
+      metadata = pageMetadata.find((page) => page.pageNumber === prevPage);
     } else {
       setActivePage(type.pageNumber);
+      metadata = pageMetadata.find((page) => page.pageNumber === type.pageNumber);
+    }
+   
+    if(metadata){
+      setActivePageMetadata(metadata);
     }
   }
 
@@ -54,8 +66,9 @@ export const PdfContextProvider = ({
     }
   }
 
-  function setInitialPage(pageNumber: number) {
+  function setInitialPage(pageNumber: number, initialPageMetadata: PageMetadata) {
     setTotalPage(pageNumber);
+    setActivePageMetadata(initialPageMetadata);
   }
 
   return (
@@ -68,6 +81,7 @@ export const PdfContextProvider = ({
       handlePageChange,
       handleScaleChange,
       setInitialPage,
+      activePageMetadata,
     }}>
       {children}
     </PdfContext.Provider>

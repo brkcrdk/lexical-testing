@@ -1,6 +1,7 @@
-import { Edit, File, ZoomIn, ZoomOut } from "lucide-react";
+import { File, ZoomIn, ZoomOut } from "lucide-react";
 import { usePdfContext } from "../PdfContext";  
 import PageSelector from "./PageSelector";
+import HeaderFooter from "./HeaderFooter";
 
 function PdfHeader() {
   const { scale, handleScaleChange } = usePdfContext();
@@ -22,15 +23,7 @@ function PdfHeader() {
           </button>
         </div>
       </div>
-      <div className="flex justify-between items-center border-t p-2">
-        <div className="grid gap-2">
-          <strong>Sayfa 1</strong>
-          <span>Okuma Süresi: 5dk</span>
-        </div>
-        <button>
-          <Edit />
-        </button>
-      </div>
+      <HeaderFooter />
     </header>
   );
 }
