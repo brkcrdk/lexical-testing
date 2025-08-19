@@ -10,6 +10,7 @@ import {
   type LexicalNode,
   type NodeKey,
 } from "lexical";
+
 import type { AlignTypes } from "../../components/MediaNodeWrapper";
 import PdfComponent from "./PdfComponent";
 
